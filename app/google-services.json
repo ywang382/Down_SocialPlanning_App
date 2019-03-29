@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "619894237464",
+    "firebase_url": "https://uima-down.firebaseio.com",
+    "project_id": "uima-down",
+    "storage_bucket": "uima-down.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619894237464:android:ac637edef87e067e",
+        "android_client_info": {
+          "package_name": "com.example.down"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619894237464-uf5usjusjdbp21106his0vlhg33f689s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.down",
+            "certificate_hash": "cf6822cf0040d441ce6082424ca7567baa686567"
+          }
+        },
+        {
+          "client_id": "619894237464-nae5ve07j48j4p32mh4d944p8j77nbe5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCddj5vX6B0g8K8wq6r955a4hIggZNTtlc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619894237464-nae5ve07j48j4p32mh4d944p8j77nbe5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

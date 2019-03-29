@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#20BD86</color>
+    <color name="colorPrimaryDark">#169F8F</color>
+    <color name="colorAccent">#24B27A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#0095E6</color>
+    <color name="barColor">#1E2D3E</color>
+    <color name="barTopColor">#263445</color>
+    <color name="barTextColor">#778594</color>
+
+
+
+    <color name="black_overlay">#66000000</color>
+</resources>

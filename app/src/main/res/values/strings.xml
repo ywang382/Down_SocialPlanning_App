@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Down</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_name">Your Name</string>
+    <string name="prompt_confirm">Confirm Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="register">Register</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_name">Your name should be at least 2 letters long so people can recognize you.</string>
+    <string name="error_used_email">This email address is already in used, please login</string>
+    <string name="error_invalid_password">Password must be at least 8 characters long and contain letters</string>
+    <string name="error_login">Invalid login credentials, please try again.</string>
+    <string name="error_password_mismatch">The passwords do not match.</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="title_activity_my_feed">My Feed</string>
+    <string name="title_activity_register">Register</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="dummy">Content to be added</string>
+</resources>
