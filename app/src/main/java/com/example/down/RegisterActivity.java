@@ -68,7 +68,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             String name = display_name.getText().toString();
-                            db.child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
+                            DatabaseReference user = db.child(mAuth.getCurrentUser().getUid());
+                            user.child("name").setValue(name);
+                            // Too be changed
+                            user.child("avatar").setValue(0);
+                            user.child("email").setValue(mAuth.getCurrentUser().getEmail());
                             update(mAuth.getCurrentUser());
                         } else{
                             email.setError(getString(R.string.error_used_email));

@@ -1,5 +1,6 @@
 package com.example.down;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -53,13 +54,18 @@ public class MyFeedActivity extends AppCompatActivity
         final TextView name = (TextView) header.findViewById(R.id.user_name);
         final TextView email = (TextView) header.findViewById(R.id.user_email);
         email.setText(user.getEmail());
+        final ImageView avatar = header.findViewById(R.id.imageView);
 
-        db = FirebaseDatabase.getInstance().getReference("users");
 
-        db.addValueEventListener(new ValueEventListener() {
+        db = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                name.setText(dataSnapshot.child(user.getUid()).child("name").getValue(String.class));
+                name.setText(dataSnapshot.child("name").getValue(String.class));
+                int avatarId = dataSnapshot.child("avatar").getValue(Integer.class);
+                TypedArray avatars = getResources().obtainTypedArray(R.array.avatar_imgs);
+                avatar.setImageDrawable(avatars.getDrawable(avatarId));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
