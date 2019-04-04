@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="avatar_imgs">
+        <item>@drawable/avatar0</item>
         <item>@drawable/avatar1</item>
         <item>@drawable/avatar2</item>
+        <item>@drawable/avatar3</item>
+        <item>@drawable/avatar4</item>
+        <item>@drawable/avatar5</item>
+        <item>@drawable/avatar6</item>
+        <item>@drawable/avatar7</item>
+        <item>@drawable/avatar8</item>
+        <item>@drawable/avatar9</item>
+        <item>@drawable/avatar10</item>
+        <item>@drawable/avatar11</item>
+        <item>@drawable/avatar12</item>
+        <item>@drawable/avatar13</item>
+        <item>@drawable/avatar14</item>
+        <item>@drawable/avatar15</item>
+        <item>@drawable/avatar16</item>
+        <item>@drawable/avatar17</item>
+        <item>@drawable/avatar18</item>
+        <item>@drawable/avatar19</item>
+        <item>@drawable/avatar20</item>
+        <item>@drawable/avatar21</item>
+        <item>@drawable/avatar22</item>
+        <item>@drawable/avatar23</item>
+        <item>@drawable/avatar24</item>
+        <item>@drawable/avatar25</item>
+        <item>@drawable/avatar26</item>
+        <item>@drawable/avatar27</item>
+        <item>@drawable/avatar28</item>
+        <item>@drawable/avatar29</item>
+        <item>@drawable/avatar30</item>
     </array>
 
 </resources>

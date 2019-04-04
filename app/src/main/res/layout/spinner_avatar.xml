@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/avatar_image"
+        android:layout_width="@dimen/account_avatar"
+        android:layout_height="@dimen/account_avatar"
+        android:scaleType="fitXY"
+        android:padding="10dp"
+        app:srcCompat="@drawable/avatar0" />
+</LinearLayout>

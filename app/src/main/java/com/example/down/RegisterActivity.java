@@ -1,12 +1,15 @@
 package com.example.down;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,9 +30,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText password;
     private EditText email;
     private EditText password_confirm;
+    private int avatar_id = 0;
+    private Spinner spinner;
+    private AvatarSpinnerAdapter adapter;
 
     private FirebaseAuth mAuth;
     private DatabaseReference db;
+    private TypedArray avatars;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -40,10 +47,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         display_name = findViewById(R.id.display_name);
         password_confirm = findViewById(R.id.password_confirm);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.sign_up_button).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference("users");
+
+        avatars = getResources().obtainTypedArray(R.array.avatar_imgs);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        adapter = new AvatarSpinnerAdapter(this, avatars);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                avatar_id = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
 
     }
 
@@ -70,8 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             String name = display_name.getText().toString();
                             DatabaseReference user = db.child(mAuth.getCurrentUser().getUid());
                             user.child("name").setValue(name);
-                            // Too be changed
-                            user.child("avatar").setValue(0);
+                            user.child("avatar").setValue(avatar_id);
                             user.child("email").setValue(mAuth.getCurrentUser().getEmail());
                             update(mAuth.getCurrentUser());
                         } else{
