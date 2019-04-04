@@ -1,6 +1,17 @@
 // This file serves as a reference and documenation of all scrums + accomplished tasks
 // Original file is Meeting Minutes in Google Drive
 
+Date: 4/3/19
+Start time: 7:00pm
+End Time: 7:45pm
+Attendance: Vance, Conner, Trenton, Will, Ryenne
+Discussed Topics:
+Progress
+Friend Feed Activity
+How to work with adapters
+Database storage
+
+
 Date: 3/31/19
 Start time: 8:00pm
 End Time: 10:00pm
