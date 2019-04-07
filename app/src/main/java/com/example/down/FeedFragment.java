@@ -15,6 +15,7 @@ public class FeedFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_feed, container, false);
     }
 
+    //comment to test push
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
