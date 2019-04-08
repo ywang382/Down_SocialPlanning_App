@@ -1,6 +1,7 @@
 package com.example.down;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -39,16 +40,21 @@ public class FriendsFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<FriendEntry> friends;
     private TextView noFriendsDisplay;
+    //private FloatingActionButton fab;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_friends, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
         // setting the title to the new page
         getActivity().setTitle(R.string.title_activity_my_friends);
         recyclerView = (RecyclerView) this.getView().findViewById(R.id.rv_friendsList);
@@ -71,6 +77,16 @@ public class FriendsFragment extends Fragment {
         // passing context to get access to resources files
         mAdapter = new FriendRecyclerViewAdapter(this.getContext(), friends);
         recyclerView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = this.getView().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddFriendActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -125,15 +141,9 @@ public class FriendsFragment extends Fragment {
             //noFriendsDisplay.setVisibility(View.VISIBLE);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) this.getView().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Navigate to the create friend activity
-            }
-        });
-        fab.bringToFront();
+
     }
+
 
     // declaring the RecyclerViewAdapter
     public static class FriendRecyclerViewAdapter
