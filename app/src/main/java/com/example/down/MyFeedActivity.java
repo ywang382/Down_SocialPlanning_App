@@ -1,5 +1,6 @@
 package com.example.down;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -99,7 +100,9 @@ public class MyFeedActivity extends AppCompatActivity
         } else if (id == R.id.nav_groups) {
             fragment = new GroupsFragment();
         } else if (id == R.id.nav_settings) {
-
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_account) {
 
         }

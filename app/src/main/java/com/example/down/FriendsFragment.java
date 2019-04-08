@@ -133,15 +133,6 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-        // if they have no friends
-        if (mAdapter.getItemCount() == 0) {
-            Log.d(TAG, "Displaying No Friends Message");
-            //noFriendsDisplay.setText(R.string.emptyFriends);
-            //recyclerView.setVisibility(View.INVISIBLE);
-            //noFriendsDisplay.setVisibility(View.VISIBLE);
-        }
-
-
     }
 
 

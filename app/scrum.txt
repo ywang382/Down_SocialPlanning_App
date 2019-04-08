@@ -1,5 +1,15 @@
 // This file serves as a reference and documenation of all scrums + accomplished tasks
 // Original file is Meeting Minutes in Google Drive
+Date: 4/7/19
+Start time: 7:00pm
+End time: 8:30pm
+Attendance: Vance, Trenton, Will, Conner
+Discussed Topics:
+Progress
+Next steps
+Distribution of tasks
+Guiding points
+
 
 Date: 4/3/19
 Start time: 7:00pm
