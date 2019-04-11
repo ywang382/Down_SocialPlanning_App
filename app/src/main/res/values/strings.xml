@@ -35,4 +35,13 @@
     <string name="emptyFriends">No friends yet. Add some now!</string>
     <string name="title_activity_my_friends">My Friends</string>
     <string name="title_activity_add_friend">AddFriendActivity</string>
+
+    <!-- Strings for add friend testing -->
+    <string-array name="myFriends">
+        <item>Tom Cruise</item>
+        <item>The Rock</item>
+        <item>Trenton</item>
+        <item>Will</item>
+        <item>Not CoNnEr</item>
+    </string-array>
 </resources>
