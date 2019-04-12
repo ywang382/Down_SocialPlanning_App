@@ -39,6 +39,7 @@ public class FriendsFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<FriendEntry> friends;
+    public ArrayList<FriendEntry> requests;
     private TextView noFriendsDisplay;
     //private FloatingActionButton fab;
 
@@ -53,8 +54,6 @@ public class FriendsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         // setting the title to the new page
         getActivity().setTitle(R.string.title_activity_my_friends);
         recyclerView = (RecyclerView) this.getView().findViewById(R.id.rv_friendsList);
@@ -67,15 +66,47 @@ public class FriendsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // initializing database
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
         // getting the user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         // initializing the data
         this.friends = new ArrayList<>();
+        this.requests = new ArrayList<>();
+
         // give data to the adapter and create the adapter
         // passing context to get access to resources files
-        mAdapter = new FriendRecyclerViewAdapter(this.getContext(), friends);
+        mAdapter = new FriendRecyclerViewAdapter(this.getContext(), this.friends, this.requests,
+                new ClickListener() { // adding a listener for what to do when clicked
+                    @Override
+                    public void onPositionClicked(int position, boolean accepted) {
+                        if (position < requests.size()){ // ensuring accessing one of the first values
+                            String otherUID = requests.get(position).getUid();
+                            if (accepted) {
+                                // if they accepted, should add friend to user and friend account
+                                // ... and remove request from list
+                                //db.child(user.getUid()).child("friends").child(otherUID).removeValue();
+                                db.child(user.getUid()).child("friends").child(otherUID).setValue(0);
+                                db.child(otherUID).child("friends").child(user.getUid()).setValue(0);
+                                db.child(user.getUid()).child("requests").child(otherUID).removeValue();
+                                requests.remove(position);
+                            } else {
+                                // if they rejected, should remove friend from requests on page
+                                db.child(user.getUid()).child("requests").child(otherUID).removeValue();
+                                requests.remove(position);
+                            }
+                        } else {
+                            // they clicked ona friend, should not be possible
+                        }
+
+                        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+                        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        db.child(user.getUid()).child("name").setValue("Horse");
+                        user.getUid();
+                        // callback performed on click
+                    }
+                });
+
         recyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = this.getView().findViewById(R.id.fab);
@@ -87,43 +118,59 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
-                long count = dataSnapshot.getChildrenCount();
-                Log.d(TAG, "Children count: " + count);
-
-                // Since the data has changed, we must delete the items
                 friends.clear();
+                requests.clear();
                 Map<String, Integer> friendMap = (Map) dataSnapshot.child(user.getUid())
                         .child("friends").getValue();
+                Map<String, Integer> requestMap = (Map) dataSnapshot.child(user.getUid())
+                        .child("requests").getValue();
+
                 // if the user doesn't have a friend section or any friends
-                if (friendMap == null){
+                if (friendMap == null && requestMap == null){
                     // if no friends display the no friends message
                     recyclerView.setVisibility(View.INVISIBLE);
                     noFriendsDisplay.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                Object[] friendUIDS = friendMap.keySet().toArray();
-                for (Object i: friendUIDS){
-                    String friendUID = (String) i;
-                    String friendName = dataSnapshot.child(friendUID)
-                            .child("name").getValue(String.class);
-                    int friendAvatar = dataSnapshot.child(friendUID)
-                            .child("avatar").getValue(Integer.class);
-                    friends.add(new FriendEntry(friendName, friendUID, friendAvatar));
+                if (friendMap != null) {
+                    Object[] friendUIDS = friendMap.keySet().toArray();
+                    for (Object i : friendUIDS) {
+                        String friendUID = (String) i;
+                        String friendName = dataSnapshot.child(friendUID)
+                                .child("name").getValue(String.class);
+                        int friendAvatar = dataSnapshot.child(friendUID)
+                                .child("avatar").getValue(Integer.class);
+                        friends.add(new FriendEntry(friendName, friendUID, friendAvatar));
+                    }
+                }
+
+                if (requestMap != null) {
+                    Object[] requestUIDS = requestMap.keySet().toArray();
+                    for (Object i : requestUIDS) {
+                        String requestUID = (String) i;
+                        String friendName = dataSnapshot.child(requestUID)
+                                .child("name").getValue(String.class);
+                        int friendAvatar = dataSnapshot.child(requestUID)
+                                .child("avatar").getValue(Integer.class);
+                        requests.add(new FriendEntry(friendName, requestUID, friendAvatar));
+                    }
                 }
 
                 // sorting the friends for the display
                 // uses that friends implements Comparable
                 Collections.sort(friends);
+                Collections.sort(requests);
 
                 Log.d(TAG, "Importing Friends...");
                 Log.d(TAG, "Imported: " + friends.size() + " friends");
+                Log.d(TAG, "Importing Requests...");
+                Log.d(TAG, "Imported: " + requests.size() + " friends");
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -132,72 +179,5 @@ public class FriendsFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-
     }
-
-
-    // declaring the RecyclerViewAdapter
-    public static class FriendRecyclerViewAdapter
-            extends RecyclerView.Adapter<FriendRecyclerViewAdapter.ViewHolder> {
-
-        private ArrayList<FriendEntry> friends;
-        private Context context;
-
-        // implement to navigate to page when data is clicked
-        //private View.OnClickListener friendEntryOnClickListener;
-
-        // Provide a suitable constructor (depends on the kind of dataset)
-        public FriendRecyclerViewAdapter(Context context, ArrayList<FriendEntry> friends) {
-            this.friends = friends;
-            this.context = context;
-            Log.d(TAG, "Number of friends: " + friends.size());
-
-        }
-
-        // Create new views (invoked by the layout manager)
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            // place to store data from database
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.friend_entry, parent, false);
-
-            return new ViewHolder(v);
-        }
-
-        // Replace the contents of a view (invoked by the layout manager)
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-
-            Log.d("binder", friends.get(position).toString());
-            FriendEntry friend = friends.get(position);
-
-            // setting friendName Data
-            holder.nameTextView.setText(friend.getName());
-            // setting avatar image
-            TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
-            holder.avatarImageView.setImageDrawable(avatars.getDrawable(friend.getAvatar()));
-        }
-
-        // Return the size of your dataset (invoked by the layout manager)
-        @Override
-        public int getItemCount() {return friends.size();}
-
-        // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            public TextView nameTextView;
-            public ImageView avatarImageView;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                nameTextView = (TextView) itemView.findViewById(R.id.friend_name);
-                avatarImageView = (ImageView) itemView.findViewById(R.id.friend_avatar);
-            }
-        }
-    }
-
 }

@@ -19,7 +19,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/friend_name"
+        android:id="@+id/request_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -29,4 +29,24 @@
         app:layout_constraintBottom_toBottomOf="@+id/request_avatar"
         app:layout_constraintStart_toEndOf="@+id/request_avatar"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/accept_request"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/accept"
+        app:layout_constraintBottom_toBottomOf="@+id/request_name"
+        app:layout_constraintEnd_toStartOf="@+id/reject_request"
+        app:layout_constraintTop_toTopOf="@+id/request_name" />
+
+    <Button
+        android:id="@+id/reject_request"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/reject"
+        app:layout_constraintBottom_toBottomOf="@+id/request_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/request_name" />
 </android.support.constraint.ConstraintLayout>
