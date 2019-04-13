@@ -37,6 +37,9 @@
     <string name="is_down">You are down to </string>
     <string name="not_down">You are no longer down to </string>
     <string name="title_add_down">Create a Down</string>
+    <string name="prompt_down_title">What are you down to do?</string>
+    <string name="prompt_time">When would you like to start?</string>
+    <string name="error_long_title">Please keep your down description between 5 and 30 characters.</string>
 
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>

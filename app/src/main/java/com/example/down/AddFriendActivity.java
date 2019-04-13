@@ -16,7 +16,6 @@ public class AddFriendActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Add Friends");
-
     }
 
 }
