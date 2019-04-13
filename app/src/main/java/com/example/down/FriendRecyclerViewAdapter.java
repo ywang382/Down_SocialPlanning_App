@@ -98,7 +98,8 @@ public class FriendRecyclerViewAdapter
         } else { // if its a request
             RequestViewHolder specificHolder = (RequestViewHolder) holder;
             // setting view data
-            specificHolder.nameTextView.setText(person.getName() + " - New Request");
+            specificHolder.nameTextView.setText(person.getName() + context.getResources()
+                    .getString(R.string.newRequest));
             specificHolder.nameTextView.setTextColor(context.getResources().getColor(R.color.blue));
             specificHolder.avatarImageView.setImageDrawable(avatars.getDrawable(person.getAvatar()));
         }

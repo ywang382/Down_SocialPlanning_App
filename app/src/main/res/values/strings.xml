@@ -42,5 +42,5 @@
     <string name="emptyFriends">No friends yet. Add some now!</string>
     <string name="title_activity_my_friends">My Friends</string>
     <string name="title_activity_add_friend">Add Friends</string>
-    <string name="newRequest">New Request</string>
+    <string name="newRequest"></string>
 </resources>

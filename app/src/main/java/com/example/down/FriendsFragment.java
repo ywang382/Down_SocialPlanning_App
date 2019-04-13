@@ -98,11 +98,6 @@ public class FriendsFragment extends Fragment {
                         } else {
                             // they clicked ona friend, should not be possible
                         }
-
-                        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
-                        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        db.child(user.getUid()).child("name").setValue("Horse");
-                        user.getUid();
                         // callback performed on click
                     }
                 });
