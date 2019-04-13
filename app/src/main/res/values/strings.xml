@@ -31,9 +31,16 @@
 
     <string name="dummy">Content to be added</string>
 
+    <!-- Strings related to downs -->
+    <string name="title_my_feed">My Feed</string>
+    <string name="emptyDowns">No downs yet, make one now!</string>
+    <string name="is_down">You are down to </string>
+    <string name="not_down">You are no longer down to </string>
+    <string name="title_add_down">Create a Down</string>
+
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>
     <string name="title_activity_my_friends">My Friends</string>
-    <string name="title_activity_add_friend">AddFriendActivity</string>
+    <string name="title_activity_add_friend">Add Friends</string>
     <string name="newRequest">New Request</string>
 </resources>
