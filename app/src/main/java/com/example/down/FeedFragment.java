@@ -1,8 +1,6 @@
 package com.example.down;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -15,18 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -88,14 +83,16 @@ public class FeedFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 long count = dataSnapshot.getChildrenCount();
-                Log.d(TAG, "Children count: " + count);
-
+                Log.d("Tim", "Children count: " + count);
                 downs.clear();
-
                 ArrayList<String> downIDs = new ArrayList<>();
                 for (DataSnapshot d : dataSnapshot.child("users").child(uid).child("downs").getChildren()) {
-                    downIDs.add(d.getKey());
-                    Log.d("Tim", d.getKey());
+                    String dID = d.getKey();
+                    if(!dataSnapshot.child("down").hasChild(dID)){
+                        d.getRef().removeValue(); // Delete null references
+                    } else {
+                        downIDs.add(dID);
+                    }
                 }
 
                 if(downIDs.isEmpty()){
@@ -104,12 +101,18 @@ public class FeedFragment extends Fragment {
                 }
 
                 for(String id : downIDs){
+                    long timestamp = dataSnapshot.child("down").child(id).child("timestamp").getValue(Long.class);
+                    long cur = System.currentTimeMillis();
+                    final long oneDay = 86400000;
+                    // Check for outdated downs and delete
+                    if(timestamp < cur - oneDay){
+                        dataSnapshot.child("down").child(id).getRef().removeValue();
+                        continue;
+                    }
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
                     down.id = id;
                     down.isDown = (downStatus == 1);
-                    Log.d("Tim", down.title);
-                    Log.d("Tim", down.creator);
                     downs.add(down);
                 }
                 mAdapter.notifyDataSetChanged();
