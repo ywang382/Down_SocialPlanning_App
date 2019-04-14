@@ -28,9 +28,9 @@ public class AddFriendActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
-    ArrayList<String> fullNameList;
-    ArrayList<String> userNameList;
-    ArrayList<String> profilePicList;
+    ArrayList<String> nameList;
+    ArrayList<String> emailList;
+    //ArrayList<Long> avatarList;
     SearchAdapter searchAdapter;
 
     @Override
@@ -51,9 +51,9 @@ public class AddFriendActivity extends AppCompatActivity {
         /*
          * Create a array list for each node you want to use
          * */
-        fullNameList = new ArrayList<>();
-        userNameList = new ArrayList<>();
-        profilePicList = new ArrayList<>();
+        nameList = new ArrayList<>();
+        emailList = new ArrayList<>();
+        //avatarList = new ArrayList<>();
 
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
@@ -72,9 +72,9 @@ public class AddFriendActivity extends AppCompatActivity {
                     /*
                      * Clear the list when editText is empty
                      * */
-                    fullNameList.clear();
-                    userNameList.clear();
-                    profilePicList.clear();
+                    nameList.clear();
+                    emailList.clear();
+                    //avatarList.clear();
                     recyclerView.removeAllViews();
                 }
             }
@@ -88,9 +88,9 @@ public class AddFriendActivity extends AppCompatActivity {
                 /*
                  * Clear the list for every new search
                  * */
-                fullNameList.clear();
-                userNameList.clear();
-                profilePicList.clear();
+                nameList.clear();
+                emailList.clear();
+                //avatarList.clear();
                 recyclerView.removeAllViews();
 
                 int counter = 0;
@@ -100,19 +100,19 @@ public class AddFriendActivity extends AppCompatActivity {
                  * */
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String uid = snapshot.getKey();
-                    String full_name = snapshot.child("full_name").getValue(String.class);
-                    String user_name = snapshot.child("user_name").getValue(String.class);
-                    String profile_pic = snapshot.child("profile_pic").getValue(String.class);
+                    String name = snapshot.child("name").getValue(String.class);
+                    String email = snapshot.child("email").getValue(String.class);
+                    Long avatar = snapshot.child("avatar").getValue(Long.class);
 
-                    if (full_name.toLowerCase().contains(searchedString.toLowerCase())) {
-                        fullNameList.add(full_name);
-                        userNameList.add(user_name);
-                        profilePicList.add(profile_pic);
+                    if (name.toLowerCase().contains(searchedString.toLowerCase())) {
+                        nameList.add(name);
+                        emailList.add(email);
+                        //avatarList.add(avatar);
                         counter++;
-                    } else if (user_name.toLowerCase().contains(searchedString.toLowerCase())) {
-                        fullNameList.add(full_name);
-                        userNameList.add(user_name);
-                        profilePicList.add(profile_pic);
+                    } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
+                        nameList.add(name);
+                        emailList.add(email);
+                        //avatarList.add(avatar);
                         counter++;
                     }
 
@@ -123,7 +123,9 @@ public class AddFriendActivity extends AppCompatActivity {
                         break;
                 }
 
-                searchAdapter = new SearchAdapter(AddFriendActivity.this, fullNameList, userNameList, profilePicList);
+                searchAdapter = new SearchAdapter(AddFriendActivity.this, nameList, emailList);
+
+                        //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapter);
             }
 
