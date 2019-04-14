@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +35,11 @@ public class AddFriendActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+
+
+
         searchFriends = findViewById(R.id.friendsearch);
         ArrayList<String> friendsArray = new ArrayList<>();
         friendsArray.addAll(Arrays.asList(getResources().getStringArray(R.array.friendsArray)));
@@ -45,7 +53,7 @@ public class AddFriendActivity extends AppCompatActivity {
         searchFriends.setAdapter(adapter);
 
         searchBar = findViewById(R.id.searchBar);
-        searchBar.setIconified(false);
+        //searchBar.setIconified(false);
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

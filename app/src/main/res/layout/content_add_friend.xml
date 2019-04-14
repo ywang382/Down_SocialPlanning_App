@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_add_friend"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="vertical">
 
 
     <ListView
         android:id="@+id/friendsearch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="436dp"
         android:layout_weight="1"
         android:padding="20dp" />
+
 </LinearLayout>
