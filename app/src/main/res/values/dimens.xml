@@ -7,4 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="account_avatar">75dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="down_title">30dp</dimen>
+    <dimen name="down_card">125dp</dimen>
 </resources>

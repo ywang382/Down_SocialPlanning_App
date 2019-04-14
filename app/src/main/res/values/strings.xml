@@ -31,17 +31,19 @@
 
     <string name="dummy">Content to be added</string>
 
+    <!-- Strings related to downs -->
+    <string name="title_my_feed">My Feed</string>
+    <string name="emptyDowns">No downs yet, make one now!</string>
+    <string name="is_down">You are down to </string>
+    <string name="not_down">You are no longer down to </string>
+    <string name="title_add_down">Create a Down</string>
+    <string name="prompt_down_title">What are you down to do?</string>
+    <string name="prompt_time">When would you like to start?</string>
+    <string name="error_long_title">Please keep your down description between 5 and 30 characters.</string>
+
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>
     <string name="title_activity_my_friends">My Friends</string>
-    <string name="title_activity_add_friend">AddFriendActivity</string>
-
-    <!-- Strings for add friend testing -->
-    <string-array name="myFriends">
-        <item>Tom Cruise</item>
-        <item>The Rock</item>
-        <item>Trenton</item>
-        <item>Will</item>
-        <item>Not CoNnEr</item>
-    </string-array>
+    <string name="title_activity_add_friend">Add Friends</string>
+    <string name="newRequest"></string>
 </resources>
