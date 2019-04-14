@@ -32,6 +32,7 @@ public class AddFriendActivity extends AppCompatActivity {
     ArrayList<String> nameList;
     ArrayList<String> emailList;
     ArrayList<Long> avatarList;
+    ArrayList<String> UIDList;
     SearchAdapter searchAdapter;
 
     @Override
@@ -68,6 +69,7 @@ public class AddFriendActivity extends AppCompatActivity {
         nameList = new ArrayList<>();
         emailList = new ArrayList<>();
         avatarList = new ArrayList<>();
+        UIDList = new ArrayList<>();
 
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,6 +91,7 @@ public class AddFriendActivity extends AppCompatActivity {
                     nameList.clear();
                     emailList.clear();
                     //avatarList.clear();
+                    UIDList.clear();
                     recyclerView.removeAllViews();
                 }
             }
@@ -105,6 +108,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 nameList.clear();
                 emailList.clear();
                 avatarList.clear();
+                UIDList.clear();
                 recyclerView.removeAllViews();
 
                 int counter = 0;
@@ -113,20 +117,23 @@ public class AddFriendActivity extends AppCompatActivity {
                  * Search all users for matching searched string
                  * */
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String uid = snapshot.getKey();
                     String name = snapshot.child("name").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
                     Long avatar = snapshot.child("avatar").getValue(Long.class);
 
                     if (name.toLowerCase().contains(searchedString.toLowerCase())) {
+                        String UID = snapshot.getKey();
                         nameList.add(name);
                         emailList.add(email);
                         avatarList.add(avatar);
+                        UIDList.add(UID);
                         counter++;
                     } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
+                        String UID = snapshot.getKey();
                         nameList.add(name);
                         emailList.add(email);
                         avatarList.add(avatar);
+                        UIDList.add(UID);
                         counter++;
                     }
 
@@ -137,7 +144,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         break;
                 }
 
-                searchAdapter = new SearchAdapter(AddFriendActivity.this, nameList, emailList, avatarList);
+                searchAdapter = new SearchAdapter(AddFriendActivity.this, nameList, emailList, avatarList, UIDList);
 
                         //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapter);
