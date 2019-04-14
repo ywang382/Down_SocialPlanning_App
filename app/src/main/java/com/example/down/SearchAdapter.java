@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
 
-//import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -18,25 +19,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     Context context;
     ArrayList<String> nameList;
     ArrayList<String> emailList;
-    //ArrayList<Long> avatarList;
+    ArrayList<Long> avatarList;
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
-        ImageView profileImage;
+        ImageView avatarImage;
         TextView name, email;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
-            //avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            //avatarImage = (ImageView) itemView.findViewById(R.id.avatar);
             name = (TextView) itemView.findViewById(R.id.name);
             email = (TextView) itemView.findViewById(R.id.email);
         }
     }
 
-    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList) {
+    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Long> avatarList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
-        //this.profilePicList = profilePicList;
+        this.avatarList = avatarList;
     }
 
     @Override
@@ -49,7 +50,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(SearchViewHolder holder, int position) {
         holder.name.setText(nameList.get(position));
         holder.email.setText(emailList.get(position));
-        //Glide.with(context).load(profilePicList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.profileImage);
+
+        //Glide.with(context).load(R.drawable.avatar0).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
+
+        //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override

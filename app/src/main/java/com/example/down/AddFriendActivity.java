@@ -30,7 +30,7 @@ public class AddFriendActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ArrayList<String> nameList;
     ArrayList<String> emailList;
-    //ArrayList<Long> avatarList;
+    ArrayList<Long> avatarList;
     SearchAdapter searchAdapter;
 
     @Override
@@ -53,7 +53,7 @@ public class AddFriendActivity extends AppCompatActivity {
          * */
         nameList = new ArrayList<>();
         emailList = new ArrayList<>();
-        //avatarList = new ArrayList<>();
+        avatarList = new ArrayList<>();
 
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,7 +90,7 @@ public class AddFriendActivity extends AppCompatActivity {
                  * */
                 nameList.clear();
                 emailList.clear();
-                //avatarList.clear();
+                avatarList.clear();
                 recyclerView.removeAllViews();
 
                 int counter = 0;
@@ -107,12 +107,12 @@ public class AddFriendActivity extends AppCompatActivity {
                     if (name.toLowerCase().contains(searchedString.toLowerCase())) {
                         nameList.add(name);
                         emailList.add(email);
-                        //avatarList.add(avatar);
+                        avatarList.add(avatar);
                         counter++;
                     } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
                         nameList.add(name);
                         emailList.add(email);
-                        //avatarList.add(avatar);
+                        avatarList.add(avatar);
                         counter++;
                     }
 
@@ -123,7 +123,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         break;
                 }
 
-                searchAdapter = new SearchAdapter(AddFriendActivity.this, nameList, emailList);
+                searchAdapter = new SearchAdapter(AddFriendActivity.this, nameList, emailList, avatarList);
 
                         //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapter);
