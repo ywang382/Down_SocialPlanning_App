@@ -9,11 +9,12 @@
         android:roundIcon="@drawable/logocircle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PersonalUserProfile"></activity>
         <activity
             android:name=".CreateDownActivity"
             android:label="@string/title_add_down"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".AddDownActivity" />
+            android:parentActivityName=".AddDownActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddFriendActivity"
             android:label="@string/title_activity_add_friend"
@@ -24,7 +25,7 @@
             android:label="@string/title_add_down"
             android:parentActivityName=".MyFeedActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
