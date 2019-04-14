@@ -23,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -83,7 +82,6 @@ public class FeedFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 long count = dataSnapshot.getChildrenCount();
-                Log.d("Tim", "Children count: " + count);
                 downs.clear();
                 ArrayList<String> downIDs = new ArrayList<>();
                 for (DataSnapshot d : dataSnapshot.child("users").child(uid).child("downs").getChildren()) {
@@ -103,15 +101,15 @@ public class FeedFragment extends Fragment {
                 for(String id : downIDs){
                     long timestamp = dataSnapshot.child("down").child(id).child("timestamp").getValue(Long.class);
                     long cur = System.currentTimeMillis();
-                    final long oneDay = 86400000;
-                    // Check for outdated downs and delete
-                    if(timestamp < cur - oneDay){
-                        dataSnapshot.child("down").child(id).getRef().removeValue();
+                    final long ONE_DAY = 86400000;
+                    // Skip outdated downs
+                    if(timestamp < cur - ONE_DAY){
                         continue;
                     }
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
                     down.id = id;
+                    down.creator = dataSnapshot.child("users").child(down.creator).child("name").getValue(String.class);
                     down.isDown = (downStatus == 1);
                     downs.add(down);
                 }

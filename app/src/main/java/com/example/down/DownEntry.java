@@ -12,10 +12,10 @@ public class DownEntry {
 
     public DownEntry(){ }
 
-    public DownEntry(String title, String time, String creator) {
+    public DownEntry(String title, String time, long timestamp) {
         this.title = title;
         this.time = time;
-        this.creator = creator;
+        this.timestamp = timestamp;
     }
 
 

@@ -103,6 +103,7 @@ public class MyFeedActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_account) {
 
         }

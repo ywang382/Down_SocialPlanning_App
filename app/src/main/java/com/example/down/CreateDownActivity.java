@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,9 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static android.support.constraint.Constraints.TAG;
 import static android.view.View.INVISIBLE;
@@ -67,21 +71,63 @@ public class CreateDownActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(mAdapter);
 
+        Bundle extras = getIntent().getExtras();
+        final int inputHour = extras.getInt("hour");
+        final int inputMin = extras.getInt("minute");
+        final String title = extras.getString("title");
+        final long ONE_DAY = 86400000;
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 // Going through Friends and getting all the friends
-                // that have been selected
-                Log.d(TAG, "Printing friends");
-                for (FriendEntry f: friends) {
-                    if (f.getSelect()) {
-                        Log.d(TAG, "Friend Selected: " + f.toString());
-                    }
+                // that have been invited
+                ArrayList<String> invited = new ArrayList<>();
+                for(FriendEntry f : friends){
+                    if(f.getSelect())
+                        invited.add(f.getUid());
+                }
+
+                if(invited.isEmpty()){
+                    Toast.makeText(getApplicationContext(), R.string.error_no_select, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(System.currentTimeMillis() + TimeZone.getTimeZone("EST5EDT")
+                        .getOffset(System.currentTimeMillis()));
+                cal.set(Calendar.HOUR_OF_DAY, inputHour);
+                cal.set(Calendar.MINUTE, inputMin);
+                long timestamp = cal.getTimeInMillis();
+                if(timestamp < System.currentTimeMillis()){
+                    timestamp += ONE_DAY;
+                }
+                int hour = (inputHour > 12) ? inputHour - 12 : inputHour;
+                String time = hour + ":" + new DecimalFormat("00").format(inputMin) + " "
+                        + ((inputHour >= 12) ? "PM" : "AM");
+                String creator = user.getUid();
+
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("down");
+                String downId = dbRef.push().getKey();
+                dbRef = dbRef.child(downId);
+                dbRef.child("time").setValue(time);
+                dbRef.child("timestamp").setValue(timestamp);
+                dbRef.child("nDown").setValue(1);
+                dbRef.child("creator").setValue(creator);
+                dbRef.child("title").setValue(title);
+                dbRef.child("nInvited").setValue(1 + invited.size());
+                dbRef.child("invited").child(creator).setValue(1);
+                db.child(creator).child("downs").child(downId).setValue(1);
+
+                for (String userID : invited) {
+                    dbRef.child("invited").child(userID).setValue(0);
+                    db.child(userID).child("downs").child(downId).setValue(0);
                 }
                 Intent intent = new Intent(view.getContext(), MyFeedActivity.class);
                 startActivity(intent);
+
             }
         });
 

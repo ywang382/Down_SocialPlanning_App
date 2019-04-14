@@ -40,6 +40,7 @@
     <string name="prompt_down_title">What are you down to do?</string>
     <string name="prompt_time">When would you like to start?</string>
     <string name="error_long_title">Please keep your down description between 5 and 30 characters.</string>
+    <string name="error_no_select">You need to invite at least 1 friend to your down.</string>
 
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>
