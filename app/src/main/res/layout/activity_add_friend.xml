@@ -21,6 +21,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.v7.widget.SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.SearchView>
+
     <include layout="@layout/content_add_friend" />
 
 

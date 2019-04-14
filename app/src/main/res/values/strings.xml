@@ -45,5 +45,19 @@
     <string name="emptyFriends">No friends yet. Add some now!</string>
     <string name="title_activity_my_friends">My Friends</string>
     <string name="title_activity_add_friend">Add Friends</string>
-    <string name="newRequest"></string>
+    <string name="newRequest">Request</string>
+
+    <!-- Test strings -->
+    <string-array name="friendsArray">
+        <item>John</item>
+        <item>Will</item>
+        <item>Trent</item>
+        <item>Trent</item>
+        <item>Trent</item>
+        <item>Obama</item>
+        <item>Ben</item>
+        <item>Vance</item>
+        <item>Maya</item>
+        <item>Chone</item>
+    </string-array>
 </resources>
