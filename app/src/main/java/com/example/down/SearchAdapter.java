@@ -20,6 +20,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     ArrayList<String> nameList;
     ArrayList<String> emailList;
     ArrayList<Long> avatarList;
+    ArrayList<String> UIDList;
+    String UID;
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
         ImageView avatarImage;
@@ -33,11 +35,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Long> avatarList) {
+    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Long> avatarList, ArrayList<String> UIDList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
         this.avatarList = avatarList;
+        this.UIDList = UIDList;
     }
 
     @Override
@@ -47,18 +50,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public void onBindViewHolder(SearchViewHolder holder, int position) {
+    public void onBindViewHolder(SearchViewHolder holder, final int position) {
         holder.name.setText(nameList.get(position));
         holder.email.setText(emailList.get(position));
+        UID = (UIDList.get(position));
 
         //Glide.with(context).load(R.drawable.avatar0).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
-
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Full Name Clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Full Name Clicked" + " " + UID + " " + nameList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
