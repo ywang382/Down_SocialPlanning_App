@@ -26,6 +26,14 @@ Present observable issues include:
 
 ----Testing login information for grader----
 username: requests@password1234.com
-passowrd: 1234
+password: password1234
+
+username: mrpop@password1234.com
+password: password1234
+
+(Notice) Due to the fact that the downs are scheduled to reset every 24 hours,
+the downs present on each of these accounts at the time of submitting
+may not be the downs that are present at the time of grading.
+Feel free to create more downs, though!
 
 
