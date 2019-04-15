@@ -100,12 +100,15 @@ public class MyFeedActivity extends AppCompatActivity
         } else if (id == R.id.nav_groups) {
             fragment = new GroupsFragment();
         } else if (id == R.id.nav_settings) {
-            FirebaseAuth.getInstance().signOut();
+            // code was previously used for sign-in / sign-out
+            /*FirebaseAuth.getInstance().signOut();
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
-            finish();
-        } else if (id == R.id.nav_account) {
+            finish();*/
 
+        } else if (id == R.id.nav_account) {
+            Intent i = new Intent(this, PersonalUserProfile.class);
+            startActivity(i);
         }
 
         if(fragment != null){

@@ -18,11 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/barColor"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_my_feed"
-        app:menu="@menu/activity_my_feed_drawer"
-        android:background="@color/barColor"
         app:itemTextColor="@color/barTextColor"
+        app:menu="@menu/activity_my_feed_drawer"
 
 
         />
