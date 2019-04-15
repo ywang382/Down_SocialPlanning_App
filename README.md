@@ -10,10 +10,11 @@ This is the repository for UIMA 601.290 in Spring 2019.
 The purpose of this repository is to create and implement the Down App as
 defined in the first part of the semester.
 
+We have finished all product backlog requirements for sprint 1.
 The current state of the application has a feed with the ability to 
-create down, my friends with the ability to add friends and manage 
-requests, and my account with the ability to see the status of your
-account and sign out.
+create downs and add frinds to the down, my friends page  
+with the ability to add friends and manage requests, and my account 
+page with the ability to see the status of your account and sign out.
 
 Present observable issues include:
 1. due to asyncronous property of firebase, spamming the down button may
