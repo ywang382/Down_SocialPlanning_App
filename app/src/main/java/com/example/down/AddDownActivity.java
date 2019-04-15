@@ -30,7 +30,7 @@ public class AddDownActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String downTitle = title.getText().toString();
-                if(downTitle.length() > 30 || downTitle.length() <= 5){
+                if(downTitle.length() > 30 || downTitle.length() <= 0){
                     title.setError(getString(R.string.error_long_title));
                     return;
                 }

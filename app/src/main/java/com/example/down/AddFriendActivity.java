@@ -117,22 +117,23 @@ public class AddFriendActivity extends AppCompatActivity {
                  * Search all users for matching searched string
                  * */
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if(snapshot.child("friends").hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                        continue;
+                    }
+
                     String name = snapshot.child("name").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
-                    Long avatar = snapshot.child("avatar").getValue(Long.class);
 
                     if (name.toLowerCase().contains(searchedString.toLowerCase())) {
                         String UID = snapshot.getKey();
                         nameList.add(name);
                         emailList.add(email);
-                        avatarList.add(avatar);
                         UIDList.add(UID);
                         counter++;
                     } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
                         String UID = snapshot.getKey();
                         nameList.add(name);
                         emailList.add(email);
-                        avatarList.add(avatar);
                         UIDList.add(UID);
                         counter++;
                     }

@@ -17,6 +17,10 @@ import android.widget.Toast;
 import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -28,15 +32,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     ArrayList<String> UIDList;
     String UID;
 
+
     class SearchViewHolder extends RecyclerView.ViewHolder {
-        ImageView avatarImage;
         TextView name, email;
+        View entireView;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
             //avatarImage = (ImageView) itemView.findViewById(R.id.avatar);
             name = (TextView) itemView.findViewById(R.id.name);
             email = (TextView) itemView.findViewById(R.id.email);
+            entireView = itemView;
         }
     }
 
@@ -63,11 +69,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         //Glide.with(context).load(R.drawable.avatar0).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
-        holder.name.setOnClickListener(new View.OnClickListener() {
+        holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buildHer();
-                Toast.makeText(context, "Full Name Clicked" + " " + UIDList.get(position) + " " + nameList.get(position), Toast.LENGTH_SHORT).show();
+                buildHer(UIDList.get(position), nameList.get(position));
             }
         });
     }
@@ -77,48 +82,28 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return nameList.size();
     }
 
-    public void buildHer () {
+    public void buildHer (final String uID, final String userName) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirm Friends");
-        builder.setMessage("You are about to delete all records of database. Do you really want to proceed ?");
+        builder.setTitle(R.string.dialog_title);
+        builder.setMessage(context.getString(R.string.dialog_text) + userName);
         builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        builder.setPositiveButton("Send Request", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, "You've choosen to delete all records", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.confirm_request) + userName, Toast.LENGTH_SHORT).show();
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+                db.child(uID).child("requests").child(userID).setValue(0);
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, "You've changed your mind to delete all records", Toast.LENGTH_SHORT).show();
             }
         });
-
-        builder.show();
-    }
-
-
-
-    public static class FireMissilesDialogFragment extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Are you sure?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            return builder.create();
-        }
+        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.blue));
     }
 }
