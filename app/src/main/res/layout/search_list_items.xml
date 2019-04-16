@@ -8,6 +8,7 @@
 
 
 
+
     <ImageView
         android:id="@+id/avatarImage"
         android:layout_width="55dp"

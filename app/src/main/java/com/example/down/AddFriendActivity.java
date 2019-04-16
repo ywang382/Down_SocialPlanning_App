@@ -76,7 +76,6 @@ public class AddFriendActivity extends AppCompatActivity {
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                setAdapter(" ");
             }
 
             @Override
@@ -93,9 +92,10 @@ public class AddFriendActivity extends AppCompatActivity {
                      * */
                     nameList.clear();
                     emailList.clear();
-                    //avatarList.clear();
+                    avatarList.clear();
                     UIDList.clear();
                     recyclerView.removeAllViews();
+                    setAdapter(" ");
                 }
             }
         });
@@ -126,18 +126,20 @@ public class AddFriendActivity extends AppCompatActivity {
 
                     String name = snapshot.child("name").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
+                    String UID = snapshot.getKey();
+                    Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
 
                     if (name.toLowerCase().contains(searchedString.toLowerCase())) {
-                        String UID = snapshot.getKey();
                         nameList.add(name);
                         emailList.add(email);
                         UIDList.add(UID);
+                        avatarList.add(avatarIndex);
                         counter++;
                     } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
-                        String UID = snapshot.getKey();
                         nameList.add(name);
                         emailList.add(email);
                         UIDList.add(UID);
+                        avatarList.add(avatarIndex);
                         counter++;
                     }
 

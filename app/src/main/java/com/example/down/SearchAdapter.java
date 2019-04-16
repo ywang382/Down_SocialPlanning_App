@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -31,6 +32,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
     String UID;
+    Integer avatarIndex;
 
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +69,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.email.setText(emailList.get(position));
         UID = (UIDList.get(position));
 
-        Glide.with(context).load(R.drawable.avatar0).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
+
+        TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
+        avatarIndex = (avatarList.get(position));
+        Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
+
+
+        //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
