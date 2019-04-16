@@ -40,7 +40,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         public SearchViewHolder(View itemView) {
             super(itemView);
-            //avatarImage = (ImageView) itemView.findViewById(R.id.avatarImage);
+            avatarImage = (ImageView) itemView.findViewById(R.id.avatarImage);
             name = (TextView) itemView.findViewById(R.id.name);
             email = (TextView) itemView.findViewById(R.id.email);
             entireView = itemView;
@@ -67,7 +67,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.email.setText(emailList.get(position));
         UID = (UIDList.get(position));
 
-        //Glide.with(context).load(R.drawable.avatar0).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
+        Glide.with(context).load(R.drawable.avatar0).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
+        //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
         holder.entireView.setOnClickListener(new View.OnClickListener() {

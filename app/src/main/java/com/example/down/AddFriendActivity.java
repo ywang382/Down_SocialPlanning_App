@@ -63,16 +63,16 @@ public class AddFriendActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
-        /*
-         * Create a array list for each node you want to use
-         * */
+        //Creates a array list for each node
         nameList = new ArrayList<>();
         emailList = new ArrayList<>();
         avatarList = new ArrayList<>();
         UIDList = new ArrayList<>();
 
+        //Sets adapter to display friends options
         setAdapter(" ");
 
+        //Method to change what friends are displayed with change in text
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
