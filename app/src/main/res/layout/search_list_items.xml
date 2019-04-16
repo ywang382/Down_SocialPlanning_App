@@ -7,6 +7,17 @@
     android:padding="10dp">
 
 
+    <!--
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:padding="2dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@color/colorPrimaryDark"
+        app:civ_border_width="1dp" />
+        -->
+
 
     <LinearLayout
         android:layout_width="match_parent"

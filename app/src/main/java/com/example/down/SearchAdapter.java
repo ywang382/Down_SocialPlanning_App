@@ -28,25 +28,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     Context context;
     ArrayList<String> nameList;
     ArrayList<String> emailList;
-    ArrayList<Long> avatarList;
+    ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
     String UID;
 
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
         TextView name, email;
+        ImageView avatarImage;
         View entireView;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
-            //avatarImage = (ImageView) itemView.findViewById(R.id.avatar);
+            //avatarImage = (ImageView) itemView.findViewById(R.id.avatarImage);
             name = (TextView) itemView.findViewById(R.id.name);
             email = (TextView) itemView.findViewById(R.id.email);
             entireView = itemView;
         }
     }
 
-    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Long> avatarList, ArrayList<String> UIDList) {
+    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;

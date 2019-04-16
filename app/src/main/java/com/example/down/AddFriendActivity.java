@@ -31,7 +31,7 @@ public class AddFriendActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ArrayList<String> nameList;
     ArrayList<String> emailList;
-    ArrayList<Long> avatarList;
+    ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
     SearchAdapter searchAdapter;
 
@@ -71,9 +71,12 @@ public class AddFriendActivity extends AppCompatActivity {
         avatarList = new ArrayList<>();
         UIDList = new ArrayList<>();
 
+        setAdapter(" ");
+
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                setAdapter(" ");
             }
 
             @Override
