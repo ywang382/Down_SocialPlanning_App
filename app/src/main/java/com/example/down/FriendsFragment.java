@@ -42,7 +42,6 @@ public class FriendsFragment extends Fragment {
     public ArrayList<FriendEntry> friends;
     public ArrayList<FriendEntry> requests;
     private TextView noFriendsDisplay;
-    //private FloatingActionButton fab;
 
 
     @Override

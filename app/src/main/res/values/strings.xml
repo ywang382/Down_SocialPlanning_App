@@ -47,12 +47,16 @@
     <string name="title_fragment_my_friends">My Friends</string>
     <string name="title_activity_add_friend">Add Friends</string>
     <string name="title_fragment_my_groups">My Groups</string>
-    <string name="friend_search">Search Friends</string>
+    <string name="new_friend_search">Search for friends</string>
+    <string name="your_friend_search">Search your friends</string>
     <string name="newRequest"></string>
 
     <string name="dialog_title">Confirm Sending Friend Request</string>
     <string name="dialog_text">By clicking "yes", you will send a friend request to\u0020</string>
     <string name="confirm_request">You have sent a friend request to\u0020</string>
+
+    <!-- Strings related to groups -->
+    <string name="your_group_search">Search your groups</string>
 
 
 </resources>
