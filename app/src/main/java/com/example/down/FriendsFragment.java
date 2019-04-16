@@ -56,7 +56,7 @@ public class FriendsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // setting the title to the new page
-        getActivity().setTitle(R.string.title_activity_my_friends);
+        getActivity().setTitle(R.string.title_fragment_my_friends);
         recyclerView = (RecyclerView) this.getView().findViewById(R.id.rv_friendsList);
         noFriendsDisplay = (TextView) this.getView().findViewById(R.id.noFriendsTextView);
         noFriendsDisplay.setText(R.string.emptyFriends);

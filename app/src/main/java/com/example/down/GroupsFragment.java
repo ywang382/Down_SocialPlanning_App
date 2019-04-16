@@ -19,5 +19,7 @@ public class GroupsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // setting the title to the new page
+        getActivity().setTitle(R.string.title_fragment_my_groups);
     }
 }

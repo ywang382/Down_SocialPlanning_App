@@ -44,8 +44,9 @@
 
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>
-    <string name="title_activity_my_friends">My Friends</string>
+    <string name="title_fragment_my_friends">My Friends</string>
     <string name="title_activity_add_friend">Add Friends</string>
+    <string name="title_fragment_my_groups">My Groups</string>
     <string name="friend_search">Search Friends</string>
     <string name="newRequest"></string>
 
