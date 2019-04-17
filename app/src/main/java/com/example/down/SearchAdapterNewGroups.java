@@ -25,6 +25,9 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
+    ArrayList<String> addListUID = new ArrayList<String>();
+    ArrayList<String> addListName = new ArrayList<String>();
+    ArrayList<Integer> addListAvatar = new ArrayList<Integer>();
     String UID;
     Integer avatarIndex;
 
@@ -76,7 +79,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //buildHer(UIDList.get(position), nameList.get(position));
+                addToGroup(UIDList.get(position), nameList.get(position), avatarIndex);
             }
         });
     }
@@ -86,28 +89,11 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         return nameList.size();
     }
 
-    public void buildHer (final String uID, final String userName) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.dialog_title);
-        builder.setMessage(context.getString(R.string.dialog_text) + userName);
-        builder.setCancelable(false);
-
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        builder.setPositiveButton("Send Request", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, context.getString(R.string.confirm_request) + userName, Toast.LENGTH_SHORT).show();
-                DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
-                db.child(uID).child("requests").child(userID).setValue(0);
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.blue));
+    public void addToGroup(final String uID, final String userName, final Integer index) {
+        String i = uID;
+        addListUID.add(uID);
+        String arr[] = userName.split(" ", 2);
+        addListName.add(arr[0]);
+        addListAvatar.add(index);
     }
 }
