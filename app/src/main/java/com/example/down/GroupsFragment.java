@@ -1,8 +1,10 @@
 package com.example.down;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -65,6 +67,14 @@ public class GroupsFragment extends Fragment {
 
         */
 
+        FloatingActionButton fab = this.getView().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddFriendActivity.class);
+                startActivity(intent);
+            }
+        });
         search_edit_text = (EditText) this.getView().findViewById(R.id.search_edit_text);
         recyclerView = (RecyclerView) this.getView().findViewById(R.id.recyclerView);
 
