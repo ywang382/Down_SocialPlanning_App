@@ -20,10 +20,6 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    ArrayList<String> selectList = new ArrayList<String>();
-    ArrayList<String> addListUID = new ArrayList<String>();
-    ArrayList<String> addListName = new ArrayList<String>();
-    ArrayList<Integer> addListAvatar = new ArrayList<Integer>();
     ArrayList<GroupElement> addList = new ArrayList<GroupElement>();
     String UID;
     Integer avatarIndex;

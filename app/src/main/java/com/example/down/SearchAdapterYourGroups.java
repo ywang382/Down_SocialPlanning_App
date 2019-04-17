@@ -3,6 +3,7 @@ package com.example.down;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -76,7 +77,8 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //buildHer(UIDList.get(position), nameList.get(position));
+                Intent intent = new Intent(context, GroupClickedActivity.class);
+                context.startActivity(intent);
             }
         });
     }
@@ -85,29 +87,5 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
     public int getItemCount() {
         return nameList.size();
     }
-
-    public void buildHer (final String uID, final String userName) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.dialog_title);
-        builder.setMessage(context.getString(R.string.dialog_text) + userName);
-        builder.setCancelable(false);
-
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        builder.setPositiveButton("Send Request", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, context.getString(R.string.confirm_request) + userName, Toast.LENGTH_SHORT).show();
-                DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
-                db.child(uID).child("requests").child(userID).setValue(0);
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.blue));
-    }
+    
 }
