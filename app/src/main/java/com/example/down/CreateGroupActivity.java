@@ -33,7 +33,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    SearchAdapter searchAdapter;
+    SearchAdapterNewGroups searchAdapterNewGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,10 +150,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                         break;
                 }
 
-                searchAdapter = new SearchAdapter(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
+                searchAdapterNewGroups = new SearchAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
 
-                //SearchAdapter(AddFriendActivity.this, nameList, emailList);
-                recyclerView.setAdapter(searchAdapter);
+                //SearchAdapterNewGroups(AddFriendActivity.this, nameList, emailList);
+                recyclerView.setAdapter(searchAdapterNewGroups);
             }
 
             @Override

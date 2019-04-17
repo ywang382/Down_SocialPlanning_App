@@ -24,11 +24,22 @@
         </android.support.design.widget.AppBarLayout>
 
         <EditText
+            android:id="@+id/create_group_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/new_group_title"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <!--android:background="@drawable/group_name_border"-->
+
+        <EditText
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/your_group_search"
+            android:hint="@string/new_group_search"
             android:inputType="text" />
 
         <android.support.v7.widget.RecyclerView

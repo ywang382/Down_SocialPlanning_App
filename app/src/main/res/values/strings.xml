@@ -58,6 +58,8 @@
     <!-- Strings related to groups -->
     <string name="your_group_search">Search your groups</string>
     <string name="title_activity_create_group">Make A Group</string>
+    <string name="new_group_title">Group name</string>
+    <string name="new_group_search">Search friends to add</string>
 
 
 </resources>
