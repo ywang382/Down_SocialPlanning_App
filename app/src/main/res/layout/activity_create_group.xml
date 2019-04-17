@@ -34,6 +34,22 @@
             android:textStyle="bold" />
         <!--android:background="@drawable/group_name_border"-->
 
+        <LinearLayout
+            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="#FF6E40">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+
         <EditText
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
@@ -51,6 +67,8 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </LinearLayout>
+
+
 
 
     <android.support.design.widget.FloatingActionButton

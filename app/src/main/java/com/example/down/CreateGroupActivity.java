@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class CreateGroupActivity extends AppCompatActivity {
     EditText search_edit_text;
     RecyclerView recyclerView;
+    RecyclerView recyclerView2;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
     ArrayList<String> nameList;
@@ -36,6 +37,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
     SearchAdapterNewGroups searchAdapterNewGroups;
+    InGroupAdapterNewGroups inGroupAdapterNewGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         search_edit_text = (EditText) findViewById(R.id.search_edit_text);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView2 = (RecyclerView) findViewById(R.id.recyclerView2);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -75,6 +78,12 @@ public class CreateGroupActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+
+        recyclerView2.setHasFixedSize(true);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL));
+
 
         //Creates a array list for each node
         nameList = new ArrayList<>();
@@ -183,9 +192,11 @@ public class CreateGroupActivity extends AppCompatActivity {
                 }
 
                 searchAdapterNewGroups = new SearchAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
+                inGroupAdapterNewGroups = new InGroupAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapterNewGroups);
+                recyclerView2.setAdapter(inGroupAdapterNewGroups);
             }
 
             @Override
