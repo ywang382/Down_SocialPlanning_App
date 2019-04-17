@@ -1,21 +1,18 @@
 package com.example.down;
 
-import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,8 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
-public class GroupsFragment extends Fragment {
+public class CreateGroupActivity extends AppCompatActivity {
     EditText search_edit_text;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
@@ -37,23 +33,15 @@ public class GroupsFragment extends Fragment {
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    SearchAdapterYourGroups searchAdapterYourGroups;
+    SearchAdapter searchAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_groups, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_group);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // setting the title to the new page
-        getActivity().setTitle(R.string.title_fragment_my_groups);
-
-        /*
-        Toolbar mToolbar = (Toolbar) this.getView().findViewById(R.id.toolbar);
-        mToolbar.setTitle(getString(R.string.title_activity_add_friend));
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(getString(R.string.title_activity_create_group));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -65,25 +53,15 @@ public class GroupsFragment extends Fragment {
             }
         });
 
-        */
-
-        FloatingActionButton fab = this.getView().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CreateGroupActivity.class);
-                startActivity(intent);
-            }
-        });
-        search_edit_text = (EditText) this.getView().findViewById(R.id.search_edit_text);
-        recyclerView = (RecyclerView) this.getView().findViewById(R.id.recyclerView);
+        search_edit_text = (EditText) findViewById(R.id.search_edit_text);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
         //Creates a array list for each node
         nameList = new ArrayList<>();
@@ -122,6 +100,7 @@ public class GroupsFragment extends Fragment {
             }
         });
     }
+
     private void setAdapter(final String searchedString) {
         databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -171,10 +150,10 @@ public class GroupsFragment extends Fragment {
                         break;
                 }
 
-                searchAdapterYourGroups = new SearchAdapterYourGroups(getContext(), nameList, emailList, avatarList, UIDList);
+                searchAdapter = new SearchAdapter(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
 
-                //SearchAdapterYourGroups(AddFriendActivity.this, nameList, emailList);
-                recyclerView.setAdapter(searchAdapterYourGroups);
+                //SearchAdapter(AddFriendActivity.this, nameList, emailList);
+                recyclerView.setAdapter(searchAdapter);
             }
 
             @Override

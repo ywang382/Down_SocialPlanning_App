@@ -9,8 +9,13 @@
         android:roundIcon="@drawable/logocircle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonalUserProfile"
-            android:theme = "@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CreateGroupActivity"
+            android:label="@string/title_activity_create_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PersonalUserProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateDownActivity"
             android:label="@string/title_add_down"
