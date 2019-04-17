@@ -70,7 +70,7 @@ public class AddFriendActivity extends AppCompatActivity {
         UIDList = new ArrayList<>();
 
         //Sets adapter to display friends options
-        setAdapter(" ");
+        setAdapter("");
 
         //Method to change what friends are displayed with change in text
         search_edit_text.addTextChangedListener(new TextWatcher() {
@@ -116,38 +116,57 @@ public class AddFriendActivity extends AppCompatActivity {
 
                 int counter = 0;
 
-                /*
-                 * Search all users for matching searched string
-                 * */
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if(snapshot.child("friends").hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                        continue;
-                    }
-
-                    String name = snapshot.child("name").getValue(String.class);
-                    String email = snapshot.child("email").getValue(String.class);
-                    String UID = snapshot.getKey();
-                    Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
-
-                    if (name.toLowerCase().contains(searchedString.toLowerCase())) {
+                if (searchedString.length() == 0) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String name = snapshot.child("name").getValue(String.class);
+                        String email = snapshot.child("email").getValue(String.class);
+                        String UID = snapshot.getKey();
+                        Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
                         nameList.add(name);
                         emailList.add(email);
                         UIDList.add(UID);
                         avatarList.add(avatarIndex);
                         counter++;
-                    } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
-                        nameList.add(name);
-                        emailList.add(email);
-                        UIDList.add(UID);
-                        avatarList.add(avatarIndex);
-                        counter++;
+
+                        if (counter == 15)
+                            break;
                     }
+
+                } else {
 
                     /*
-                     * Get maximum of 15 searched results only
+                     * Search all users for matching searched string
                      * */
-                    if (counter == 15)
-                        break;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.child("friends").hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            continue;
+                        }
+
+                        String name = snapshot.child("name").getValue(String.class);
+                        String email = snapshot.child("email").getValue(String.class);
+                        String UID = snapshot.getKey();
+                        Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
+
+                        if (name.toLowerCase().contains(searchedString.toLowerCase())) {
+                            nameList.add(name);
+                            emailList.add(email);
+                            UIDList.add(UID);
+                            avatarList.add(avatarIndex);
+                            counter++;
+                        } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
+                            nameList.add(name);
+                            emailList.add(email);
+                            UIDList.add(UID);
+                            avatarList.add(avatarIndex);
+                            counter++;
+                        }
+
+                        /*
+                         * Get maximum of 15 searched results only
+                         * */
+                        if (counter == 15)
+                            break;
+                    }
                 }
 
                 searchAdapter = new SearchAdapter(AddFriendActivity.this, nameList, emailList, avatarList, UIDList);
