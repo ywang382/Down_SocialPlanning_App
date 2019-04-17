@@ -27,10 +27,11 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    ArrayList<Boolean> selectList;
+    ArrayList<String> selectList = new ArrayList<String>();
     ArrayList<String> addListUID = new ArrayList<String>();
     ArrayList<String> addListName = new ArrayList<String>();
     ArrayList<Integer> addListAvatar = new ArrayList<Integer>();
+    ArrayList<GroupElement> addList = new ArrayList<GroupElement>();
     String UID;
     Integer avatarIndex;
 
@@ -56,12 +57,6 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         this.emailList = emailList;
         this.avatarList = avatarList;
         this.UIDList = UIDList;
-
-        this.selectList = new ArrayList<Boolean>(getItemCount());
-        //Arrays.fill(selectList, false);
-        for (int i = 0; i < getItemCount(); i++) {
-            selectList.add(false);
-        }
     }
 
     @Override
@@ -75,13 +70,14 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.name.setText(nameList.get(position));
         holder.email.setText(emailList.get(position));
         UID = (UIDList.get(position));
-        selectList.set(position, false);
-
 
         TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
         avatarIndex = (avatarList.get(position));
         Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
+        String arr[] = nameList.get(position).split(" ", 2);
+        final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
+        setColor(thisUser, holder);
 
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
@@ -90,8 +86,8 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToGroup(UIDList.get(position), nameList.get(position), avatarIndex);
-                ifSel(holder, position);
+                adjustGroup(thisUser);
+                setColor(thisUser, holder);
             }
         });
     }
@@ -101,14 +97,50 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         return nameList.size();
     }
 
-    public void addToGroup(final String uID, final String userName, final Integer index) {
-        String i = uID;
-        addListUID.add(uID);
-        String arr[] = userName.split(" ", 2);
-        addListName.add(arr[0]);
-        addListAvatar.add(index);
+    public void adjustGroup(GroupElement thisUser) {
+        if (addList.contains(thisUser)) {
+            addList.remove(thisUser);
+        } else {
+            addList.add(thisUser);
+        }
     }
 
+    public class GroupElement
+    {
+        // Instance Variables
+        String name;
+        String UID;
+        int avatarIndex;
+
+        // Constructor Declaration of Class
+        public GroupElement(String name, String UID,
+                   int avatarIndex)
+        {
+            this.name = name;
+            this.UID = UID;
+            this.avatarIndex = avatarIndex;
+        }
+
+        // method 1
+        public String getName()
+        {
+            return name;
+        }
+
+        // method 2
+        public String getUID()
+        {
+            return UID;
+        }
+
+        // method 3
+        public int getAvatarIndex()
+        {
+            return avatarIndex;
+        }
+    }
+
+    /*
     public void ifSel(final SearchViewHolder holder, int position) {
         if (selectList.get(position)) {
             selectList.set(position, false);
@@ -118,5 +150,14 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
             holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
         }
 
+    }
+    */
+
+    public void setColor(GroupElement thisUser, final SearchViewHolder holder) {
+        if (addList.contains(thisUser)) {
+            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
+        } else {
+            holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
     }
 }
