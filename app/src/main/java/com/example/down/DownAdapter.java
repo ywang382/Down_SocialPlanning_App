@@ -90,14 +90,12 @@ public class DownAdapter extends
             public void onClick(View v) {
                 if(holder.downButton.getDrawable().getConstantState()
                         == myContext.getResources().getDrawable(R.drawable.notdown).getConstantState()){
-                    holder.downButton.setImageResource(R.drawable.down);
                     db.child("users").child(uid).child("downs").child(d.id).setValue(1);
                     DatabaseReference downRef = db.child("down").child(d.id);
                     downRef.child("invited").child(uid).setValue(1);
                     downRef.child("nDown").setValue(d.nDown + 1);
                     Toast.makeText(myContext, "You are down to " + d.title, Toast.LENGTH_SHORT).show();
-                } else{
-                    holder.downButton.setImageResource(R.drawable.notdown);
+                } else {
                     db.child("users").child(uid).child("downs").child(d.id).setValue(0);
                     DatabaseReference downRef = db.child("down").child(d.id);
                     downRef.child("invited").child(uid).setValue(0);

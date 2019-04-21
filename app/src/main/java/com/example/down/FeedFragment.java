@@ -1,6 +1,7 @@
 package com.example.down;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -102,7 +103,7 @@ public class FeedFragment extends Fragment {
                     final long ONE_DAY = 86400000;
                     // Skip outdated downs
                     if(timestamp < cur - ONE_DAY){
-                        //continue;
+                        continue;
                     }
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
@@ -111,9 +112,12 @@ public class FeedFragment extends Fragment {
                     down.isDown = (downStatus == 1);
                     downs.add(down);
                 }
+
+                Parcelable recyclerViewState;
+                recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
                 mAdapter = new DownAdapter(getActivity(), downs);
                 recyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
             }
 
             @Override
