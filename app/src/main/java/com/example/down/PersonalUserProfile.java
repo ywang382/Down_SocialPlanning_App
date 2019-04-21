@@ -66,8 +66,9 @@ public class PersonalUserProfile extends AppCompatActivity {
            public void onClick(View view){
                FirebaseAuth.getInstance().signOut();
                Intent i = new Intent(PersonalUserProfile.this, LoginActivity.class);
+               i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                startActivity(i);
-               finish();
+
            }
         });
 

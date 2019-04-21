@@ -1,6 +1,7 @@
 package com.example.down;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -65,8 +66,7 @@ public class FeedFragment extends Fragment {
         this.downs = new ArrayList<>();
         // give data to the adapter and create the adapter
         // passing context to get access to resources files
-        mAdapter = new DownAdapter(this.getContext(), downs);
-        recyclerView.setAdapter(mAdapter);
+
 
         FloatingActionButton fab = this.getView().findViewById(R.id.fabDown);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,6 @@ public class FeedFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,11 +108,17 @@ public class FeedFragment extends Fragment {
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
                     down.id = id;
+                    down.creatorID = down.creator;
                     down.creator = dataSnapshot.child("users").child(down.creator).child("name").getValue(String.class);
                     down.isDown = (downStatus == 1);
                     downs.add(down);
                 }
-                mAdapter.notifyDataSetChanged();
+
+                Parcelable recyclerViewState;
+                recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                mAdapter = new DownAdapter(getActivity(), downs);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
             }
 
             @Override

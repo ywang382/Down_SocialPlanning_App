@@ -1,5 +1,6 @@
 package com.example.down;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -25,7 +26,7 @@ public class DownAdapter extends
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
 
@@ -34,6 +35,9 @@ public class DownAdapter extends
         public TextView invitedText;
         public TextView downText;
         public ImageView downButton;
+        public View entireView;
+        public final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -46,6 +50,8 @@ public class DownAdapter extends
             invitedText = (TextView) itemView.findViewById(R.id.invited);
             downText = (TextView) itemView.findViewById(R.id.people_down);
             downButton = (ImageView) itemView.findViewById(R.id.down_button);
+            entireView = itemView;
+            //downButton.setOnClickListener(this);
         }
     }
 
@@ -67,7 +73,7 @@ public class DownAdapter extends
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(final DownAdapter.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final DownAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         final DownEntry d = myDowns.get(position);
         final DownAdapter.ViewHolder holder = viewHolder;
@@ -76,35 +82,44 @@ public class DownAdapter extends
         viewHolder.invitedText.setText(d.nInvited + " people invited");
         viewHolder.timeText.setText(d.time + " - " + d.creator);
         viewHolder.downText.setText(d.nDown + " people are down!");
+
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         if(d.isDown){
             viewHolder.downButton.setImageResource(R.drawable.down);
         }
+        viewHolder.entireView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(myContext, DownStatusActivity.class);
+                intent.putExtra("title", d.title);
+                intent.putExtra("downID", d.id);
+                intent.putExtra("timetext", d.time + " - " + d.creator);
+                intent.putExtra("creator", d.creatorID);
+                myContext.startActivity(intent);
+            }
+        });
+
         viewHolder.downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(holder.downButton.getDrawable().getConstantState()
                         == myContext.getResources().getDrawable(R.drawable.notdown).getConstantState()){
-                    DatabaseReference downRef = db.child("down").child(d.id);
-                    downRef.child("nDown").setValue(d.nDown + 1);
-                    holder.downButton.setImageResource(R.drawable.down);
                     db.child("users").child(uid).child("downs").child(d.id).setValue(1);
-                    downRef.child("invited").child(uid).setValue(1);
-                    Log.d("Tim", "position: " + position + " setting to down");
-                    Toast.makeText(myContext, "You are down to " + d.title, Toast.LENGTH_SHORT).show();
-                } else{
                     DatabaseReference downRef = db.child("down").child(d.id);
-                    downRef.child("nDown").setValue(d.nDown - 1);
+                    downRef.child("invited").child(uid).setValue(1);
+                    downRef.child("nDown").setValue(d.nDown + 1);
+                    Toast.makeText(myContext, "You are down to " + d.title, Toast.LENGTH_SHORT).show();
+                } else {
                     db.child("users").child(uid).child("downs").child(d.id).setValue(0);
-                    holder.downButton.setImageResource(R.drawable.notdown);
+                    DatabaseReference downRef = db.child("down").child(d.id);
                     downRef.child("invited").child(uid).setValue(0);
-                    Log.d("Tim", "position: " + position + " setting to undown");
+                    downRef.child("nDown").setValue(d.nDown - 1);
                     Toast.makeText(myContext, "You are no longer down to " + d.title, Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
+
     }
 
     // Returns the total count of items in the list

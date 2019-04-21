@@ -1,13 +1,10 @@
 package com.example.down;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
-import android.media.Image;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
+public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterYourGroups.SearchViewHolder> {
     Context context;
     ArrayList<String> nameList;
     ArrayList<String> emailList;
@@ -49,7 +44,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public SearchAdapter(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
+    public SearchAdapterYourGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
@@ -58,9 +53,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public SearchAdapter.SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SearchAdapterYourGroups.SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.search_list_items, parent, false);
-        return new SearchAdapter.SearchViewHolder(view);
+        return new SearchAdapterYourGroups.SearchViewHolder(view);
     }
 
     @Override
@@ -82,7 +77,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buildHer(UIDList.get(position), nameList.get(position));
+                Intent intent = new Intent(context, GroupClickedActivity.class);
+                context.startActivity(intent);
             }
         });
     }
@@ -91,29 +87,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public int getItemCount() {
         return nameList.size();
     }
-
-    public void buildHer (final String uID, final String userName) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.dialog_title);
-        builder.setMessage(context.getString(R.string.dialog_text) + userName);
-        builder.setCancelable(false);
-
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        builder.setPositiveButton("Send Request", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(context, context.getString(R.string.confirm_request) + userName, Toast.LENGTH_SHORT).show();
-                DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
-                db.child(uID).child("requests").child(userID).setValue(0);
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.blue));
-    }
+    
 }

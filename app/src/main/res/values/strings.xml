@@ -33,7 +33,9 @@
 
     <!-- Strings related to downs -->
     <string name="title_my_feed">My Feed</string>
+    <string name="title_down_status">Down Status</string>
     <string name="emptyDowns">No downs yet, make one now!</string>
+    <string name="empty_scedule">Your schedule is empty, accept or make a down!</string>
     <string name="is_down">You are down to </string>
     <string name="not_down">You are no longer down to </string>
     <string name="title_add_down">Create a Down</string>
@@ -41,17 +43,31 @@
     <string name="prompt_time">When would you like to start?</string>
     <string name="error_long_title">Please keep your down description fewer than 30 characters.</string>
     <string name="error_no_select">You need to invite at least 1 friend to your down.</string>
+    <string name="your_status">Your Status</string>
+    <string name="delete_down_title">Delete Down</string>
+    <string name="delete_down_dialog">Deleting a down will remove it permanently and remove it from your invitee\'s feed.</string>
+    <string name="delete_down_confirm">Your down has been deleted.</string>
+
 
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>
-    <string name="title_activity_my_friends">My Friends</string>
+    <string name="title_fragment_my_friends">My Friends</string>
     <string name="title_activity_add_friend">Add Friends</string>
-    <string name="friend_search">Search Friends</string>
+    <string name="title_fragment_my_groups">My Groups</string>
+    <string name="new_friend_search">Search for friends</string>
+    <string name="your_friend_search">Search your friends</string>
     <string name="newRequest"></string>
 
     <string name="dialog_title">Confirm Sending Friend Request</string>
     <string name="dialog_text">By clicking "yes", you will send a friend request to\u0020</string>
     <string name="confirm_request">You have sent a friend request to\u0020</string>
 
+    <!-- Strings related to groups -->
+    <string name="your_group_search">Search your groups</string>
+    <string name="title_activity_create_group">Make A Group</string>
+    <string name="new_group_title">Group name</string>
+    <string name="new_group_search">Search friends to add</string>
+    <string name="name_goes_here">Name goes here</string>
+    <string name="title_activity_group">Group</string>
 
 </resources>
