@@ -65,8 +65,7 @@ public class FeedFragment extends Fragment {
         this.downs = new ArrayList<>();
         // give data to the adapter and create the adapter
         // passing context to get access to resources files
-        mAdapter = new DownAdapter(this.getContext(), downs);
-        recyclerView.setAdapter(mAdapter);
+
 
         FloatingActionButton fab = this.getView().findViewById(R.id.fabDown);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +75,6 @@ public class FeedFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,7 +102,7 @@ public class FeedFragment extends Fragment {
                     final long ONE_DAY = 86400000;
                     // Skip outdated downs
                     if(timestamp < cur - ONE_DAY){
-                        continue;
+                        //continue;
                     }
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
@@ -113,6 +111,8 @@ public class FeedFragment extends Fragment {
                     down.isDown = (downStatus == 1);
                     downs.add(down);
                 }
+                mAdapter = new DownAdapter(getActivity(), downs);
+                recyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
             }
 

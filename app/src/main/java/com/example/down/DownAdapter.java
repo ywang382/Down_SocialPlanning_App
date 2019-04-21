@@ -1,6 +1,7 @@
 package com.example.down;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
@@ -24,7 +25,7 @@ public class DownAdapter extends
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
 
@@ -33,6 +34,8 @@ public class DownAdapter extends
         public TextView invitedText;
         public TextView downText;
         public ImageView downButton;
+        public final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -45,6 +48,7 @@ public class DownAdapter extends
             invitedText = (TextView) itemView.findViewById(R.id.invited);
             downText = (TextView) itemView.findViewById(R.id.people_down);
             downButton = (ImageView) itemView.findViewById(R.id.down_button);
+            //downButton.setOnClickListener(this);
         }
     }
 
@@ -75,6 +79,7 @@ public class DownAdapter extends
         viewHolder.invitedText.setText(d.nInvited + " people invited");
         viewHolder.timeText.setText(d.time + " - " + d.creator);
         viewHolder.downText.setText(d.nDown + " people are down!");
+
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         if(d.isDown){
@@ -102,6 +107,7 @@ public class DownAdapter extends
             }
 
         });
+
     }
 
     // Returns the total count of items in the list
