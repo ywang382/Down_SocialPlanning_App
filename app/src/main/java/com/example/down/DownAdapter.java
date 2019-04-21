@@ -1,6 +1,7 @@
 package com.example.down;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
@@ -66,7 +67,7 @@ public class DownAdapter extends
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(final DownAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final DownAdapter.ViewHolder viewHolder, final int position) {
         // Get the data model based on position
         final DownEntry d = myDowns.get(position);
         final DownAdapter.ViewHolder holder = viewHolder;
@@ -85,18 +86,20 @@ public class DownAdapter extends
             public void onClick(View v) {
                 if(holder.downButton.getDrawable().getConstantState()
                         == myContext.getResources().getDrawable(R.drawable.notdown).getConstantState()){
+                    DatabaseReference downRef = db.child("down").child(d.id);
+                    downRef.child("nDown").setValue(d.nDown + 1);
                     holder.downButton.setImageResource(R.drawable.down);
                     db.child("users").child(uid).child("downs").child(d.id).setValue(1);
-                    DatabaseReference downRef = db.child("down").child(d.id);
                     downRef.child("invited").child(uid).setValue(1);
-                    downRef.child("nDown").setValue(d.nDown + 1);
+                    Log.d("Tim", "position: " + position + " setting to down");
                     Toast.makeText(myContext, "You are down to " + d.title, Toast.LENGTH_SHORT).show();
                 } else{
-                    holder.downButton.setImageResource(R.drawable.notdown);
-                    db.child("users").child(uid).child("downs").child(d.id).setValue(0);
                     DatabaseReference downRef = db.child("down").child(d.id);
-                    downRef.child("invited").child(uid).setValue(0);
                     downRef.child("nDown").setValue(d.nDown - 1);
+                    db.child("users").child(uid).child("downs").child(d.id).setValue(0);
+                    holder.downButton.setImageResource(R.drawable.notdown);
+                    downRef.child("invited").child(uid).setValue(0);
+                    Log.d("Tim", "position: " + position + " setting to undown");
                     Toast.makeText(myContext, "You are no longer down to " + d.title, Toast.LENGTH_SHORT).show();
                 }
             }

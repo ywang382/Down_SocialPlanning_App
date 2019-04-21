@@ -46,7 +46,7 @@ public class FeedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(R.string.title_my_feed);
-        recyclerView = (RecyclerView) this.getView().findViewById(R.id.rvDowns);
+        recyclerView =  this.getView().findViewById(R.id.rvDowns);
         noDownsDisplay = (TextView) this.getView().findViewById(R.id.noDownsTextView);
         noDownsDisplay.setText(R.string.emptyDowns);
         noDownsDisplay.setVisibility(view.INVISIBLE); // assume they have downs
@@ -81,7 +81,7 @@ public class FeedFragment extends Fragment {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
+                //long count = dataSnapshot.getChildrenCount();
                 downs.clear();
                 ArrayList<String> downIDs = new ArrayList<>();
                 for (DataSnapshot d : dataSnapshot.child("users").child(uid).child("downs").getChildren()) {
