@@ -86,8 +86,10 @@ public class DownStatusAdapter extends
                 DataSnapshot ds2 = ds.child("users").child(curUser);
                 viewHolder.avatar.setImageDrawable(viewHolder.avatars.getDrawable(ds2.child("avatar").getValue(Integer.class)));
                 viewHolder.userName.setText(ds2.child("name").getValue(String.class));
+                if(!ds1.hasChildren()){ return;}
                 String st = ds1.child("status").child(curUser).getValue(String.class);
-                viewHolder.status.setText((st.isEmpty())? "No status yet..." : st);
+                viewHolder.status.setText((st.isEmpty()) ? "No status yet..." : st);
+
                 if(ds1.child("invited").child(curUser).getValue(Integer.class) == 1){
                     viewHolder.downButton.setImageResource(R.drawable.down);
                 }

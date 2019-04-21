@@ -104,7 +104,9 @@ public class DownStatusActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot ds) {
                 userAvatar.setImageDrawable(avatars.getDrawable(ds.child("users").child(curUser).child("avatar").getValue(Integer.class)));
                 String st = ds.child("down").child(downID).child("status").child(curUser).getValue(String.class);
-                userStatus.setText((st.isEmpty()) ? "Click to add a status..." : st);
+                if(st != null) {
+                    userStatus.setText((st.isEmpty()) ? "Click to add a status..." : st);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -1,6 +1,6 @@
 package com.example.down;
 
-public class DownEntry {
+public class DownEntry implements Comparable<DownEntry>{
     public String id;
     public String title;
     public String time;
@@ -17,6 +17,16 @@ public class DownEntry {
         this.title = title;
         this.time = time;
         this.timestamp = timestamp;
+    }
+
+    public int compareTo(DownEntry d) {
+        if(this.timestamp > d.timestamp){
+            return 1;
+        }
+        if(this.timestamp < d.timestamp){
+            return -1;
+        }
+        return 0;
     }
 
 

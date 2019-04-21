@@ -35,6 +35,7 @@
     <string name="title_my_feed">My Feed</string>
     <string name="title_down_status">Down Status</string>
     <string name="emptyDowns">No downs yet, make one now!</string>
+    <string name="empty_scedule">Your schedule is empty, accept or make a down!</string>
     <string name="is_down">You are down to </string>
     <string name="not_down">You are no longer down to </string>
     <string name="title_add_down">Create a Down</string>
