@@ -116,6 +116,7 @@ public class CreateDownActivity extends AppCompatActivity {
                 dbRef.child("timestamp").setValue(timestamp);
                 dbRef.child("nDown").setValue(1);
                 dbRef.child("creator").setValue(creator);
+                dbRef.child("status").child(creator).setValue("");
                 dbRef.child("title").setValue(title);
                 dbRef.child("nInvited").setValue(1 + invited.size());
                 dbRef.child("invited").child(creator).setValue(1);
@@ -124,8 +125,10 @@ public class CreateDownActivity extends AppCompatActivity {
                 for (String userID : invited) {
                     dbRef.child("invited").child(userID).setValue(0);
                     db.child(userID).child("downs").child(downId).setValue(0);
+                    dbRef.child("status").child(userID).setValue("");
                 }
                 Intent intent = new Intent(view.getContext(), MyFeedActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
             }

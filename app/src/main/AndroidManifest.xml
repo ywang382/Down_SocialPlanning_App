@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".DownStatusActivity"
+            android:label="@string/title_down_status"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".GroupClickedActivity"
             android:label="@string/title_activity_group"
             android:theme="@style/AppTheme.NoActionBar"></activity>

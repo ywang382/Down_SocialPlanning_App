@@ -1,5 +1,6 @@
 package com.example.down;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class DownAdapter extends
         public TextView invitedText;
         public TextView downText;
         public ImageView downButton;
+        public View entireView;
         public final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         public final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -48,6 +50,7 @@ public class DownAdapter extends
             invitedText = (TextView) itemView.findViewById(R.id.invited);
             downText = (TextView) itemView.findViewById(R.id.people_down);
             downButton = (ImageView) itemView.findViewById(R.id.down_button);
+            entireView = itemView;
             //downButton.setOnClickListener(this);
         }
     }
@@ -85,6 +88,18 @@ public class DownAdapter extends
         if(d.isDown){
             viewHolder.downButton.setImageResource(R.drawable.down);
         }
+        viewHolder.entireView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(myContext, DownStatusActivity.class);
+                intent.putExtra("title", d.title);
+                intent.putExtra("downID", d.id);
+                intent.putExtra("timetext", d.time + " - " + d.creator);
+                intent.putExtra("creator", d.creatorID);
+                myContext.startActivity(intent);
+            }
+        });
+
         viewHolder.downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +118,6 @@ public class DownAdapter extends
                     Toast.makeText(myContext, "You are no longer down to " + d.title, Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
 
     }

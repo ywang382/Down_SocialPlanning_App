@@ -33,6 +33,7 @@
 
     <!-- Strings related to downs -->
     <string name="title_my_feed">My Feed</string>
+    <string name="title_down_status">Down Status</string>
     <string name="emptyDowns">No downs yet, make one now!</string>
     <string name="is_down">You are down to </string>
     <string name="not_down">You are no longer down to </string>
@@ -41,6 +42,11 @@
     <string name="prompt_time">When would you like to start?</string>
     <string name="error_long_title">Please keep your down description fewer than 30 characters.</string>
     <string name="error_no_select">You need to invite at least 1 friend to your down.</string>
+    <string name="your_status">Your Status</string>
+    <string name="delete_down_title">Delete Down</string>
+    <string name="delete_down_dialog">Deleting a down will remove it permanently and remove it from your invitee\'s feed.</string>
+    <string name="delete_down_confirm">Your down has been deleted.</string>
+
 
     <!-- Strings related to friends -->
     <string name="emptyFriends">No friends yet. Add some now!</string>

@@ -6,6 +6,7 @@ public class DownEntry {
     public String time;
     public boolean isDown;
     public String creator;
+    public String creatorID;
     public int nInvited;
     public int nDown;
     public long timestamp;

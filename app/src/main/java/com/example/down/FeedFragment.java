@@ -108,6 +108,7 @@ public class FeedFragment extends Fragment {
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
                     down.id = id;
+                    down.creatorID = down.creator;
                     down.creator = dataSnapshot.child("users").child(down.creator).child("name").getValue(String.class);
                     down.isDown = (downStatus == 1);
                     downs.add(down);

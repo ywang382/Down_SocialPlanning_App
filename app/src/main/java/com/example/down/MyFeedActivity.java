@@ -43,13 +43,16 @@ public class MyFeedActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+    }
 
+    @Override
+    public void onResume(){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FeedFragment()).commit();
-
+        super.onResume();
         user = FirebaseAuth.getInstance().getCurrentUser();
         View header = navigationView.getHeaderView(0);
         final TextView name = (TextView) header.findViewById(R.id.user_name);
@@ -73,6 +76,7 @@ public class MyFeedActivity extends AppCompatActivity
                 Log.d("Debug", databaseError.getDetails());
             }
         });
+
     }
 
     @Override
