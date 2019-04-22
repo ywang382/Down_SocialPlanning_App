@@ -120,7 +120,6 @@ public class FeedFragment extends Fragment {
                 recyclerView.setAdapter(mAdapter);
                 recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
