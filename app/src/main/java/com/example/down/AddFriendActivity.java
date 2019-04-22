@@ -134,11 +134,16 @@ public class AddFriendActivity extends AppCompatActivity {
 
                 } else {
 
+                    String curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                     /*
                      * Search all users for matching searched string
                      * */
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (snapshot.child("friends").hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        if (snapshot.child("friends").hasChild(curUser)) {
+                            continue;
+                        }
+                        if(snapshot.getKey().equals(curUser)){
                             continue;
                         }
 

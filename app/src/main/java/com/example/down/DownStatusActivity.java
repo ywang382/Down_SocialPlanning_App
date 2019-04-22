@@ -159,7 +159,7 @@ public class DownStatusActivity extends AppCompatActivity{
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update your status");
         final EditText input = new EditText(this);
-        input.setText(userStatus.getText());
+        input.setHint(userStatus.getText());
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         builder.setView(input);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

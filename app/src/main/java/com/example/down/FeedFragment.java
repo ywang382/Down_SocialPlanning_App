@@ -92,17 +92,12 @@ public class FeedFragment extends Fragment {
                     }
                 }
 
-                if(downIDs.isEmpty()){
-                    recyclerView.setVisibility(View.INVISIBLE);
-                    noDownsDisplay.setVisibility(View.VISIBLE);
-                }
-
                 for(String id : downIDs){
                     long timestamp = dataSnapshot.child("down").child(id).child("timestamp").getValue(Long.class);
                     long cur = System.currentTimeMillis();
-                    final long ONE_DAY = 86400000;
+                    final long ONE_HOUR = 3600000;
                     // Skip outdated downs
-                    if(timestamp < cur - ONE_DAY){
+                    if(timestamp < cur - ONE_HOUR){
                         continue;
                     }
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
@@ -112,6 +107,11 @@ public class FeedFragment extends Fragment {
                     down.creator = dataSnapshot.child("users").child(down.creator).child("name").getValue(String.class);
                     down.isDown = (downStatus == 1);
                     downs.add(down);
+                }
+
+                if(downs.isEmpty()){
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    noDownsDisplay.setVisibility(View.VISIBLE);
                 }
 
                 Parcelable recyclerViewState;
