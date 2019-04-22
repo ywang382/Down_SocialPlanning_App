@@ -32,6 +32,13 @@
     <string name="dummy">Content to be added</string>
 
     <!-- Strings related to downs -->
+    <!-- Notification information -->
+    <string name="default_notification_channel_name">Downs</string>
+    <string name="default_notification_channel_id_description">This channel manages all notifications pertaining to
+    receiving and sending downs</string>
+    <string name="default_notification_channel_id">down-channel-id</string>
+
+    <!-- Other -->
     <string name="title_my_feed">My Feed</string>
     <string name="title_down_status">Down Status</string>
     <string name="emptyDowns">No downs yet, make one now!</string>
