@@ -9,15 +9,15 @@
         android:roundIcon="@drawable/logocircle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".FriendProfileActivity"></activity>
         <activity
             android:name=".DownStatusActivity"
             android:label="@string/title_down_status"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GroupClickedActivity"
             android:label="@string/title_activity_group"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateGroupActivity"
             android:label="@string/title_activity_create_group"
@@ -75,7 +75,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
