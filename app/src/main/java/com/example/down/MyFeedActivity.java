@@ -93,10 +93,7 @@ public class MyFeedActivity extends AppCompatActivity
                         db.child("token").setValue(token);
                     }
                 });
-    }
 
-    @Override
-    public void onResume(){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -154,11 +151,6 @@ public class MyFeedActivity extends AppCompatActivity
         } else if (id == R.id.nav_groups) {
             fragment = new GroupsFragment();
         } else if (id == R.id.nav_settings) {
-            // code was previously used for sign-in / sign-out
-            /*FirebaseAuth.getInstance().signOut();
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivity(i);
-            finish();*/
 
         } else if (id == R.id.nav_account) {
             Intent i = new Intent(this, PersonalUserProfile.class);

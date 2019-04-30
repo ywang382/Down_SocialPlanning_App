@@ -46,7 +46,7 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(R.string.title_my_feed);
+        getActivity().setTitle(R.string.title_my_schedule);
         recyclerView = (RecyclerView) this.getView().findViewById(R.id.rvDowns);
         noDownsDisplay = (TextView) this.getView().findViewById(R.id.noDownsTextView);
         noDownsDisplay.setText(R.string.emptyDowns);
