@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -38,6 +39,11 @@ public class GroupsFragment extends Fragment {
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
     SearchAdapterYourGroups searchAdapterYourGroups;
+
+    ArrayList<String> groupNameList;
+    ArrayList<ArrayList<String>> groupUIDList;
+    ArrayList<String> groupDescriptList;
+    DatabaseReference userGroups;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -80,6 +86,10 @@ public class GroupsFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = firebaseUser.getUid();
+
+
+        userGroups = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -90,6 +100,11 @@ public class GroupsFragment extends Fragment {
         emailList = new ArrayList<>();
         avatarList = new ArrayList<>();
         UIDList = new ArrayList<>();
+
+        groupNameList = new ArrayList<>();
+        groupDescriptList = new ArrayList<>();
+        groupUIDList = new ArrayList<>();
+
 
         //Sets adapter to display friends options
         setAdapter("");
@@ -116,6 +131,11 @@ public class GroupsFragment extends Fragment {
                     emailList.clear();
                     avatarList.clear();
                     UIDList.clear();
+
+                    groupNameList.clear();
+                    groupDescriptList.clear();
+                    groupUIDList.clear();
+
                     recyclerView.removeAllViews();
                     setAdapter(" ");
                 }
@@ -123,7 +143,9 @@ public class GroupsFragment extends Fragment {
         });
     }
     private void setAdapter(final String searchedString) {
-        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+        userGroups.child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 /*
@@ -135,10 +157,15 @@ public class GroupsFragment extends Fragment {
                 UIDList.clear();
                 recyclerView.removeAllViews();
 
+                groupNameList.clear();
+                groupDescriptList.clear();
+                groupUIDList.clear();
+
                 int counter = 0;
 
                 if (searchedString.length() == 0) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        /*
                         String name = snapshot.child("name").getValue(String.class);
                         String email = snapshot.child("email").getValue(String.class);
                         String UID = snapshot.getKey();
@@ -147,6 +174,40 @@ public class GroupsFragment extends Fragment {
                         emailList.add(email);
                         UIDList.add(UID);
                         avatarList.add(avatarIndex);
+*/
+
+                        String groupName = snapshot.getKey();
+                        ArrayList<String> membersList = new ArrayList<>();
+                        ArrayList<String> nameList = new ArrayList<>();
+                        String groupDescript = "";
+                        int i = 0;
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            i++;
+                            membersList.add(snapshot.getKey());
+                            if (i <= 3) {
+                                String name = snapshot.getValue().toString();
+                                nameList.add(name);
+                            }
+                        }
+
+                        switch (i) {
+                            case 1:
+                                groupDescript = nameList.get(0);
+                                break;
+                            case 2:
+                                groupDescript = nameList.get(0) + " and " + nameList.get(1);
+                                break;
+                            case 3:
+                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + nameList.get(2);
+                                break;
+                            default:
+                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + ", " + nameList.get(2) + " and " + (i - 3) + " others";
+                        }
+
+                        groupUIDList.add(membersList);
+                        groupNameList.add(groupName);
+                        groupDescriptList.add(groupDescript);
+
                         counter++;
 
                         if (counter == 15)
@@ -168,19 +229,30 @@ public class GroupsFragment extends Fragment {
                         String UID = snapshot.getKey();
                         Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
 
-                        if (name.toLowerCase().contains(searchedString.toLowerCase())) {
+                        String groupName = snapshot.getKey();
+                        String groupDescript = "";
+
+                        if (groupName.toLowerCase().contains(searchedString.toLowerCase())) {
+                            /*
                             nameList.add(name);
                             emailList.add(email);
                             UIDList.add(UID);
                             avatarList.add(avatarIndex);
+                            */
+
+                            groupNameList.add(groupName);
+                            groupDescriptList.add(groupDescript);
                             counter++;
-                        } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
+                        }
+                        /*
+                        else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
                             nameList.add(name);
                             emailList.add(email);
                             UIDList.add(UID);
                             avatarList.add(avatarIndex);
                             counter++;
                         }
+                        */
 
                         /*
                          * Get maximum of 15 searched results only
@@ -190,7 +262,7 @@ public class GroupsFragment extends Fragment {
                     }
                 }
 
-                searchAdapterYourGroups = new SearchAdapterYourGroups(getContext(), nameList, emailList, avatarList, UIDList);
+                searchAdapterYourGroups = new SearchAdapterYourGroups(getContext(), groupNameList, groupDescriptList);
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapterYourGroups);
