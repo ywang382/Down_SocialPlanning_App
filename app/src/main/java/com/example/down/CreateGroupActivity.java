@@ -37,13 +37,14 @@ public class CreateGroupActivity extends AppCompatActivity {
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    ArrayList<Boolean> selList;
+    static ArrayList<Boolean> selList;
 
     ArrayList<String> nameAddList;
     ArrayList<String> emailAddList;
     ArrayList<Integer> avatarAddList;
     ArrayList<String> UIDAddList;
     ArrayList<String> friendList;
+    static ArrayList<String> selUIDList;
     SearchAdapterNewGroups searchAdapterNewGroups;
     InGroupAdapterNewGroups inGroupAdapterNewGroups;
 

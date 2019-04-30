@@ -34,6 +34,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     ArrayList<Integer> addListAvatar = new ArrayList<Integer>();
     ArrayList<GroupElement> addList = new ArrayList<GroupElement>();
     String UID;
+    Boolean sel;
     Integer avatarIndex;
 
 
@@ -72,6 +73,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.name.setText(nameList.get(position));
         holder.email.setText(emailList.get(position));
         UID = (UIDList.get(position));
+        sel = selList.get(position);
 
         TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
         avatarIndex = (avatarList.get(position));
@@ -79,7 +81,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
 
         String arr[] = nameList.get(position).split(" ", 2);
         final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
-        setColor(thisUser, holder);
+        setColor(holder, sel);
 
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
@@ -88,8 +90,9 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adjustGroup(thisUser);
-                setColor(thisUser, holder, position);
+                selList.set(position, !sel);
+                CreateGroupActivity.selList.set(position, !sel);
+                setColor(holder, !sel);
             }
         });
     }
@@ -99,13 +102,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         return nameList.size();
     }
 
-    public void adjustGroup(GroupElement thisUser) {
-        if (addList.contains(thisUser)) {
-            addList.remove(thisUser);
-        } else {
-            addList.add(thisUser);
-        }
-    }
+
 
     public class GroupElement
     {
@@ -155,8 +152,8 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     }
     */
 
-    public void setColor(GroupElement thisUser, final SearchViewHolder holder, Integer position) {
-        if (addList.contains(thisUser)) {
+    public void setColor(final SearchViewHolder holder, Boolean sel) {
+        if (sel) {
             holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
         } else {
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -164,12 +161,4 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         }
     }
 
-    public void setColor(GroupElement thisUser, final SearchViewHolder holder) {
-        if (addList.contains(thisUser)) {
-            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
-        } else {
-            holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
-
-        }
-    }
 }
