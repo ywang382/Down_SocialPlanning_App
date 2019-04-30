@@ -18,14 +18,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static android.support.constraint.Constraints.TAG;
 
 public class GroupClickedActivity extends AppCompatActivity {
+
+    String groupName;
+    ArrayList<String> groupUIDs;
+    TextView nameOfGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_clicked);
+        nameOfGroup = (TextView) findViewById(R.id.group_name);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.title_activity_group));
@@ -39,6 +47,15 @@ public class GroupClickedActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        groupName = extras.getString("GROUP_NAME");
+        groupUIDs = extras.getStringArrayList("GROUP_UIDS");
+
+        nameOfGroup.setText(groupName);
+
+
 
     }
 }

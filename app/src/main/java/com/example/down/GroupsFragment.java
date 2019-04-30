@@ -230,7 +230,7 @@ public class GroupsFragment extends Fragment {
                     }
                 }
 
-                searchAdapterYourGroups = new SearchAdapterYourGroups(getContext(), groupNameList, groupDescriptList);
+                searchAdapterYourGroups = new SearchAdapterYourGroups(getContext(), groupNameList, groupDescriptList, groupUIDList);
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapterYourGroups);

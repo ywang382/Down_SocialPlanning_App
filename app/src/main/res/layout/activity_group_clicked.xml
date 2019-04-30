@@ -24,7 +24,7 @@
         android:layout_margin="10dp"
         android:hint="@string/new_friend_search"
         android:inputType="text"
-        android:textColor="@color/common_google_signin_btn_text_dark"
+        android:textColor="@color/black_overlay"
         android:textSize="24sp"
         android:textStyle="bold" />
 
