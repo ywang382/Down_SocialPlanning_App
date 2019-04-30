@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
 
     ArrayList<String> groupNameList;
     ArrayList<String> groupDescriptList;
+    ArrayList<ArrayList<String>> groupUIDList;
 
     String UID;
     Integer avatarIndex;
@@ -46,10 +48,11 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
         }
     }
 
-    public SearchAdapterYourGroups(Context context, ArrayList<String> groupNameList, ArrayList<String> groupDescriptList) {
+    public SearchAdapterYourGroups(Context context, ArrayList<String> groupNameList, ArrayList<String> groupDescriptList, ArrayList<ArrayList<String>> groupUIDList) {
         this.context = context;
         this.groupNameList = groupNameList;
         this.groupDescriptList = groupDescriptList;
+        this.groupUIDList = groupUIDList;
     }
 
     @Override
@@ -68,6 +71,10 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GroupClickedActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("GROUP_NAME", groupNameList.get(position));
+                extras.putStringArrayList("GROUP_UIDS", groupUIDList.get(position));
+                intent.putExtras(extras);
                 context.startActivity(intent);
             }
         });
