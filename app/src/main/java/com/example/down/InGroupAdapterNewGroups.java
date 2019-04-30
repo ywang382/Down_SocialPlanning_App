@@ -21,7 +21,6 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    ArrayList<Boolean> selList;
     ArrayList<GroupElement> addList = new ArrayList<GroupElement>();
     String UID;
     Integer avatarIndex;
@@ -42,13 +41,12 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         }
     }
 
-    public InGroupAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList, ArrayList<Boolean> selList) {
+    public InGroupAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
         this.avatarList = avatarList;
         this.UIDList = UIDList;
-        this.selList = selList;
     }
 
     @Override
@@ -59,7 +57,7 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
 
     @Override
     public void onBindViewHolder(final SearchViewHolder holder, final int position) {
-        holder.name.setText(nameList.get(position));
+        //holder.name.setText(nameList.get(position));
         UID = (UIDList.get(position));
 
         TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
@@ -69,7 +67,7 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         String arr[] = nameList.get(position).split(" ", 2);
         holder.name.setText(arr[0]);
         final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
-        setColor(thisUser, holder, selList.get(position));
+        setColor(UID, holder);
 
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
@@ -78,8 +76,8 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adjustGroup(thisUser);
-                setColor(thisUser, holder, selList.get(position));
+                adjustGroup(UID);
+                setColor(UID, holder);
             }
         });
     }
@@ -89,11 +87,11 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         return nameList.size();
     }
 
-    public void adjustGroup(GroupElement thisUser) {
-        if (addList.contains(thisUser)) {
-            addList.remove(thisUser);
+    public void adjustGroup(String UID) {
+        if (CreateGroupActivity.selUIDList != null && CreateGroupActivity.selUIDList.contains(UID)) {
+            CreateGroupActivity.selUIDList.remove(UID);
         } else {
-            addList.add(thisUser);
+            CreateGroupActivity.selUIDList.add(UID);
         }
     }
 
@@ -145,12 +143,12 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
     }
     */
 
-    public void setColor(GroupElement thisUser, final SearchViewHolder holder) {
-        if (addList.contains(thisUser)) {
-            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
-        } else {
-            holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
-        }
+    public void setColor(String UID, final SearchViewHolder holder) {
+            if (CreateGroupActivity.selUIDList != null && CreateGroupActivity.selUIDList.contains(UID)) {
+                holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
+            } else {
+                holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
+            }
     }
 
     public void setColor(GroupElement thisUser, final SearchViewHolder holder, Boolean sel) {

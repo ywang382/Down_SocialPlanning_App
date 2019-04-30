@@ -125,7 +125,7 @@ public class GroupsFragment extends Fragment {
                     groupUIDList.clear();
 
                     recyclerView.removeAllViews();
-                    setAdapter(" ");
+                    setAdapter("");
                 }
             }
         });
