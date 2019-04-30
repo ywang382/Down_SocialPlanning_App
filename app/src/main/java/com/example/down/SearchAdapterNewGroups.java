@@ -27,6 +27,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
+    ArrayList<Boolean> selList;
     ArrayList<String> selectList = new ArrayList<String>();
     ArrayList<String> addListUID = new ArrayList<String>();
     ArrayList<String> addListName = new ArrayList<String>();
@@ -51,12 +52,13 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         }
     }
 
-    public SearchAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
+    public SearchAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList, ArrayList<Boolean> selList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
         this.avatarList = avatarList;
         this.UIDList = UIDList;
+        this.selList = selList;
     }
 
     @Override
@@ -87,7 +89,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
             @Override
             public void onClick(View v) {
                 adjustGroup(thisUser);
-                setColor(thisUser, holder);
+                setColor(thisUser, holder, position);
             }
         });
     }
@@ -153,11 +155,21 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     }
     */
 
+    public void setColor(GroupElement thisUser, final SearchViewHolder holder, Integer position) {
+        if (addList.contains(thisUser)) {
+            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
+        } else {
+            holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
+
+        }
+    }
+
     public void setColor(GroupElement thisUser, final SearchViewHolder holder) {
         if (addList.contains(thisUser)) {
             holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
         } else {
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
+
         }
     }
 }
