@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -46,7 +42,7 @@ public class PersonalUserProfile extends AppCompatActivity {
 
         backButton = (ImageView) findViewById(R.id.back_button);
         signoutButton = (ImageView) findViewById(R.id.signout_button);
-        avatarImage = (ImageView) findViewById(R.id.user_avatar_image);
+        avatarImage = (ImageView) findViewById(R.id.friend_avatar_image);
         name_tv = (TextView) findViewById(R.id.name_tv);
 
         email_tv = (TextView) findViewById(R.id.email_tv);

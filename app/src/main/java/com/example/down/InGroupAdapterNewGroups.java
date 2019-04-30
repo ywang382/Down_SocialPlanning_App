@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapterNewGroups.SearchViewHolder> {
@@ -20,6 +21,7 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
+    ArrayList<Boolean> selList;
     ArrayList<GroupElement> addList = new ArrayList<GroupElement>();
     String UID;
     Integer avatarIndex;
@@ -40,12 +42,13 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         }
     }
 
-    public InGroupAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
+    public InGroupAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList, ArrayList<Boolean> selList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
         this.avatarList = avatarList;
         this.UIDList = UIDList;
+        this.selList = selList;
     }
 
     @Override
@@ -66,7 +69,7 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         String arr[] = nameList.get(position).split(" ", 2);
         holder.name.setText(arr[0]);
         final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
-        setColor(thisUser, holder);
+        setColor(thisUser, holder, selList.get(position));
 
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
@@ -76,7 +79,7 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
             @Override
             public void onClick(View v) {
                 adjustGroup(thisUser);
-                setColor(thisUser, holder);
+                setColor(thisUser, holder, selList.get(position));
             }
         });
     }
@@ -149,4 +152,14 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
     }
+
+    public void setColor(GroupElement thisUser, final SearchViewHolder holder, Boolean sel) {
+        if (addList.contains(thisUser)) {
+            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
+
+        } else {
+            holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+    }
+
 }
