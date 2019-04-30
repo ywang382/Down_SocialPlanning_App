@@ -109,7 +109,7 @@ public class GroupsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                
+
             }
 
             @Override
@@ -199,29 +199,49 @@ public class GroupsFragment extends Fragment {
                             continue;
                         }
 
-                        String name = snapshot.child("name").getValue(String.class);
-                        String email = snapshot.child("email").getValue(String.class);
-                        String UID = snapshot.getKey();
-                        Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
-
                         String groupName = snapshot.getKey();
+                        ArrayList<String> membersList = new ArrayList<>();
+                        ArrayList<String> nameList = new ArrayList<>();
                         String groupDescript = "";
+                        int i = 0;
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            i++;
+                            membersList.add(snap.getKey());
+                            if (i <= 3) {
+                                String name = snap.getValue().toString();
+                                nameList.add(name);
+                            }
+                        }
+
+                        switch (i) {
+                            case 1:
+                                groupDescript = nameList.get(0);
+                                break;
+                            case 2:
+                                groupDescript = nameList.get(0) + " and " + nameList.get(1);
+                                break;
+                            case 3:
+                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + nameList.get(2);
+                                break;
+                            default:
+                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + ", " + nameList.get(2) + " and " + (i - 3) + " others";
+                        }
 
                         if (groupName.toLowerCase().contains(searchedString.toLowerCase())) {
 
+                            groupUIDList.add(membersList);
                             groupNameList.add(groupName);
                             groupDescriptList.add(groupDescript);
                             counter++;
                         }
-                        /*
-                        else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
-                            nameList.add(name);
-                            emailList.add(email);
-                            UIDList.add(UID);
-                            avatarList.add(avatarIndex);
+
+                        else if (groupDescript.toLowerCase().contains(searchedString.toLowerCase())) {
+                            groupUIDList.add(membersList);
+                            groupNameList.add(groupName);
+                            groupDescriptList.add(groupDescript);
                             counter++;
                         }
-                        */
+
 
                         /*
                          * Get maximum of 15 searched results only
