@@ -154,11 +154,10 @@ public class MyFeedActivity extends AppCompatActivity
         } else if (id == R.id.nav_groups) {
             fragment = new GroupsFragment();
         } else if (id == R.id.nav_settings) {
-            // code was previously used for sign-in / sign-out
-            /*FirebaseAuth.getInstance().signOut();
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivity(i);
-            finish();*/
+
+            Intent a = new Intent(this, SettingsActivity.class);
+            startActivity(a);
+
 
         } else if (id == R.id.nav_account) {
             Intent i = new Intent(this, PersonalUserProfile.class);

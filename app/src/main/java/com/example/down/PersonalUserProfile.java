@@ -43,12 +43,12 @@ public class PersonalUserProfile extends AppCompatActivity {
         backButton = (ImageView) findViewById(R.id.back_button);
         signoutButton = (ImageView) findViewById(R.id.signout_button);
         avatarImage = (ImageView) findViewById(R.id.friend_avatar_image);
-        name_tv = (TextView) findViewById(R.id.name_tv);
+        name_tv = (TextView) findViewById(R.id.Settings_tv);
 
         email_tv = (TextView) findViewById(R.id.email_tv);
         friendsCount_tv = (TextView) findViewById(R.id.friends_count_tv);
         downCount_tv = (TextView) findViewById(R.id.downs_count_tv);
-        scoreHead_tv = (TextView) findViewById(R.id.score_head_tv);
+        scoreHead_tv = (TextView) findViewById(R.id.Account_Settings_tv);
         scoreOne_tv = (TextView) findViewById(R.id.score1_tv);
         scoreTwo_tv = (TextView) findViewById(R.id.score2_tv);
         scoreThree_tv = (TextView) findViewById(R.id.score3_tv);
