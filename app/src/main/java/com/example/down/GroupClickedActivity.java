@@ -117,7 +117,7 @@ public class GroupClickedActivity extends AppCompatActivity {
                     avatarList.clear();
                     UIDList.clear();
                     recyclerView.removeAllViews();
-                    setAdapter(" ");
+                    setAdapter("");
                 }
             }
         });
@@ -166,9 +166,11 @@ public class GroupClickedActivity extends AppCompatActivity {
                      * Search all users for matching searched string
                      * */
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        /*
                         if (snapshot.child("friends").hasChild(curUser)) {
                             continue;
                         }
+                        */
                         if(snapshot.getKey().equals(curUser)){
                             continue;
                         }

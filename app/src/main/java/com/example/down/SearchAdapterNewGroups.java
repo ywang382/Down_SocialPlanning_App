@@ -109,11 +109,15 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     }
 
     public void adjustGroup(String name, String email, Integer avatar, String UID) {
-        if (selUIDList != null && selUIDList.contains(UID)) {
-            //selUIDList.remove(UID);
-            //nameAddList.remove(name);
-            //emailAddList.remove(email);
-            //avatarAddList.remove(avatar);
+        if (selUIDList.contains(UID)) {
+            selUIDList.remove(UID);
+            selUIDList.trimToSize();
+            nameAddList.remove(name);
+            nameAddList.trimToSize();
+            emailAddList.remove(email);
+            emailAddList.trimToSize();
+            avatarAddList.remove(avatar);
+            avatarAddList.trimToSize();
         } else {
             selUIDList.add(UID);
             nameAddList.add(name);

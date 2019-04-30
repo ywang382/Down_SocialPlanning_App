@@ -95,7 +95,7 @@ public class AddFriendActivity extends AppCompatActivity {
                     avatarList.clear();
                     UIDList.clear();
                     recyclerView.removeAllViews();
-                    setAdapter(" ");
+                    setAdapter("");
                 }
             }
         });
