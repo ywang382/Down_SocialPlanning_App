@@ -52,12 +52,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     // creates a notification and displays on the device
     private void sendNotification(RemoteMessage remoteMessage) {
+        String type = remoteMessage.getData().get("type");
         RemoteMessage.Notification notification = remoteMessage.getNotification();
         // intent to travel from notification to the main feed
-        Intent intent = new Intent(this, MyFeedActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        Intent intent;
+        PendingIntent pendingIntent;
+        Log.d(TAG, "Type of notification received: " + type);
+
+        if (type.equals("down")) {
+            intent = new Intent(this, MyFeedActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        } else {
+            intent = new Intent(this, FriendsFragment.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+        }
 
         String channelId = getString(R.string.default_notification_channel_id);
         // set ringtone for notification
