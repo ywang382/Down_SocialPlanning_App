@@ -34,10 +34,6 @@ public class GroupsFragment extends Fragment {
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
-    ArrayList<String> nameList;
-    ArrayList<String> emailList;
-    ArrayList<Integer> avatarList;
-    ArrayList<String> UIDList;
     SearchAdapterYourGroups searchAdapterYourGroups;
 
     ArrayList<String> groupNameList;
@@ -96,10 +92,6 @@ public class GroupsFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
 
         //Creates a array list for each node
-        nameList = new ArrayList<>();
-        emailList = new ArrayList<>();
-        avatarList = new ArrayList<>();
-        UIDList = new ArrayList<>();
 
         groupNameList = new ArrayList<>();
         groupDescriptList = new ArrayList<>();
@@ -127,10 +119,6 @@ public class GroupsFragment extends Fragment {
                     /*
                      * Clear the list when editText is empty
                      * */
-                    nameList.clear();
-                    emailList.clear();
-                    avatarList.clear();
-                    UIDList.clear();
 
                     groupNameList.clear();
                     groupDescriptList.clear();
@@ -151,10 +139,6 @@ public class GroupsFragment extends Fragment {
                 /*
                  * Clear the list for every new search
                  * */
-                nameList.clear();
-                emailList.clear();
-                avatarList.clear();
-                UIDList.clear();
                 recyclerView.removeAllViews();
 
                 groupNameList.clear();
@@ -165,16 +149,6 @@ public class GroupsFragment extends Fragment {
 
                 if (searchedString.length() == 0) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        /*
-                        String name = snapshot.child("name").getValue(String.class);
-                        String email = snapshot.child("email").getValue(String.class);
-                        String UID = snapshot.getKey();
-                        Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
-                        nameList.add(name);
-                        emailList.add(email);
-                        UIDList.add(UID);
-                        avatarList.add(avatarIndex);
-*/
 
                         String groupName = snapshot.getKey();
                         ArrayList<String> membersList = new ArrayList<>();
@@ -183,9 +157,9 @@ public class GroupsFragment extends Fragment {
                         int i = 0;
                         for (DataSnapshot snap : snapshot.getChildren()) {
                             i++;
-                            membersList.add(snapshot.getKey());
+                            membersList.add(snap.getKey());
                             if (i <= 3) {
-                                String name = snapshot.getValue().toString();
+                                String name = snap.getValue().toString();
                                 nameList.add(name);
                             }
                         }
@@ -233,12 +207,6 @@ public class GroupsFragment extends Fragment {
                         String groupDescript = "";
 
                         if (groupName.toLowerCase().contains(searchedString.toLowerCase())) {
-                            /*
-                            nameList.add(name);
-                            emailList.add(email);
-                            UIDList.add(UID);
-                            avatarList.add(avatarIndex);
-                            */
 
                             groupNameList.add(groupName);
                             groupDescriptList.add(groupDescript);
