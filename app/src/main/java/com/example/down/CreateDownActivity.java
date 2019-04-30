@@ -84,10 +84,26 @@ public class CreateDownActivity extends AppCompatActivity {
 
                 // Going through Friends and getting all the friends
                 // that have been invited
-                ArrayList<String> invited = new ArrayList<>();
+                ArrayList<String> invitedTemp = new ArrayList<>();
                 for(FriendEntry f : friends){
                     if(f.getSelect())
-                        invited.add(f.getUid());
+                        invitedTemp.add(f.getUid());
+                }
+                // go through and add string of each friend
+                // in each group that has been invited
+                for (GroupEntry g: groups) {
+                    if (g.getSelect()){
+                        for (String uid: g.getFriendUids()) {
+                            invitedTemp.add(uid);
+                        }
+                    }
+                }
+                // removing duplicates
+                ArrayList<String> invited = new ArrayList<>();
+                for (String i: invitedTemp) {
+                    if (!invited.contains(i)) {
+                        invited.add(i);
+                    }
                 }
 
                 if(invited.isEmpty()){
@@ -172,30 +188,29 @@ public class CreateDownActivity extends AppCompatActivity {
                     for (Object i : groupNames) {
                         String groupName = (String) i;
                         Log.d(TAG, groupName);
+                        Map<String, Integer> groupMembersMap = (Map) dataSnapshot.child(user.getUid())
+                                .child("groups").child(groupName).getValue();
+                        ArrayList<String> groupMembersUids = new ArrayList<>();
+                        if (groupMembersMap != null) {
+                            Object[] groupMembers = groupMembersMap.keySet().toArray();
+                            for (Object j: groupMembers) {
+                                String memberUid = (String) j;
+                                groupMembersUids.add(memberUid);
+                            }
+                        }
+                        Log.d(TAG, groupMembersUids.toString());
+                        groups.add(new GroupEntry(groupName, groupMembersUids));
                     }
                 }
-                /*
-                        Map<String, Integer> group = (Map) dataSnapshot.child(user.getUid())
-                                .child("groups").getValue();
-
-
-                        String friendName = dataSnapshot.child(groupUID)
-                                .child("name").getValue(String.class);
-                        int friendAvatar = dataSnapshot.child(requestUID)
-                                .child("avatar").getValue(Integer.class);
-                        groups.add(new GroupEntry(friendName, requestUID, friendAvatar));
-                    }
-                }*/
-
                 // sorting the friends for the display
                 // uses that friends implements Comparable
                 Collections.sort(friends);
-                //Collections.sort(requests);
+                Collections.sort(groups);
 
                 Log.d(TAG, "Importing Friends...");
                 Log.d(TAG, "Imported: " + friends.size() + " friends");
-                //Log.d(TAG, "Importing Requests...");
-                //Log.d(TAG, "Imported: " + requests.size() + " friends");
+                Log.d(TAG, "Importing Groups...");
+                Log.d(TAG, "Imported: " + groups.size() + " groups");
                 mAdapter.notifyDataSetChanged();
             }
 
