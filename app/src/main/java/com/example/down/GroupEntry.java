@@ -23,6 +23,10 @@ public class GroupEntry implements Comparable<GroupEntry> {
         return this.name.toUpperCase().compareTo(g.getName().toUpperCase());
     }
 
+    public int getSizeOfGroup() {
+        return this.friendUids.size();
+    }
+
 
     public String toString() {
         return this.getName() + " " + this.getFriendUids();
