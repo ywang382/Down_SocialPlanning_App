@@ -44,7 +44,8 @@ public class GroupClickedActivity extends AppCompatActivity {
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    SearchAdapter searchAdapter;
+    SearchAdapterInGroup searchAdapter;
+    String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class GroupClickedActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        UID = firebaseUser.getUid();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -202,7 +204,7 @@ public class GroupClickedActivity extends AppCompatActivity {
                     }
                 }
 
-                searchAdapter = new SearchAdapter(GroupClickedActivity.this, nameList, emailList, avatarList, UIDList);
+                searchAdapter = new SearchAdapterInGroup(GroupClickedActivity.this, nameList, emailList, avatarList, UIDList, UID);
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapter);
