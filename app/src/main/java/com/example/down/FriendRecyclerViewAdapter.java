@@ -1,6 +1,7 @@
 package com.example.down;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -89,12 +90,21 @@ public class FriendRecyclerViewAdapter
         // getting the list of avatars
         TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
 
+        final int index = position;
         // if its a friend
         if (holder.getItemViewType() == 0) {
             FriendViewHolder specificHolder = (FriendViewHolder) holder;
             // setting view data
             specificHolder.nameTextView.setText(person.getName());
             specificHolder.avatarImageView.setImageDrawable(avatars.getDrawable(person.getAvatar()));
+            specificHolder.entireView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, FriendProfileActivity.class);
+                    intent.putExtra("userID", friends.get(index).getUid());
+                    context.startActivity(intent);
+                }
+            });
         } else { // if its a request
             RequestViewHolder specificHolder = (RequestViewHolder) holder;
             // setting view data
@@ -103,6 +113,7 @@ public class FriendRecyclerViewAdapter
             specificHolder.nameTextView.setTextColor(context.getResources().getColor(R.color.blue));
             specificHolder.avatarImageView.setImageDrawable(avatars.getDrawable(person.getAvatar()));
         }
+
 
     }
 
@@ -118,11 +129,13 @@ public class FriendRecyclerViewAdapter
         // each data item is just a string in this case
         private TextView nameTextView;
         private ImageView avatarImageView;
+        public View entireView;
 
         public FriendViewHolder(View itemView) {
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.friend_name);
             avatarImageView = (ImageView) itemView.findViewById(R.id.request_avatar);
+            entireView = itemView;
         }
 
     }
@@ -134,6 +147,7 @@ public class FriendRecyclerViewAdapter
         private Button accept;
         private Button reject;
         private WeakReference<ClickListener> listenerRef;
+        public View entireView;
 
         public RequestViewHolder(View itemView, ClickListener listener) {
             super(itemView);
@@ -150,6 +164,7 @@ public class FriendRecyclerViewAdapter
              */
             accept.setOnClickListener(this);
             reject.setOnClickListener(this);
+            entireView = itemView;
         }
 
         @Override
