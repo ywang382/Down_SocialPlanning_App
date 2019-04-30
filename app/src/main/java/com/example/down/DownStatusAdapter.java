@@ -88,7 +88,7 @@ public class DownStatusAdapter extends
                 viewHolder.userName.setText(ds2.child("name").getValue(String.class));
                 if(!ds1.hasChildren()){ return;}
                 String st = ds1.child("status").child(curUser).getValue(String.class);
-                viewHolder.status.setText((st.isEmpty()) ? "No status yet..." : st);
+                viewHolder.status.setText((st.isEmpty()) ? "..." : st);
 
                 if(ds1.child("invited").child(curUser).getValue(Integer.class) == 1){
                     viewHolder.downButton.setImageResource(R.drawable.down);

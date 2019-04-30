@@ -41,6 +41,7 @@
     <!-- Other -->
     <string name="title_my_feed">My Feed</string>
     <string name="title_down_status">Down Status</string>
+    <string name="title_my_schedule">My Down Schedule</string>
     <string name="emptyDowns">No downs yet, make one now!</string>
     <string name="empty_scedule">Your schedule is empty, accept or make a down!</string>
     <string name="is_down">You are down to </string>
@@ -64,6 +65,10 @@
     <string name="new_friend_search">Search for friends</string>
     <string name="your_friend_search">Search your friends</string>
     <string name="newRequest"></string>
+    <string name="title_friend_profile">Friend Profile</string>
+    <string name="delete_friend_title">Delete Friend</string>
+    <string name="delete_friend_dialog">Are you sure you want to remove this person from your friend list?
+        You will need to send them a friend request again.</string>
 
     <string name="dialog_title">Confirm Sending Friend Request</string>
     <string name="dialog_text">By clicking "yes", you will send a friend request to\u0020</string>
