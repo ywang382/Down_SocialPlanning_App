@@ -25,7 +25,7 @@ public class ChooseFriendRecyclerViewAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<FriendEntry> friends;
-    private ArrayList<FriendEntry> groups;
+    private ArrayList<GroupEntry> groups;
     private Context context;
 
     // implement to navigate to page when data is clicked
@@ -33,7 +33,7 @@ public class ChooseFriendRecyclerViewAdapter
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChooseFriendRecyclerViewAdapter(Context context, ArrayList<FriendEntry> friends,
-                                     ArrayList<FriendEntry> groups) {
+                                     ArrayList<GroupEntry> groups) {
         this.friends = friends;
         //this.requests = requests;
         this.context = context;

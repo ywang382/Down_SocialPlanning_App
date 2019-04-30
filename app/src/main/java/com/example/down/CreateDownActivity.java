@@ -36,7 +36,7 @@ public class CreateDownActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<FriendEntry> friends;
-    public ArrayList<FriendEntry> groups;
+    public ArrayList<GroupEntry> groups;
     private TextView noFriendsDisplay;
 
     @Override
@@ -143,11 +143,11 @@ public class CreateDownActivity extends AppCompatActivity {
                 //groups.clear();
                 Map<String, Integer> friendMap = (Map) dataSnapshot.child(user.getUid())
                         .child("friends").getValue();
-                //Map<String, Integer> requestMap = (Map) dataSnapshot.child(user.getUid())
-                        //.child("requests").getValue();
+                Map<String, Integer> groupNamesMap = (Map) dataSnapshot.child(user.getUid())
+                        .child("groups").getValue();
 
                 // if the user doesn't have a friend section or any friends
-                if (friendMap == null){
+                if (friendMap == null && groupNamesMap == null){
                     // if no friends display the no friends message
                     recyclerView.setVisibility(View.INVISIBLE);
                     noFriendsDisplay.setVisibility(View.VISIBLE);
@@ -166,15 +166,24 @@ public class CreateDownActivity extends AppCompatActivity {
                     }
                 }
 
-                /*if (requestMap != null) {
-                    Object[] requestUIDS = requestMap.keySet().toArray();
-                    for (Object i : requestUIDS) {
-                        String requestUID = (String) i;
-                        String friendName = dataSnapshot.child(requestUID)
+
+                if (groupNamesMap != null) {
+                    Object[] groupNames = groupNamesMap.keySet().toArray();
+                    for (Object i : groupNames) {
+                        String groupName = (String) i;
+                        Log.d(TAG, groupName);
+                    }
+                }
+                /*
+                        Map<String, Integer> group = (Map) dataSnapshot.child(user.getUid())
+                                .child("groups").getValue();
+
+
+                        String friendName = dataSnapshot.child(groupUID)
                                 .child("name").getValue(String.class);
                         int friendAvatar = dataSnapshot.child(requestUID)
                                 .child("avatar").getValue(Integer.class);
-                        requests.add(new FriendEntry(friendName, requestUID, friendAvatar));
+                        groups.add(new GroupEntry(friendName, requestUID, friendAvatar));
                     }
                 }*/
 
