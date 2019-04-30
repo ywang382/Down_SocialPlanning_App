@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -151,6 +152,8 @@ public class MyFeedActivity extends AppCompatActivity
         } else if (id == R.id.nav_groups) {
             fragment = new GroupsFragment();
         } else if (id == R.id.nav_settings) {
+            Intent i = new Intent(this, SettingsActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_account) {
             Intent i = new Intent(this, PersonalUserProfile.class);
