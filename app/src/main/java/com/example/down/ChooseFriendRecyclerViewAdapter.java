@@ -35,6 +35,7 @@ public class ChooseFriendRecyclerViewAdapter
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChooseFriendRecyclerViewAdapter(Context context, ArrayList<FriendEntry> friends,
                                      ArrayList<GroupEntry> groups) {
+        setHasStableIds(true);
         this.friends = friends;
         this.groups = groups;
         this.context = context;
@@ -51,6 +52,11 @@ public class ChooseFriendRecyclerViewAdapter
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
 
