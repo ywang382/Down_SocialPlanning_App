@@ -21,6 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.example.down.CreateGroupActivity.avatarAddList;
+import static com.example.down.CreateGroupActivity.emailAddList;
+import static com.example.down.CreateGroupActivity.nameAddList;
+import static com.example.down.CreateGroupActivity.recyclerView2;
+import static com.example.down.CreateGroupActivity.selUIDList;
+
 public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNewGroups.SearchViewHolder> {
     Context context;
     ArrayList<String> nameList;
@@ -35,6 +41,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     String UID;
     Boolean sel;
     Integer avatarIndex;
+    InGroupAdapterNewGroups inGroupAdapterNewGroups;
 
 
 
@@ -88,7 +95,9 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
             @Override
             public void onClick(View v) {
                 adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
-
+                recyclerView2.removeAllViews();
+                inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
+                recyclerView2.setAdapter(inGroupAdapterNewGroups);
                 setColor(UID, holder);
             }
         });
@@ -100,16 +109,16 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     }
 
     public void adjustGroup(String name, String email, Integer avatar, String UID) {
-        if (CreateGroupActivity.selUIDList != null && CreateGroupActivity.selUIDList.contains(UID)) {
-            CreateGroupActivity.selUIDList.remove(UID);
-            CreateGroupActivity.nameAddList.remove(name);
-            CreateGroupActivity.emailAddList.remove(email);
-            CreateGroupActivity.avatarAddList.remove(avatar);
+        if (selUIDList != null && selUIDList.contains(UID)) {
+            //selUIDList.remove(UID);
+            //nameAddList.remove(name);
+            //emailAddList.remove(email);
+            //avatarAddList.remove(avatar);
         } else {
-            CreateGroupActivity.selUIDList.add(UID);
-            CreateGroupActivity.nameAddList.add(name);
-            CreateGroupActivity.emailAddList.add(email);
-            CreateGroupActivity.avatarAddList.add(avatar);
+            selUIDList.add(UID);
+            nameAddList.add(name);
+            emailAddList.add(email);
+            avatarAddList.add(avatar);
         }
     }
 
@@ -162,7 +171,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     */
 
     public void setColor(String UID, final SearchViewHolder holder) {
-        if (CreateGroupActivity.selUIDList.contains(UID)) {
+        if (selUIDList.contains(UID)) {
             holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
         } else {
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));

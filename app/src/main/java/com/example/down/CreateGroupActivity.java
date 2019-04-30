@@ -30,7 +30,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     EditText search_edit_text;
     EditText create_group_name;
     RecyclerView recyclerView;
-    RecyclerView recyclerView2;
+    static RecyclerView recyclerView2;
     DatabaseReference databaseReference;
     DatabaseReference userFriends;
     FirebaseUser firebaseUser;
@@ -259,7 +259,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapterNewGroups);
-                recyclerView2.setAdapter(inGroupAdapterNewGroups);
+                //recyclerView2.setAdapter(inGroupAdapterNewGroups);
             }
 
             @Override
