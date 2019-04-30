@@ -1,5 +1,6 @@
 package com.example.down;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -64,10 +65,15 @@ public class MyFeedActivity extends AppCompatActivity
             // Create channel to show notifications.
             String channelId  = getString(R.string.default_notification_channel_id);
             String channelName = getString(R.string.default_notification_channel_name);
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(getString(R.string.default_notification_channel_id_description));
+            channel.setShowBadge(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+
             NotificationManager notificationManager =
                     getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
-                    channelName, NotificationManager.IMPORTANCE_DEFAULT));
+            notificationManager.createNotificationChannel(channel);
         }
 
         // refreshing the token in the database
