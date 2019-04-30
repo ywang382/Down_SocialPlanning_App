@@ -27,7 +27,6 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    ArrayList<Boolean> selList;
     ArrayList<String> selectList = new ArrayList<String>();
     ArrayList<String> addListUID = new ArrayList<String>();
     ArrayList<String> addListName = new ArrayList<String>();
@@ -53,13 +52,12 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         }
     }
 
-    public SearchAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList, ArrayList<Boolean> selList) {
+    public SearchAdapterNewGroups(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
         this.avatarList = avatarList;
         this.UIDList = UIDList;
-        this.selList = selList;
     }
 
     @Override
@@ -73,15 +71,14 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.name.setText(nameList.get(position));
         holder.email.setText(emailList.get(position));
         UID = (UIDList.get(position));
-        sel = selList.get(position);
 
-        TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
+        final TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
         avatarIndex = (avatarList.get(position));
         Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
         String arr[] = nameList.get(position).split(" ", 2);
         final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
-        setColor(holder, sel);
+        setColor(UID, holder);
 
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
@@ -90,9 +87,9 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selList.set(position, !sel);
-                CreateGroupActivity.selList.set(position, !sel);
-                setColor(holder, !sel);
+                adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
+
+                setColor(UID, holder);
             }
         });
     }
@@ -102,7 +99,19 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         return nameList.size();
     }
 
-
+    public void adjustGroup(String name, String email, Integer avatar, String UID) {
+        if (CreateGroupActivity.selUIDList != null && CreateGroupActivity.selUIDList.contains(UID)) {
+            CreateGroupActivity.selUIDList.remove(UID);
+            CreateGroupActivity.nameAddList.remove(name);
+            CreateGroupActivity.emailAddList.remove(email);
+            CreateGroupActivity.avatarAddList.remove(avatar);
+        } else {
+            CreateGroupActivity.selUIDList.add(UID);
+            CreateGroupActivity.nameAddList.add(name);
+            CreateGroupActivity.emailAddList.add(email);
+            CreateGroupActivity.avatarAddList.add(avatar);
+        }
+    }
 
     public class GroupElement
     {
@@ -152,13 +161,14 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     }
     */
 
-    public void setColor(final SearchViewHolder holder, Boolean sel) {
-        if (sel) {
+    public void setColor(String UID, final SearchViewHolder holder) {
+        if (CreateGroupActivity.selUIDList.contains(UID)) {
             holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
         } else {
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
 
         }
     }
+
 
 }

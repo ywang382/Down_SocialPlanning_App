@@ -28,23 +28,29 @@ import java.util.ArrayList;
 
 public class CreateGroupActivity extends AppCompatActivity {
     EditText search_edit_text;
+    EditText create_group_name;
     RecyclerView recyclerView;
     RecyclerView recyclerView2;
     DatabaseReference databaseReference;
     DatabaseReference userFriends;
     FirebaseUser firebaseUser;
+
+    ArrayList<GroupElement> displayFriends;
+
     ArrayList<String> nameList;
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
+
+
     static ArrayList<Boolean> selList;
 
-    ArrayList<String> nameAddList;
-    ArrayList<String> emailAddList;
-    ArrayList<Integer> avatarAddList;
-    ArrayList<String> UIDAddList;
+    static ArrayList<String> nameAddList;
+    static ArrayList<String> emailAddList;
+    static ArrayList<Integer> avatarAddList;
     ArrayList<String> friendList;
     static ArrayList<String> selUIDList;
+    String groupName;
     SearchAdapterNewGroups searchAdapterNewGroups;
     InGroupAdapterNewGroups inGroupAdapterNewGroups;
 
@@ -53,16 +59,8 @@ public class CreateGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
 
-        /*
-        FloatingActionButton fab = this.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CreateGroupActivity.this, AddFriendActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
+
+
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.title_activity_create_group));
@@ -78,6 +76,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         });
 
         search_edit_text = (EditText) findViewById(R.id.search_edit_text);
+        create_group_name = (EditText) findViewById(R.id.create_group_name);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView2 = (RecyclerView) findViewById(R.id.recyclerView2);
 
@@ -86,7 +85,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         String uid = firebaseUser.getUid();
 
-        userFriends = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("friends");
+        userFriends = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
 
 
         recyclerView.setHasFixedSize(true);
@@ -107,11 +106,27 @@ public class CreateGroupActivity extends AppCompatActivity {
         UIDList = new ArrayList<>();
         selList = new ArrayList<>();
 
+        displayFriends = new ArrayList<>();
+
+
         nameAddList = new ArrayList<>();
         emailAddList = new ArrayList<>();
         avatarAddList = new ArrayList<>();
-        UIDAddList = new ArrayList<>();
         friendList = new ArrayList<>();
+        selUIDList = new ArrayList<>();
+
+        FloatingActionButton fab = this.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                groupName = create_group_name.getText().toString();
+
+                for (int i = 0; i < selUIDList.size(); i++) {
+                    userFriends.child("groups").child(groupName).child(selUIDList.get(i)).setValue(nameAddList.get(i));
+                }
+                finish();
+            }
+        });
 
         userFriends.child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -153,7 +168,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     UIDList.clear();
                     selList.clear();
                     recyclerView.removeAllViews();
-                    setAdapter(" ");
+                    setAdapter("");
                 }
             }
         });
@@ -181,14 +196,14 @@ public class CreateGroupActivity extends AppCompatActivity {
                         String email = snapshot.child("email").getValue(String.class);
                         String UID = snapshot.getKey();
                         Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
-                        //if (friendList.contains(UID)) {
+                        if (friendList.contains(UID)) {
                             nameList.add(name);
                             emailList.add(email);
                             UIDList.add(UID);
                             avatarList.add(avatarIndex);
                             selList.add(false);
                             counter++;
-                        //}
+                        }
                         if (counter == 15)
                             break;
                     }
@@ -199,33 +214,36 @@ public class CreateGroupActivity extends AppCompatActivity {
                      * Search all users for matching searched string
                      * */
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        /*
                         if (snapshot.child("friends").hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                             continue;
                         }
+                        */
 
                         String name = snapshot.child("name").getValue(String.class);
                         String email = snapshot.child("email").getValue(String.class);
                         String UID = snapshot.getKey();
                         Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
-
-                       // if () {
-
                             if (name.toLowerCase().contains(searchedString.toLowerCase())) {
-                                nameList.add(name);
-                                emailList.add(email);
-                                UIDList.add(UID);
-                                avatarList.add(avatarIndex);
-                                selList.add(false);
-                                counter++;
+                                if (friendList.contains(UID)) {
+                                    nameList.add(name);
+                                    emailList.add(email);
+                                    UIDList.add(UID);
+                                    avatarList.add(avatarIndex);
+                                    selList.add(false);
+                                    counter++;
+                                }
                             } else if (email.toLowerCase().contains(searchedString.toLowerCase())) {
-                                nameList.add(name);
-                                emailList.add(email);
-                                UIDList.add(UID);
-                                avatarList.add(avatarIndex);
-                                selList.add(false);
-                                counter++;
+                                if (friendList.contains(UID)) {
+                                    nameList.add(name);
+                                    emailList.add(email);
+                                    UIDList.add(UID);
+                                    avatarList.add(avatarIndex);
+                                    selList.add(false);
+                                    counter++;
+                                }
                             }
-                        //}
+
 
                         /*
                          * Get maximum of 15 searched results only
@@ -235,8 +253,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                     }
                 }
 
-                searchAdapterNewGroups = new SearchAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList, selList);
-                inGroupAdapterNewGroups = new InGroupAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList, selList);
+                searchAdapterNewGroups = new SearchAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
+                //inGroupAdapterNewGroups = new InGroupAdapterNewGroups(CreateGroupActivity.this, nameAddList, emailAddList, avatarAddList, selUIDList);
 
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
@@ -249,5 +267,45 @@ public class CreateGroupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public class GroupElement
+    {
+        // Instance Variables
+        String name;
+        String UID;
+        String email;
+        int avatarIndex;
+
+        // Constructor Declaration of Class
+        public GroupElement(String name, String UID, String email,
+                            int avatarIndex)
+        {
+            this.name = name;
+            this.UID = UID;
+            this.email = email;
+            this.avatarIndex = avatarIndex;
+        }
+
+        // method 1
+        public String getName()
+        {
+            return name;
+        }
+
+        // method 2
+        public String getUID()
+        {
+            return UID;
+        }
+
+        // method 3
+        public int getAvatarIndex()
+        {
+            return avatarIndex;
+        }
+
+        public String getEmail() { return email; }
     }
 }
