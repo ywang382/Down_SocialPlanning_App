@@ -1,0 +1,243 @@
+// This file serves as a reference and documenation of all scrums + accomplished tasks
+// Original file is Meeting Minutes in Google Drive
+
+Date: 5/01/19
+Start time: 5:30pm
+End time: 6:30am
+Attendance: Conner, Ryenne, Trenton, Will
+Discussed Topics:
+Progress so far
+Adjustment to sprint 2 goals
+Features to implement for friday, namely:
+	Tutorial
+	Notification settings
+	Groups and adding groups
+
+Date: 4/29/19
+Start time: 10:00pm
+End time: 12:00am
+Attendance: Conner, Vance, Trenton, Will
+Discussed Topics:
+Progress so far
+Groups and bugs with groups
+Adding settings
+Presentation
+
+Date: 4/24/19
+Start time: 5:30pm
+End time: 6:30pm
+Attendance: Ryenne, Vance, Trenton, Will
+Discussed Topics:
+Progress so far
+Questions
+
+Date: 4/22/19
+Start time: 7:00pm
+End time: 8:30pm
+Attendance: Vance, Conner, Trenton, Will
+Discussed Topics:
+Progress so far
+Analysis / small changes of Event page
+Bug fixes
+Notification discussion
+Progress goals for Wednesday
+
+Date: 4/17/19
+Start time: 7:00pm
+End time: 8:00pm
+Attendance: Vance, Ryenne, Trenton, Will, Conner
+Discussed Topics:
+Did grading for sprint 1
+Talked about notifications steps
+Showed Vance's progress in groups
+
+Date: 4/14/19
+Start time: 6:00pm
+End time: 9:30pm
+Attendance: Vance, Conner, Trenton, Will
+Discussed Topics:
+Finished up small components
+Combined misssing parts
+Linked parts together
+Testing
+
+Date: 4/13/19
+Start time: 4:30pm
+End time: 5:30pm
+Attendance: Conner, Trenton
+Discussed Topics:
+How to do choose friends for Down creation recycler view
+
+
+Date: 4/10/19
+Start time: 5:30pm
+End time: 6:30pm
+Attendance: Ryenne, Conner, Vance, Will, Trenton
+Discussed Topics:
+Using branches for GitHub
+Talked about status bar changes
+Met about progress and next steps
+
+Date: 4/7/19
+Start time: 7:00pm
+End time: 8:30pm
+Attendance: Vance, Trenton, Will, Conner
+Discussed Topics:
+Progress
+Next steps
+Distribution of tasks
+Guiding points
+
+
+Date: 4/3/19
+Start time: 7:00pm
+End Time: 7:45pm
+Attendance: Vance, Conner, Trenton, Will, Ryenne
+Discussed Topics:
+Progress
+Friend Feed Activity
+How to work with adapters
+Database storage
+
+
+Date: 3/31/19
+Start time: 8:00pm
+End Time: 10:00pm
+Attendance: Vance, Conner, Trenton, Will
+Discussed Topics:
+Git setup
+Firebase database
+Storing information in firebase
+Distribution of Sprint one tasks
+How to implement common coding format, team code writing policies
+
+
+
+<---- Start of Sprint ---->
+
+Date: 3/27/19
+Start time: 11:00pm
+End Time: 11:30pm
+Attendance
+Conner, Trenton, Will, Ryenne, Dr. Selinski
+Discussed Topics:
+Finished product backlog
+
+Date: 3/26/19
+Start time: 11:00pm
+End Time: 11:30pm
+Attendance
+Conner, Trenton, Will, Vance
+Discussed Topics:
+Finshed product backlog
+
+Date: 3/25/19
+Start time: 7:00pm
+End Time: 9:00pm
+Attendance
+Conner, Trenton, Will, Vance
+Discussed Topics:
+Design Modification
+Product backlog
+
+Date: 3/12/19
+Start time: 7:00pm
+End Time: 7:15pm
+Attendance
+Conner, Trenton, Ryenne
+Discussed Topics:
+Explanation of design
+Future advise
+
+Date: 3/11/19
+Start time: 9:30pm
+End Time: 11:00
+Attendance
+Trenton, Wance, Will, Conner
+Discussed Topics:
+Finishing the presentation
+
+Date: 3/10/19
+Start time: 2:30pm
+End Time: 5:00pm
+Attendance
+Conner, Trenton, Will, Vance
+Discussed Topics:
+Design intricacies
+Final project distribution of work
+Presentation work
+
+Date: 3/9/2019
+Start time: 1:30pm
+End Time: 5:00
+Attendance
+Vance, Will, Trenton, Conner
+Discussed Topics:
+Interview results
+App features
+Design, changing draft
+Personal work time on Presentation, Design Document, Design Sheet, and Character Personas
+
+
+Date: 3/3/2019
+Start time: 10:15pm
+End Time: 10:45pm
+Attendance
+Conner, Will, Trenton, Vance
+Discussed Topics:
+Survey Results
+Planning plan of attack
+
+Date: 2/28/2019
+Start time: 3:10
+End Time: 4:10
+Attendance
+Will, Conner, Trenton, Vance
+Discussed Topics:
+Assemble survey
+Discuss what ideas we have for the app
+Creating written design
+Using features to design questions for specifics in the survey
+Final Question editing
+
+Date: 2/26/2019 Scrum
+Start time: 11:00 pm
+End Time: 11:30 pm
+Attendance
+Conner, Vance, Will
+Discussed Topics:
+Scheduling for project
+Survey plan
+Question generation
+
+
+
+Date: 2/24/2019, Scrum
+Start time: 8:15
+End Time: 8:35
+Attendance
+Conner, Trenton, Vance
+Discussed Topics:
+How to generate the questions / establishing Google Doc to do the questions
+Identifying potential users
+What sources to ask
+When to next Scrum
+
+
+Date: 2/17/2019, Full
+Start time: 9:00pm
+End Time: 10:15pm
+Attendance
+Conner, Trenton, Will, Vance
+Discussed Topics:
+Group introduction, designating scribe
+Setting up meeting times
+Discussing project ideas
+Hashing out the down app ideas
+Looking at differences
+Spell check and finalization
+Arranging for next meeting / goodbyes
+
+
+
+
