@@ -111,7 +111,7 @@ public class MyFeedActivity extends AppCompatActivity
 
         db = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
 
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 name.setText(dataSnapshot.child("name").getValue(String.class));

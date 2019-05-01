@@ -48,7 +48,7 @@ public class PersonalUserProfile extends AppCompatActivity {
         email_tv = (TextView) findViewById(R.id.email_tv);
         friendsCount_tv = (TextView) findViewById(R.id.friends_count_tv);
         downCount_tv = (TextView) findViewById(R.id.downs_count_tv);
-        scoreHead_tv = (TextView) findViewById(R.id.score_head_tv);
+        scoreHead_tv = (TextView) findViewById(R.id.account_setting);
         scoreOne_tv = (TextView) findViewById(R.id.score1_tv);
         scoreTwo_tv = (TextView) findViewById(R.id.score2_tv);
         scoreThree_tv = (TextView) findViewById(R.id.score3_tv);

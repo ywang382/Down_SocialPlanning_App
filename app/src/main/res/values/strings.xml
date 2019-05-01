@@ -82,4 +82,22 @@
     <string name="name_goes_here">Name goes here</string>
     <string name="title_activity_group">Group</string>
 
+    <!-- Strings related to Settings -->
+    <string name="account_setting">Account Settings</string>
+    <string name="change_name">Change Name</string>
+    <string name="new_name">Enter New Name</string>
+    <string name="confirm_name">Confirm New Name</string>
+    <string name="change_email">Change Email</string>
+    <string name="new_email">Enter New Email</string>
+    <string name="confirm_email">Confirm New Email</string>
+    <string name="change_pw">Change Password</string>
+    <string name="old_pw">Enter Current Password</string>
+    <string name="new_pw">Enter New Password</string>
+    <string name="confirm_pw">Confirm New Password</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="confirm_update">Settings Updated</string>
+
+
+
+
 </resources>

@@ -12,7 +12,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@+id/score_head_tv"
+        app:layout_constraintTop_toBottomOf="@+id/account_setting"
         tools:layout_editor_absoluteX="8dp" />
 
     <ImageView
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_tv" />
 
     <TextView
-        android:id="@+id/score_head_tv"
+        android:id="@+id/account_setting"
         android:layout_width="198dp"
         android:layout_height="25dp"
         android:layout_marginStart="15dp"
@@ -107,7 +107,7 @@
         android:textAlignment="textStart"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_head_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/account_setting" />
 
     <TextView
         android:id="@+id/score2_tv"
