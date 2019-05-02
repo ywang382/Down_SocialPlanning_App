@@ -22,12 +22,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import static com.example.down.CreateGroupActivity.avatarAddList;
+import static com.example.down.CreateGroupActivity.emailAddList;
+import static com.example.down.CreateGroupActivity.nameAddList;
+import static com.example.down.CreateGroupActivity.recyclerView2;
+import static com.example.down.CreateGroupActivity.selUIDList;
 
 public class EditGroupActivity extends AppCompatActivity {
     EditText search_edit_text;
     EditText create_group_name;
     RecyclerView recyclerView;
-    static RecyclerView recyclerView2;
     DatabaseReference databaseReference;
     DatabaseReference userFriends;
     FirebaseUser firebaseUser;
@@ -42,11 +46,7 @@ public class EditGroupActivity extends AppCompatActivity {
 
     static ArrayList<Boolean> selList;
 
-    static ArrayList<String> nameAddList;
-    static ArrayList<String> emailAddList;
-    static ArrayList<Integer> avatarAddList;
     ArrayList<String> friendList;
-    static ArrayList<String> selUIDList;
     String groupName;
     SearchAdapterNewGroups searchAdapterNewGroups;
     InGroupAdapterNewGroups inGroupAdapterNewGroups;

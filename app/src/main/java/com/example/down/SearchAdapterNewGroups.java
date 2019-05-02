@@ -83,6 +83,10 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
         setColor(UID, holder);
 
+        inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
+        recyclerView2.setAdapter(inGroupAdapterNewGroups);
+        setColor(UIDList.get(position), holder);
+
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);

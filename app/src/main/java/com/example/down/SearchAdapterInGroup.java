@@ -106,6 +106,8 @@ public class SearchAdapterInGroup extends RecyclerView.Adapter<SearchAdapterInGr
                 Toast.makeText(context, "You have removed " + userName + " from the group", Toast.LENGTH_SHORT).show();
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
                 db.child(userID).child("groups").child(groupName).child(uID).removeValue();
+                //UIDList.remove(uID);
+
             }
         });
 
