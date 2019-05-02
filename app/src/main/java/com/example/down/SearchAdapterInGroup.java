@@ -28,6 +28,7 @@ public class SearchAdapterInGroup extends RecyclerView.Adapter<SearchAdapterInGr
     String UIDi;
     String userUID;
     Integer avatarIndex;
+    private String groupName;
 
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
@@ -44,13 +45,15 @@ public class SearchAdapterInGroup extends RecyclerView.Adapter<SearchAdapterInGr
         }
     }
 
-    public SearchAdapterInGroup(Context context, ArrayList<String> nameList, ArrayList<String> emailList, ArrayList<Integer> avatarList, ArrayList<String> UIDList, String UID) {
+    public SearchAdapterInGroup(Context context, ArrayList<String> nameList, ArrayList<String> emailList,
+                                ArrayList<Integer> avatarList, ArrayList<String> UIDList, String UID, String gName) {
         this.context = context;
         this.nameList = nameList;
         this.emailList = emailList;
         this.avatarList = avatarList;
         this.UIDList = UIDList;
         this.userUID = UID;
+        this.groupName = gName;
     }
 
     @Override
@@ -75,10 +78,11 @@ public class SearchAdapterInGroup extends RecyclerView.Adapter<SearchAdapterInGr
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
-        holder.entireView.setOnClickListener(new View.OnClickListener() {
+        holder.entireView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 buildHer(UIDList.get(position), nameList.get(position));
+                return true;
             }
         });
     }
@@ -101,7 +105,7 @@ public class SearchAdapterInGroup extends RecyclerView.Adapter<SearchAdapterInGr
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(context, "You have removed " + userName + " from the group", Toast.LENGTH_SHORT).show();
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
-                db.child(userID).child("groups").child(uID).removeValue();
+                db.child(userID).child("groups").child(groupName).child(uID).removeValue();
             }
         });
 
@@ -110,6 +114,6 @@ public class SearchAdapterInGroup extends RecyclerView.Adapter<SearchAdapterInGr
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.blue));
+        builder.show().getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.red));
     }
 }

@@ -78,11 +78,43 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
                 context.startActivity(intent);
             }
         });
+
+        holder.entireView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                buildHer(groupNameList.get(position));
+                return true;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return groupNameList.size();
+    }
+
+    public void buildHer (final String groupName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Deleting Group");
+        builder.setMessage("By clicking yes, you will remove the group " + groupName);
+
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, "You have removed " + groupName, Toast.LENGTH_SHORT).show();
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+                db.child(userID).child("groups").child(groupName).removeValue();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.show().getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.red));
     }
     
 }

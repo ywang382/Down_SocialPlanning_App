@@ -134,7 +134,7 @@ public class GroupsFragment extends Fragment {
     private void setAdapter(final String searchedString) {
 
 
-        userGroups.child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
+        userGroups.child("groups").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 /*

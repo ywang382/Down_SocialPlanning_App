@@ -126,7 +126,7 @@ public class GroupClickedActivity extends AppCompatActivity {
 
     }
     private void setAdapter(final String searchedString) {
-        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 /*
@@ -206,7 +206,7 @@ public class GroupClickedActivity extends AppCompatActivity {
                     }
                 }
 
-                searchAdapter = new SearchAdapterInGroup(GroupClickedActivity.this, nameList, emailList, avatarList, UIDList, UID);
+                searchAdapter = new SearchAdapterInGroup(GroupClickedActivity.this, nameList, emailList, avatarList, UIDList, UID, groupName);
 
                 //SearchAdapter(AddFriendActivity.this, nameList, emailList);
                 recyclerView.setAdapter(searchAdapter);

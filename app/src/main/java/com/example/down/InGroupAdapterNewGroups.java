@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    ArrayList<GroupElement> addList = new ArrayList<GroupElement>();
+    ArrayList<GroupElement> addList = new ArrayList<>();
     String UID;
     Integer avatarIndex;
 
@@ -56,8 +57,9 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
     }
 
     @Override
-    public void onBindViewHolder(final SearchViewHolder holder, final int position) {
+    public void onBindViewHolder(final SearchViewHolder holder, int position) {
         //holder.name.setText(nameList.get(position));
+        //Log.d("Tim", " " + UIDList.size());
         UID = (UIDList.get(position));
 
         TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);
@@ -67,19 +69,20 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
         String arr[] = nameList.get(position).split(" ", 2);
         holder.name.setText(arr[0]);
         final GroupElement thisUser = new GroupElement(arr[0], UID, avatarIndex);
-        setColor(UID, holder);
+        //setColor(UID, holder);
 
         //Glide.with(context).load(avatars.getDrawable(avatarIndex)).placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(R.drawable.avatar0).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
         //Glide.with(context).load(avatarList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round).into(holder.avatarImage);
 
+        /*
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adjustGroup(UID);
                 setColor(UID, holder);
             }
-        });
+        });*/
     }
 
     @Override
