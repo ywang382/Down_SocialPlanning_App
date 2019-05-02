@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +46,7 @@ public class GroupClickedActivity extends AppCompatActivity {
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
     SearchAdapterInGroup searchAdapter;
+    private FloatingActionButton edit;
     String UID;
 
     @Override
@@ -74,6 +76,7 @@ public class GroupClickedActivity extends AppCompatActivity {
         nameOfGroup.setText(groupName);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         search_edit_text = (EditText) findViewById(R.id.search_edit_text);
+        edit = (FloatingActionButton) findViewById(R.id.edit_group);
 
 
 
@@ -119,6 +122,20 @@ public class GroupClickedActivity extends AppCompatActivity {
                     recyclerView.removeAllViews();
                     setAdapter("");
                 }
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(GroupClickedActivity.this, EditGroupActivity.class);
+                Log.d("Tim", UIDList.size()+"");
+                i.putStringArrayListExtra("nameList", nameList);
+                i.putStringArrayListExtra("emailList", emailList);
+                i.putIntegerArrayListExtra("avatarList", avatarList);
+                i.putStringArrayListExtra("uidList", UIDList);
+                startActivity(i);
+
             }
         });
 

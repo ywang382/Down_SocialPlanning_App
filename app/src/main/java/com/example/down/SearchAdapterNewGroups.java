@@ -1,6 +1,5 @@
 package com.example.down;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -14,9 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +25,10 @@ import static com.example.down.CreateGroupActivity.selUIDList;
 
 public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNewGroups.SearchViewHolder> {
     Context context;
-    ArrayList<String> nameList;
-    ArrayList<String> emailList;
-    ArrayList<Integer> avatarList;
-    ArrayList<String> UIDList;
+    private ArrayList<String> nameList;
+    private ArrayList<String> emailList;
+    private ArrayList<Integer> avatarList;
+    private ArrayList<String> UIDList;
     ArrayList<String> selectList = new ArrayList<String>();
     ArrayList<String> addListUID = new ArrayList<String>();
     ArrayList<String> addListName = new ArrayList<String>();
@@ -94,11 +90,24 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
+                //adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
                 recyclerView2.removeAllViews();
-                //inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
+                int index = selUIDList.indexOf(UIDList.get(position));
+                if(index != -1){
+                    selUIDList.remove(index);
+                    nameAddList.remove(index);
+                    emailAddList.remove(index);
+                    avatarAddList.remove(index);
+                } else {
+                    nameAddList.add(nameList.get(position));
+                    emailAddList.add(emailList.get(position));
+                    avatarAddList.add(avatarList.get(position));
+                    selUIDList.add(UIDList.get(position));
+                }
+
+                inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
                 recyclerView2.setAdapter(inGroupAdapterNewGroups);
-                setColor(UID, holder);
+                setColor(UIDList.get(position), holder);
             }
         });
     }
@@ -106,24 +115,6 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     @Override
     public int getItemCount() {
         return nameList.size();
-    }
-
-    public void adjustGroup(String name, String email, Integer avatar, String UID) {
-        if (selUIDList.contains(UID)) {
-            selUIDList.remove(UID);
-            selUIDList.trimToSize();
-            nameAddList.remove(name);
-            nameAddList.trimToSize();
-            emailAddList.remove(email);
-            emailAddList.trimToSize();
-            avatarAddList.remove(avatar);
-            avatarAddList.trimToSize();
-        } else {
-            selUIDList.add(UID);
-            nameAddList.add(name);
-            emailAddList.add(email);
-            avatarAddList.add(avatar);
-        }
     }
 
     public class GroupElement
@@ -176,7 +167,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
 
     public void setColor(String UID, final SearchViewHolder holder) {
         if (selUIDList.contains(UID)) {
-            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
+            holder.entireView.setBackgroundColor(Color.parseColor("#B8F0D1"));
         } else {
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
 

@@ -24,6 +24,10 @@
             android:label="@string/title_activity_create_group"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".EditGroupActivity"
+            android:label="@string/title_activity_create_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".PersonalUserProfile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
