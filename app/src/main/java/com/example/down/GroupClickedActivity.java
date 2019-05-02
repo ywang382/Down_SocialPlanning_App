@@ -45,7 +45,7 @@ public class GroupClickedActivity extends AppCompatActivity {
     ArrayList<String> emailList;
     ArrayList<Integer> avatarList;
     ArrayList<String> UIDList;
-    SearchAdapterInGroup searchAdapter;
+    public static SearchAdapterInGroup searchAdapter;
     private FloatingActionButton edit;
     String UID;
 
@@ -134,6 +134,7 @@ public class GroupClickedActivity extends AppCompatActivity {
                 i.putStringArrayListExtra("emailList", emailList);
                 i.putIntegerArrayListExtra("avatarList", avatarList);
                 i.putStringArrayListExtra("uidList", UIDList);
+                i.putExtra("groupName", groupName);
                 startActivity(i);
 
             }
@@ -183,11 +184,7 @@ public class GroupClickedActivity extends AppCompatActivity {
                      * Search all users for matching searched string
                      * */
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        /*
-                        if (snapshot.child("friends").hasChild(curUser)) {
-                            continue;
-                        }
-                        */
+
                         if(snapshot.getKey().equals(curUser)){
                             continue;
                         }

@@ -44,7 +44,7 @@ public class FriendProfileActivity extends AppCompatActivity {
 
         backButton = (ImageView) findViewById(R.id.back_button);
         removeButton = (ImageView) findViewById(R.id.signout_button);
-        removeButton.setImageResource(R.drawable.ic_remove_friend);
+        removeButton.setImageResource(R.drawable.ic_delete_friend);
         avatarImage = (ImageView) findViewById(R.id.friend_avatar_image);
         name_tv = (TextView) findViewById(R.id.name_tv);
 
@@ -55,7 +55,7 @@ public class FriendProfileActivity extends AppCompatActivity {
         scoreOne_tv = (TextView) findViewById(R.id.score1_tv);
         scoreTwo_tv = (TextView) findViewById(R.id.score2_tv);
         scoreThree_tv = (TextView) findViewById(R.id.score3_tv);
-        getSupportActionBar().setTitle(R.string.title_friend_profile);
+        getSupportActionBar().hide();
 
         Bundle bundle = getIntent().getExtras();
 
@@ -129,10 +129,30 @@ public class FriendProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 finish();
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
-                String curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                final String curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 db.child(curUser).child("friends").child(uid).removeValue();
                 db.child(uid).child("friends").child(curUser).removeValue();
-                //db.child(downID).removeValue();
+                // Remove each other in groups.
+                db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot ds) {
+                        for(DataSnapshot group : ds.child(uid).child("groups").getChildren()){
+                            for(DataSnapshot member : group.getChildren()){
+                                if(member.getKey().equals(curUser))
+                                    member.getRef().removeValue();
+                            }
+                        }
+                        for(DataSnapshot group : ds.child(curUser).child("groups").getChildren()){
+                            for(DataSnapshot member : group.getChildren()){
+                                if(member.getKey().equals(uid))
+                                    member.getRef().removeValue();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
             }
         });
 

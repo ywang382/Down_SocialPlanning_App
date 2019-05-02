@@ -40,6 +40,7 @@ public class GroupsFragment extends Fragment {
     ArrayList<ArrayList<String>> groupUIDList;
     ArrayList<String> groupDescriptList;
     DatabaseReference userGroups;
+    String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -82,10 +83,10 @@ public class GroupsFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = firebaseUser.getUid();
+        uid = firebaseUser.getUid();
 
 
-        userGroups = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+        userGroups = FirebaseDatabase.getInstance().getReference().child("users");
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -134,12 +135,13 @@ public class GroupsFragment extends Fragment {
     private void setAdapter(final String searchedString) {
 
 
-        userGroups.child("groups").addValueEventListener(new ValueEventListener() {
+        userGroups.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot ds) {
                 /*
                  * Clear the list for every new search
                  * */
+                DataSnapshot dataSnapshot = ds.child(uid).child("groups");
                 recyclerView.removeAllViews();
 
                 groupNameList.clear();
@@ -159,9 +161,8 @@ public class GroupsFragment extends Fragment {
                         for (DataSnapshot snap : snapshot.getChildren()) {
                             i++;
                             membersList.add(snap.getKey());
-                            if (i <= 3) {
-                                String name = snap.getValue().toString();
-                                nameList.add(name);
+                            if (i <= 2) {
+                                nameList.add(ds.child(snap.getKey()).child("name").getValue(String.class));
                             }
                         }
 
@@ -172,21 +173,14 @@ public class GroupsFragment extends Fragment {
                             case 2:
                                 groupDescript = nameList.get(0) + " and " + nameList.get(1);
                                 break;
-                            case 3:
-                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + nameList.get(2);
-                                break;
                             default:
-                                //groupDescript = nameList.get(0) + ", " + nameList.get(1) + ", " + nameList.get(2) + " and " + (i - 3) + " others";
+                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + (i - 2) + " others";
+                                break;
                         }
 
                         groupUIDList.add(membersList);
                         groupNameList.add(groupName);
                         groupDescriptList.add(groupDescript);
-
-                        counter++;
-
-                        if (counter == 15)
-                            break;
                     }
 
                 } else {
@@ -207,9 +201,8 @@ public class GroupsFragment extends Fragment {
                         for (DataSnapshot snap : snapshot.getChildren()) {
                             i++;
                             membersList.add(snap.getKey());
-                            if (i <= 3) {
-                                String name = snap.getValue().toString();
-                                nameList.add(name);
+                            if (i <= 2) {
+                                nameList.add(ds.child(snap.getKey()).child("name").getValue(String.class));
                             }
                         }
 
@@ -220,11 +213,9 @@ public class GroupsFragment extends Fragment {
                             case 2:
                                 groupDescript = nameList.get(0) + " and " + nameList.get(1);
                                 break;
-                            case 3:
-                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + nameList.get(2);
-                                break;
                             default:
-                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + ", " + nameList.get(2) + " and " + (i - 3) + " others";
+                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + (i - 2) + " others";
+                                break;
                         }
 
                         if (groupName.toLowerCase().contains(searchedString.toLowerCase())) {

@@ -96,7 +96,7 @@ public class SearchAdapterYourGroups extends RecyclerView.Adapter<SearchAdapterY
     public void buildHer (final String groupName) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirm Deleting Group");
-        builder.setMessage("By clicking yes, you will remove the group " + groupName);
+        builder.setMessage("By clicking remove, you will remove the group " + groupName + ". Doing so will not remove your friends belonging to the group.");
 
         final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

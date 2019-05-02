@@ -1,5 +1,6 @@
 package com.example.down;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +50,6 @@ public class EditGroupActivity extends AppCompatActivity {
     ArrayList<String> friendList;
     String groupName;
     SearchAdapterNewGroups searchAdapterNewGroups;
-    InGroupAdapterNewGroups inGroupAdapterNewGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class EditGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(getString(R.string.title_activity_create_group));
+        mToolbar.setTitle("Edit Your Group");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -108,10 +108,20 @@ public class EditGroupActivity extends AppCompatActivity {
         friendList = new ArrayList<>();
         selUIDList = new ArrayList<>();
 
+        Bundle b = getIntent().getExtras();
+        nameAddList = b.getStringArrayList("nameList");
+        emailAddList = b.getStringArrayList("emailList");
+        avatarAddList = b.getIntegerArrayList("avatarList");
+        selUIDList = b.getStringArrayList("uidList");
+        groupName = b.getString("groupName");
+        create_group_name.setText(groupName);
+
         FloatingActionButton fab = this.findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_check);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                userFriends.child("groups").child(groupName).removeValue();
                 groupName = create_group_name.getText().toString();
                 if(groupName.isEmpty()){
                     create_group_name.setError("Please enter a group name.");
@@ -126,11 +136,16 @@ public class EditGroupActivity extends AppCompatActivity {
                 for (int i = 0; i < selUIDList.size(); i++) {
                     userFriends.child("groups").child(groupName).child(selUIDList.get(i)).setValue(nameAddList.get(i));
                 }
-                finish();
+                Intent i = new Intent(EditGroupActivity.this, GroupClickedActivity.class);
+                i.putExtra("GROUP_NAME", groupName);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putStringArrayListExtra("GROUP_UIDS", selUIDList);
+                startActivity(i);
+
             }
         });
 
-        userFriends.child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
+        userFriends.child("friends").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -255,11 +270,7 @@ public class EditGroupActivity extends AppCompatActivity {
                     }
                 }
 
-                Bundle b = getIntent().getExtras();
-                nameAddList = b.getStringArrayList("nameList");
-                emailAddList = b.getStringArrayList("emailList");
-                avatarAddList = b.getIntegerArrayList("avatarList");
-                selUIDList = b.getStringArrayList("uidList");
+
                 searchAdapterNewGroups = new SearchAdapterNewGroups(EditGroupActivity.this, nameList, emailList, avatarList, UIDList);
                 //inGroupAdapterNewGroups = new InGroupAdapterNewGroups(CreateGroupActivity.this, nameAddList, emailAddList, avatarAddList, selUIDList);
 
