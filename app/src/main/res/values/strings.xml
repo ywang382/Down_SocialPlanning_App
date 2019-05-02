@@ -97,7 +97,9 @@
     <string name="change_avatar">Change Avatar</string>
     <string name="confirm_update">Settings Updated</string>
 
-
-
+    <!-- Strings for tutorials -->
+    <string name="tutorial0">Welcome to Down, an app for spontaneous event planning!</string>
+    <string name="tutorial1">This is your feed page, it shows you the down events that you have made or are invited to.</string>
+    <string name="tutorial2">This is your friends page, it lists all your friends.</string>
 
 </resources>

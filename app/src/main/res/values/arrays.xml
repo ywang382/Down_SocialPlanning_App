@@ -34,4 +34,17 @@
         <item>@drawable/avatar30</item>
     </array>
 
+    <array name="tutorial_imgs">
+        <item>@drawable/tutorial0</item>
+        <item>@drawable/tutorial1</item>
+        <item>@drawable/tutorial2</item>
+    </array>
+
+    <array name="tutorial_text">
+        <item>@string/tutorial0</item>
+        <item>@string/tutorial1</item>
+        <item>@string/tutorial2</item>
+
+    </array>
+
 </resources>

@@ -75,6 +75,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme">
         </activity>
+        <activity
+            android:name=".TutorialPageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme">
+        </activity>
 
         <service
             android:name=".MyFirebaseMessagingService"
