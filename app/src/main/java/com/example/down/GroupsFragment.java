@@ -176,7 +176,7 @@ public class GroupsFragment extends Fragment {
                                 groupDescript = nameList.get(0) + ", " + nameList.get(1) + " and " + nameList.get(2);
                                 break;
                             default:
-                                groupDescript = nameList.get(0) + ", " + nameList.get(1) + ", " + nameList.get(2) + " and " + (i - 3) + " others";
+                                //groupDescript = nameList.get(0) + ", " + nameList.get(1) + ", " + nameList.get(2) + " and " + (i - 3) + " others";
                         }
 
                         groupUIDList.add(membersList);

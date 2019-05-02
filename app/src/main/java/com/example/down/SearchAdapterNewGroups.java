@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +29,10 @@ import static com.example.down.CreateGroupActivity.selUIDList;
 
 public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNewGroups.SearchViewHolder> {
     Context context;
-    private ArrayList<String> nameList;
-    private ArrayList<String> emailList;
-    private ArrayList<Integer> avatarList;
-    private ArrayList<String> UIDList;
+    ArrayList<String> nameList;
+    ArrayList<String> emailList;
+    ArrayList<Integer> avatarList;
+    ArrayList<String> UIDList;
     ArrayList<String> selectList = new ArrayList<String>();
     ArrayList<String> addListUID = new ArrayList<String>();
     ArrayList<String> addListName = new ArrayList<String>();
@@ -95,26 +94,11 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
         holder.entireView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
-                Log.d("Tim", "Name: " + UIDList.get(position));
+                adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
                 recyclerView2.removeAllViews();
-                int index = selUIDList.indexOf(UIDList.get(position));
-                if(index != -1){
-                    selUIDList.remove(index);
-                    nameAddList.remove(index);
-                    emailAddList.remove(index);
-                    avatarAddList.remove(index);
-                } else {
-                    nameAddList.add(nameList.get(position));
-                    emailAddList.add(emailList.get(position));
-                    avatarAddList.add(avatarList.get(position));
-                    selUIDList.add(UIDList.get(position));
-                }
-                Log.d("Tim", "" + nameAddList.size());
-
-                inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
+                //inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
                 recyclerView2.setAdapter(inGroupAdapterNewGroups);
-                setColor(UIDList.get(position), holder);
+                setColor(UID, holder);
             }
         });
     }
@@ -122,6 +106,24 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
     @Override
     public int getItemCount() {
         return nameList.size();
+    }
+
+    public void adjustGroup(String name, String email, Integer avatar, String UID) {
+        if (selUIDList.contains(UID)) {
+            selUIDList.remove(UID);
+            selUIDList.trimToSize();
+            nameAddList.remove(name);
+            nameAddList.trimToSize();
+            emailAddList.remove(email);
+            emailAddList.trimToSize();
+            avatarAddList.remove(avatar);
+            avatarAddList.trimToSize();
+        } else {
+            selUIDList.add(UID);
+            nameAddList.add(name);
+            emailAddList.add(email);
+            avatarAddList.add(avatar);
+        }
     }
 
     public class GroupElement

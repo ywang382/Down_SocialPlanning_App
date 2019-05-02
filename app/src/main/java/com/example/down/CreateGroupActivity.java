@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,6 +58,9 @@ public class CreateGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+
+
+
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.title_activity_create_group));
@@ -118,16 +120,7 @@ public class CreateGroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 groupName = create_group_name.getText().toString();
-                if(groupName.isEmpty()){
-                    create_group_name.setError("Please enter a group name.");
-                    return;
-                }
-
-                if(selUIDList.size() < 2){
-                    Toast.makeText(CreateGroupActivity.this, "Please select at least 2 friends.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
+                selUIDList.trimToSize();
                 for (int i = 0; i < selUIDList.size(); i++) {
                     userFriends.child("groups").child(groupName).child(selUIDList.get(i)).setValue(nameAddList.get(i));
                 }
