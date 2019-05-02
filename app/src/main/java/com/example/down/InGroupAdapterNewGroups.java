@@ -58,8 +58,6 @@ public class InGroupAdapterNewGroups extends RecyclerView.Adapter<InGroupAdapter
 
     @Override
     public void onBindViewHolder(final SearchViewHolder holder, int position) {
-        //holder.name.setText(nameList.get(position));
-        //Log.d("Tim", " " + UIDList.size());
         UID = (UIDList.get(position));
 
         TypedArray avatars = this.context.getResources().obtainTypedArray(R.array.avatar_imgs);

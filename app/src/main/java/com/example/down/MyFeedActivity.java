@@ -124,7 +124,6 @@ public class MyFeedActivity extends AppCompatActivity
                 Log.d("Debug", databaseError.getDetails());
             }
         });
-
     }
 
     @Override

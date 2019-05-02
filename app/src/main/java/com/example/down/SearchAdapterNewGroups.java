@@ -1,12 +1,10 @@
 package com.example.down;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,7 +91,6 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
             @Override
             public void onClick(View v) {
                 //adjustGroup(nameList.get(position), emailList.get(position), avatarList.get(position), UID);
-                Log.d("Tim", "Name: " + UIDList.get(position));
                 recyclerView2.removeAllViews();
                 int index = selUIDList.indexOf(UIDList.get(position));
                 if(index != -1){
@@ -110,7 +104,6 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
                     avatarAddList.add(avatarList.get(position));
                     selUIDList.add(UIDList.get(position));
                 }
-                Log.d("Tim", "" + nameAddList.size());
 
                 inGroupAdapterNewGroups = new InGroupAdapterNewGroups(context, nameAddList, emailAddList, avatarAddList, selUIDList);
                 recyclerView2.setAdapter(inGroupAdapterNewGroups);
@@ -174,7 +167,7 @@ public class SearchAdapterNewGroups extends RecyclerView.Adapter<SearchAdapterNe
 
     public void setColor(String UID, final SearchViewHolder holder) {
         if (selUIDList.contains(UID)) {
-            holder.entireView.setBackgroundColor(Color.parseColor("#909aa0"));
+            holder.entireView.setBackgroundColor(Color.parseColor("#B8F0D1"));
         } else {
             holder.entireView.setBackgroundColor(Color.parseColor("#ffffff"));
 

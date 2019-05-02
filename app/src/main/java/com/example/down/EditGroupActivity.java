@@ -1,20 +1,16 @@
 package com.example.down;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CreateGroupActivity extends AppCompatActivity {
+public class EditGroupActivity extends AppCompatActivity {
     EditText search_edit_text;
     EditText create_group_name;
     RecyclerView recyclerView;
@@ -123,7 +119,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                 }
 
                 if(selUIDList.size() < 2){
-                    Toast.makeText(CreateGroupActivity.this, "Please select at least 2 friends.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditGroupActivity.this, "Please select at least 2 friends.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -259,7 +255,12 @@ public class CreateGroupActivity extends AppCompatActivity {
                     }
                 }
 
-                searchAdapterNewGroups = new SearchAdapterNewGroups(CreateGroupActivity.this, nameList, emailList, avatarList, UIDList);
+                Bundle b = getIntent().getExtras();
+                nameAddList = b.getStringArrayList("nameList");
+                emailAddList = b.getStringArrayList("emailList");
+                avatarAddList = b.getIntegerArrayList("avatarList");
+                selUIDList = b.getStringArrayList("uidList");
+                searchAdapterNewGroups = new SearchAdapterNewGroups(EditGroupActivity.this, nameList, emailList, avatarList, UIDList);
                 //inGroupAdapterNewGroups = new InGroupAdapterNewGroups(CreateGroupActivity.this, nameAddList, emailAddList, avatarAddList, selUIDList);
 
 

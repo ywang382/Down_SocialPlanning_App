@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,10 +53,12 @@ public class DownStatusActivity extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private CardView statusCard;
     public ArrayList<String> users;
     private String downID;
     private String curUser;
     public DatabaseReference db;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -70,6 +73,7 @@ public class DownStatusActivity extends AppCompatActivity{
         userStatus = (TextView) findViewById(R.id.user_status);
         delete = (ImageView) findViewById(R.id.delete_down);
         curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        statusCard = (CardView) findViewById(R.id.status_card);
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,13 +117,7 @@ public class DownStatusActivity extends AppCompatActivity{
             }
         });
 
-        userName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buildDialog();
-            }
-        });
-        userStatus.setOnClickListener(new View.OnClickListener() {
+        statusCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buildDialog();
