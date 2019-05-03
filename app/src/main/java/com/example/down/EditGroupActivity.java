@@ -129,7 +129,7 @@ public class EditGroupActivity extends AppCompatActivity {
                 }
 
                 if(selUIDList.size() < 2){
-                    Toast.makeText(EditGroupActivity.this, "Please select at least 2 friends.", Toast.LENGTH_SHORT).show();
+                    search_edit_text.setError("Please select at least 2 friends.");
                     return;
                 }
 

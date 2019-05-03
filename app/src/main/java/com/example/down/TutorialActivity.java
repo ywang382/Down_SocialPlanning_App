@@ -26,8 +26,6 @@ public class TutorialActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         tutorial = (Button) findViewById(R.id.button_tutorial);
         skip = (Button) findViewById(R.id.button_skip);
-        ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer);
-        container.startShimmerAnimation();
 
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override

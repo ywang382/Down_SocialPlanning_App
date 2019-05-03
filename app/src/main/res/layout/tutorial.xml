@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
     <Button
         android:id="@+id/button_tutorial"
         android:layout_width="256dp"
@@ -32,18 +31,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_tutorial" />
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:auto_start="true"
-        app:duration="2000"
-        app:angle="cw_90">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/welcome" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
 </android.support.constraint.ConstraintLayout>
