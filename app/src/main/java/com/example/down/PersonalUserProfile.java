@@ -55,11 +55,12 @@ public class PersonalUserProfile extends AppCompatActivity {
 
 
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users").child(uid);
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("users").child(uid);
 
         signoutButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view){
+               db.child("token").removeValue();
                FirebaseAuth.getInstance().signOut();
                Intent i = new Intent(PersonalUserProfile.this, LoginActivity.class);
                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -10,19 +10,27 @@ This is the repository for UIMA 601.290 in Spring 2019.
 The purpose of this repository is to create and implement the Down App as
 defined in the first part of the semester.
 
-We have finished all product backlog requirements for sprint 1.
-The current state of the application has a feed with the ability to 
-create downs and add frinds to the down, my friends page  
-with the ability to add friends and manage requests, and my account 
-page with the ability to see the status of your account and sign out.
+We have finished all praduct backlog requirements for sprint 2.
+We have completed all Sprint 1, Sprint 2, and stretch goal
+requirements, namely: notifications of different types, 
+notification settings, friend profile, group page, making groups,
+sending downs to groups, and additional "above-and-beyond" features
+such as a tutorial for first-time users and a credit page.
 
-Present observable issues include:
-1. due to asyncronous property of firebase, spamming the down button may
-	cause inaccurate attendee values for downs, however this is a
-	property of firebase real time database and cannot yet be fixed
-2. there are minor text wrapping uses for longer strings, such as a title
-	for a down that is very long. input vetting will be fixed in 
-	the next sprint
+All down creation and feed works as desired, and has been rigorously
+error checked. 
+
+Future prospects:
+1. Fix small issues such as string plurality ("1 downs", or "1 people")
+2. Database security - privitizing the database to prevent hacks
+3. Testing on earliest possible devices and different screen sizes / 
+	modifications to work on older devices.
+4. Facebook sign-in integration so it is easier to find friends
+5. Submitting to Google Play Store
+6. Creating iOS version
+
+
+These shouldn't take too long (other than 7), and are currently underway.
 
 ----Testing login information for grader----
 username: requests@password1234.com
@@ -36,4 +44,9 @@ the downs present on each of these accounts at the time of submitting
 may not be the downs that are present at the time of grading.
 Feel free to create more downs, though!
 
+Additionally, I attached notifications.js to the top level of the zip.
+This file contains all of the javascript code that makes the notifications
+work. The code is presently hosted in Firebase, so I attached it separately
+for reference.
 
+Thank you very much, and hope you have a great Summer!
