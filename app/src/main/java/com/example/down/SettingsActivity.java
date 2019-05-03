@@ -98,6 +98,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else if(v == options){
             Intent i = new Intent(SettingsActivity.this, NotificationsActivity.class);
             startActivity(i);
+        } else {
+            Intent i = new Intent(SettingsActivity.this, CreditsActivity.class);
+            startActivity(i);
         }
 
     }
