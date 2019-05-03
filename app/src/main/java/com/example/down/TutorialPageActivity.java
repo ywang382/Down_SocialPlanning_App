@@ -62,8 +62,6 @@ public class TutorialPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 pageCounter--;
                 if (pageCounter <= -1) {
-                    Intent intent = new Intent(TutorialPageActivity.this, TutorialActivity.class);
-                    startActivity(intent);
                     finish();
                 } else {
                     image.setImageDrawable(images.getDrawable(pageCounter));

@@ -96,6 +96,16 @@
     <string name="confirm_pw">Confirm New Password</string>
     <string name="change_avatar">Change Avatar</string>
     <string name="confirm_update">Settings Updated</string>
+    <string name="notification">Notification Settings</string>
+    <string name="notif_on_off">Toggle Push Notification</string>
+    <string name="notif_options">Notification Options</string>
+    <string name="more_setting">More</string>
+    <string name="tutorial_setting">Tutorial</string>
+    <string name="credit_setting">Credit</string>
+    <string name="notif_down">Notify when I am invited to a down</string>
+    <string name="notif_request">Notify when I receive a friend request</string>
+    <string name="notif_status">Notify when someone updates their status in a down</string>
+
 
     <!-- Strings for tutorials -->
     <string name="tutorial0">Welcome to Down, an app for spontaneous event planning!</string>

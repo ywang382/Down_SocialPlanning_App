@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".NotificationsActivity"></activity>
         <activity android:name=".FriendProfileActivity" />
         <activity
             android:name=".DownStatusActivity"

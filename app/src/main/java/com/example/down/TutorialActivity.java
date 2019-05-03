@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 
 /**
@@ -25,13 +26,14 @@ public class TutorialActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         tutorial = (Button) findViewById(R.id.button_tutorial);
         skip = (Button) findViewById(R.id.button_skip);
+        ShimmerFrameLayout container = (ShimmerFrameLayout) findViewById(R.id.shimmer);
+        container.startShimmerAnimation();
 
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TutorialActivity.this, TutorialPageActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

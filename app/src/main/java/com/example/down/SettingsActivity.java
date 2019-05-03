@@ -1,12 +1,13 @@
 package com.example.down;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,8 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import android.app.Dialog;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,10 +31,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private CardView name;
     private CardView password;
     private CardView avatar;
+    private CardView options;
+    private Switch notif;
+    private CardView tutorial;
+    private CardView credit;
     private DatabaseReference db;
     private String curUser;
     private FirebaseUser user;
     private int selected;
+    private SharedPreferences preferences;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -45,6 +53,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setTitle(R.string.action_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         db = FirebaseDatabase.getInstance().getReference("users");
         curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -52,12 +61,24 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         name = (CardView) findViewById(R.id.card_name);
         password = (CardView) findViewById(R.id.card_pw);
         avatar = (CardView) findViewById(R.id.card_avatar);
+        notif = (Switch) findViewById(R.id.switch1);
+        notif.setChecked(preferences.getBoolean("notif_on_off", false));
+        options = (CardView) findViewById(R.id.card_notif_settings);
+        tutorial = (CardView) findViewById(R.id.card_tutorial);
+        credit = (CardView) findViewById(R.id.card_credit);
 
         name.setOnClickListener(this);
         password.setOnClickListener(this);
         avatar.setOnClickListener(this);
+        tutorial.setOnClickListener(this);
+        credit.setOnClickListener(this);
+        options.setOnClickListener(this);
 
-
+        notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                preferences.edit().putBoolean("notif_on_off", isChecked).commit();
+            }
+        });
 
     }
 
@@ -69,6 +90,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             passwordDialog();
         } else if(v == avatar){
             avatarDialog();
+        } else if(v == tutorial){
+            Intent i = new Intent(SettingsActivity.this, TutorialPageActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if(v == options){
+            Intent i = new Intent(SettingsActivity.this, NotificationsActivity.class);
+            startActivity(i);
         }
 
     }
