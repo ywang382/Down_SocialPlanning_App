@@ -31,6 +31,7 @@ public class NotificationsActivity extends AppCompatActivity{
     private Switch down;
     private Switch status;
     private Switch request;
+    private Switch downdelete;
     private SharedPreferences preferences;
 
     @Override
@@ -53,6 +54,8 @@ public class NotificationsActivity extends AppCompatActivity{
         request.setChecked(preferences.getBoolean("notif_request", false));
         status = (Switch) findViewById(R.id.switch3);
         status.setChecked(preferences.getBoolean("notif_status", false));
+        downdelete = (Switch) findViewById(R.id.switch4);
+        downdelete.setChecked(preferences.getBoolean("notif_downdelete", false));
 
         down.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -67,6 +70,11 @@ public class NotificationsActivity extends AppCompatActivity{
         status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 preferences.edit().putBoolean("notif_status", isChecked).commit();
+            }
+        });
+        downdelete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                preferences.edit().putBoolean("notif_downdelete", isChecked).commit();
             }
         });
     }

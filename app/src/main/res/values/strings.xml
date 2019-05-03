@@ -105,6 +105,7 @@
     <string name="notif_down">Notify when I am invited to a down</string>
     <string name="notif_request">Notify when I receive a friend request</string>
     <string name="notif_status">Notify when someone updates their status in a down</string>
+    <string name="notif_downdeletion">Notify when a friend deletes a down</string>
 
 
     <!-- Strings for tutorials -->

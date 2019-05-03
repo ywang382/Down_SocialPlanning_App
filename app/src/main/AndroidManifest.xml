@@ -9,27 +9,35 @@
         android:roundIcon="@drawable/logocircle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".NotificationsActivity"></activity>
-        <activity android:name=".FriendProfileActivity" />
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".NotificationsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".FriendProfileActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DownStatusActivity"
             android:label="@string/title_down_status"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GroupClickedActivity"
             android:label="@string/title_activity_group"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateGroupActivity"
             android:label="@string/title_activity_create_group"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditGroupActivity"
             android:label="@string/title_activity_create_group"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PersonalUserProfile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateDownActivity"

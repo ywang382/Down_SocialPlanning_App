@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -52,6 +54,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     // creates a notification and displays on the device
     private void sendNotification(RemoteMessage remoteMessage) {
+        // getting shared preferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // then you use
+
+        // do not display notifications if they have the button off
+        Log.d(TAG, "Preference Status: " + prefs.getBoolean("notif_on_off", true));
+        if (!prefs.getBoolean("notif_on_off", true)) {
+            Log.d(TAG, "Notification not displayed");
+            return;
+        }
+
         String type = remoteMessage.getData().get("type");
         RemoteMessage.Notification notification = remoteMessage.getNotification();
         // intent to travel from notification to the main feed
@@ -59,17 +72,42 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent;
         Log.d(TAG, "Type of notification received: " + type);
 
-        if (type.equals("down")) {
-            intent = new Intent(this, MyFeedActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_ONE_SHOT);
+        // depending on the type of intent
+        if (type.equals("down")){
+            if (prefs.getBoolean("notif_down", true)) {
+                intent = new Intent(this, MyFeedActivity.class);
+            } else {
+                Log.d(TAG, "Down Notifs Shut Off");
+                return;
+            }
+        } else if (type.equals("request")){
+            if (prefs.getBoolean("notif_request", true)) {
+                intent = new Intent(this, FriendsFragment.class);
+            } else {
+                Log.d(TAG, "Request Nofits Shut Off");
+                return;
+            }
+        } else if (type.equals("status")){
+            if (prefs.getBoolean("notif_status", true)) {
+                intent = new Intent(this, MyFeedActivity.class);
+            } else {
+                Log.d(TAG, "Status Notifs Shut Off");
+                return;
+            }
+        } else if (type.equals("down_deleted")){
+            if (prefs.getBoolean("notif_downdelete", true)) {
+                intent = new Intent(this, MyFeedActivity.class);
+            } else {
+                Log.d(TAG, "Down Deleted Notifs Shut Off");
+                return;
+            }
         } else {
-            intent = new Intent(this, FriendsFragment.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_ONE_SHOT);
+            intent = new Intent(this, MyFeedActivity.class);
         }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = getString(R.string.default_notification_channel_id);
         // set ringtone for notification
