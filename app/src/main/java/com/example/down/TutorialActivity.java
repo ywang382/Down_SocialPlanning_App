@@ -33,6 +33,7 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TutorialActivity.this, TutorialPageActivity.class);
+                intent.putExtra("callingActivity", "Tutorial");
                 startActivity(intent);
             }
         });

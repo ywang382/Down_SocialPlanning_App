@@ -49,13 +49,13 @@ public class NotificationsActivity extends AppCompatActivity{
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         down = (Switch) findViewById(R.id.switch1);
-        down.setChecked(preferences.getBoolean("notif_down", false));
+        down.setChecked(preferences.getBoolean("notif_down", true));
         request = (Switch) findViewById(R.id.switch2);
-        request.setChecked(preferences.getBoolean("notif_request", false));
+        request.setChecked(preferences.getBoolean("notif_request", true));
         status = (Switch) findViewById(R.id.switch3);
-        status.setChecked(preferences.getBoolean("notif_status", false));
+        status.setChecked(preferences.getBoolean("notif_status", true));
         downdelete = (Switch) findViewById(R.id.switch4);
-        downdelete.setChecked(preferences.getBoolean("notif_downdelete", false));
+        downdelete.setChecked(preferences.getBoolean("notif_downdelete", true));
 
         down.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

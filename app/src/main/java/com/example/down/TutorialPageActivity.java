@@ -8,8 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewDebug;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +24,7 @@ public class TutorialPageActivity extends AppCompatActivity {
     private TypedArray texts;
     private TypedArray images;
     private int pageCounter = 0;
+    private String callingActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -39,14 +38,20 @@ public class TutorialPageActivity extends AppCompatActivity {
         prev = (FloatingActionButton) findViewById(R.id.fabPrev);
         texts = getResources().obtainTypedArray(R.array.tutorial_text);
         images = getResources().obtainTypedArray(R.array.tutorial_imgs);
-
+        callingActivity = getIntent().getExtras().getString("callingActivity");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pageCounter++;
                 if(pageCounter >= 3){
-                    Intent intent = new Intent(TutorialPageActivity.this, LoginActivity.class);
+                    Intent intent;
+                    if(callingActivity.equals("Tutorial")) {
+                        intent = new Intent(TutorialPageActivity.this, LoginActivity.class);
+                    } else{
+                        intent = new Intent(TutorialPageActivity.this, SettingsActivity.class);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                     sharedPreferences.edit().putBoolean("Completed_Tutorial", true).commit();

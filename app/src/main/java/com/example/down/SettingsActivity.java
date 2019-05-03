@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         password = (CardView) findViewById(R.id.card_pw);
         avatar = (CardView) findViewById(R.id.card_avatar);
         notif = (Switch) findViewById(R.id.switch1);
-        notif.setChecked(preferences.getBoolean("notif_on_off", false));
+        notif.setChecked(preferences.getBoolean("notif_on_off", true));
         options = (CardView) findViewById(R.id.card_notif_settings);
         tutorial = (CardView) findViewById(R.id.card_tutorial);
         credit = (CardView) findViewById(R.id.card_credit);
@@ -93,6 +93,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else if(v == tutorial){
             Intent i = new Intent(SettingsActivity.this, TutorialPageActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("callingActivity", "Setting");
             startActivity(i);
         } else if(v == options){
             Intent i = new Intent(SettingsActivity.this, NotificationsActivity.class);

@@ -90,7 +90,12 @@ public class FriendProfileActivity extends AppCompatActivity {
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String name = dataSnapshot.child("name").getValue(String.class);
                 long numFriends = dataSnapshot.child("friends").getChildrenCount();
-                long numDowns = dataSnapshot.child("downs").getChildrenCount();
+                long numDowns = 0;
+                for(DataSnapshot down : dataSnapshot.child("downs").getChildren()) {
+                    if(down.getValue(Integer.class) == 1){
+                        numDowns++;
+                    }
+                }
 
                 /*Map<String, Integer> friendMap = (Map) dataSnapshot.child(uid)
                         .child("friends").getValue();
@@ -104,11 +109,6 @@ public class FriendProfileActivity extends AppCompatActivity {
                 avatarImage.setImageDrawable(avatars.getDrawable(avatar));
                 name_tv.setText(name);
                 email_tv.setText(email);
-
-                Log.d(TAG, "Avatar: " + avatar);
-                Log.d(TAG, "Email: " + email);
-                Log.d(TAG, "Name: " + name);
-
             }
 
             @Override
