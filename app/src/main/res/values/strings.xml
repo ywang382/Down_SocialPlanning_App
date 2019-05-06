@@ -102,6 +102,7 @@
     <string name="more_setting">More</string>
     <string name="tutorial_setting">Tutorial</string>
     <string name="credit_setting">Credit</string>
+    <string name="pivacypolicy">Privacy Policy</string>
     <string name="notif_down">Notify when I am invited to a down</string>
     <string name="notif_request">Notify when I receive a friend request</string>
     <string name="notif_status">Notify when someone updates their status in a down</string>
@@ -112,5 +113,8 @@
     <string name="tutorial0">Welcome to Down, an app for spontaneous event planning!</string>
     <string name="tutorial1">This is your feed page, it shows you the down events that you have made or are invited to.</string>
     <string name="tutorial2">This is your friends page, it lists all your friends.</string>
+
+    <!-- Misc Strings -->
+    <string name="policy_link">https://www.termsfeed.com/privacy-policy/530cdacf8e498b39874d5fea00a13d0c</string>
 
 </resources>

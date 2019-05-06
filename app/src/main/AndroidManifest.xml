@@ -9,7 +9,10 @@
         android:roundIcon="@drawable/logocircle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreditsActivity"></activity>
+        <activity android:name=".CreditsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".PrivacyActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />

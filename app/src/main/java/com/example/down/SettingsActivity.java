@@ -32,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private CardView password;
     private CardView avatar;
     private CardView options;
+    private CardView privacypolicy;
     private Switch notif;
     private CardView tutorial;
     private CardView credit;
@@ -66,6 +67,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         options = (CardView) findViewById(R.id.card_notif_settings);
         tutorial = (CardView) findViewById(R.id.card_tutorial);
         credit = (CardView) findViewById(R.id.card_credit);
+        privacypolicy = (CardView) findViewById(R.id.card_privacypolicy);
 
         name.setOnClickListener(this);
         password.setOnClickListener(this);
@@ -73,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         tutorial.setOnClickListener(this);
         credit.setOnClickListener(this);
         options.setOnClickListener(this);
+        privacypolicy.setOnClickListener(this);
 
         notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -98,7 +101,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else if(v == options){
             Intent i = new Intent(SettingsActivity.this, NotificationsActivity.class);
             startActivity(i);
-        } else {
+        } else if(v == privacypolicy) {
+            Intent i = new Intent(SettingsActivity.this, PrivacyActivity.class);
+            startActivity(i);
+        }
+        else {
             Intent i = new Intent(SettingsActivity.this, CreditsActivity.class);
             startActivity(i);
         }
