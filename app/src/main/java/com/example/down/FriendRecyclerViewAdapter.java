@@ -39,8 +39,8 @@ public class FriendRecyclerViewAdapter
         this.requests = requests;
         this.context = context;
         this.listener = listener;
-        Log.d(TAG, "Number of friends: " + friends.size());
-        Log.d(TAG, "Number of requests: " + requests.size());
+        //Log.d(TAG, "Number of friends: " + friends.size());
+        //Log.d(TAG, "Number of requests: " + requests.size());
     }
 
     // given what position we are in (when displaying the friendEntries)
@@ -78,9 +78,9 @@ public class FriendRecyclerViewAdapter
         // - replace the contents of the view with that element
 
         FriendEntry person;
-        Log.d(TAG, "Position " + position);
-        Log.d(TAG, "Friend Size " + friends.size());
-        Log.d(TAG, "Requests Size " + requests.size());
+        //Log.d(TAG, "Position " + position);
+        //Log.d(TAG, "Friend Size " + friends.size());
+        //Log.d(TAG, "Requests Size " + requests.size());
         if (position < requests.size()){
             person = requests.get(position);
         } else {

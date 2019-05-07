@@ -162,16 +162,16 @@ public class FriendsFragment extends Fragment {
                 Collections.sort(friends);
                 Collections.sort(requests);
 
-                Log.d(TAG, "Importing Friends...");
-                Log.d(TAG, "Imported: " + friends.size() + " friends");
-                Log.d(TAG, "Importing Requests...");
-                Log.d(TAG, "Imported: " + requests.size() + " friends");
+                //Log.d(TAG, "Importing Friends...");
+                //Log.d(TAG, "Imported: " + friends.size() + " friends");
+                //Log.d(TAG, "Importing Requests...");
+                //Log.d(TAG, "Imported: " + requests.size() + " friends");
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
     }

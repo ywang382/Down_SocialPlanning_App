@@ -129,7 +129,7 @@ public class GroupClickedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GroupClickedActivity.this, EditGroupActivity.class);
-                Log.d("Tim", UIDList.size()+"");
+                //Log.d("Tim", UIDList.size()+"");
                 i.putStringArrayListExtra("nameList", nameList);
                 i.putStringArrayListExtra("emailList", emailList);
                 i.putIntegerArrayListExtra("avatarList", avatarList);

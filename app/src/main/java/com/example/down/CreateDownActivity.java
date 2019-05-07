@@ -193,7 +193,7 @@ public class CreateDownActivity extends AppCompatActivity {
                     Object[] groupNames = groupNamesMap.keySet().toArray();
                     for (Object i : groupNames) {
                         String groupName = (String) i;
-                        Log.d(TAG, groupName);
+                        //Log.d(TAG, groupName);
                         Map<String, Integer> groupMembersMap = (Map) dataSnapshot.child(user.getUid())
                                 .child("groups").child(groupName).getValue();
                         ArrayList<String> groupMembersUids = new ArrayList<>();
@@ -204,7 +204,7 @@ public class CreateDownActivity extends AppCompatActivity {
                                 groupMembersUids.add(memberUid);
                             }
                         }
-                        Log.d(TAG, groupMembersUids.toString());
+                        //Log.d(TAG, groupMembersUids.toString());
                         groups.add(new GroupEntry(groupName, groupMembersUids));
                     }
                 }
@@ -213,16 +213,16 @@ public class CreateDownActivity extends AppCompatActivity {
                 Collections.sort(friends);
                 Collections.sort(groups);
 
-                Log.d(TAG, "Importing Friends...");
-                Log.d(TAG, "Imported: " + friends.size() + " friends");
-                Log.d(TAG, "Importing Groups...");
-                Log.d(TAG, "Imported: " + groups.size() + " groups");
+                //Log.d(TAG, "Importing Friends...");
+                //Log.d(TAG, "Imported: " + friends.size() + " friends");
+                //Log.d(TAG, "Importing Groups...");
+                //Log.d(TAG, "Imported: " + groups.size() + " groups");
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
     }

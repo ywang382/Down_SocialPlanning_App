@@ -95,7 +95,7 @@ public class DownStatusActivity extends AppCompatActivity{
         title.setText(extra.getString("title"));
         timetext.setText(extra.getString("timetext"));
         downID = extra.getString("downID");
-        Log.d("tim", extra.getString("creator") + " " + curUser);
+        //Log.d("tim", extra.getString("creator") + " " + curUser);
         if(!extra.getString("creator").equals(curUser)){
             delete.setVisibility(View.INVISIBLE);
         }
@@ -147,7 +147,7 @@ public class DownStatusActivity extends AppCompatActivity{
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
 

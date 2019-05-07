@@ -39,8 +39,8 @@ public class ChooseFriendRecyclerViewAdapter
         this.friends = friends;
         this.groups = groups;
         this.context = context;
-        Log.d(TAG, "Number of friends (adapter): " + friends.size());
-        Log.d(TAG, "Number of groups (adapter): " + groups.size());
+        //Log.d(TAG, "Number of friends (adapter): " + friends.size());
+        //Log.d(TAG, "Number of groups (adapter): " + groups.size());
     }
 
     // given what position we are in (when displaying the friendEntries)
@@ -89,7 +89,7 @@ public class ChooseFriendRecyclerViewAdapter
         final Drawable checkbox_off = context.getResources().getDrawable(R.drawable.checkbox_off_background);
         final ChooseFriendViewHolder specificHolder = (ChooseFriendViewHolder) holder;
 
-        Log.d(TAG, "Position " + position);
+        //Log.d(TAG, "Position " + position);
 
         if (position < groups.size()) { // if they chose a group
             final GroupEntry group = groups.get(position);

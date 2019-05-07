@@ -83,13 +83,13 @@ public class MyFeedActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            Log.w("UID TOKEN", "getInstanceId failed", task.getException());
+                            //Log.w("UID TOKEN", "getInstanceId failed", task.getException());
                             return;
                         }
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
-                        Log.d(TAG, "Setting token in firebase");
+                        //Log.d(TAG, "Setting token in firebase");
                         // setting token in firebase
                         db.child("token").setValue(token);
                     }
@@ -121,7 +121,7 @@ public class MyFeedActivity extends AppCompatActivity
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("Debug", databaseError.getDetails());
+                //Log.d("Debug", databaseError.getDetails());
             }
         });
     }

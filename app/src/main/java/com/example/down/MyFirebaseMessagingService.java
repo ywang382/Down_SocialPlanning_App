@@ -35,14 +35,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (remoteMessage.getNotification().getBody() != null) {
-            Log.e("FIREBASE", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            //Log.e("FIREBASE", "Message Notification Body: " + remoteMessage.getNotification().getBody());
             sendNotification(remoteMessage);
         }
     }
 
     @Override
     public void onNewToken(String token) {
-        Log.d(TAG, "Refreshed token: " + token);
+        //Log.d(TAG, "Refreshed token: " + token);
         super.onNewToken(token);
         // need to sent the token (device identifier) to the
         // server
@@ -59,9 +59,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // then you use
 
         // do not display notifications if they have the button off
-        Log.d(TAG, "Preference Status: " + prefs.getBoolean("notif_on_off", true));
+        //Log.d(TAG, "Preference Status: " + prefs.getBoolean("notif_on_off", true));
         if (!prefs.getBoolean("notif_on_off", true)) {
-            Log.d(TAG, "Notification not displayed");
+            //Log.d(TAG, "Notification not displayed");
             return;
         }
 
@@ -70,35 +70,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // intent to travel from notification to the main feed
         Intent intent;
         PendingIntent pendingIntent;
-        Log.d(TAG, "Type of notification received: " + type);
+        //Log.d(TAG, "Type of notification received: " + type);
 
         // depending on the type of intent
         if (type.equals("down")){
             if (prefs.getBoolean("notif_down", true)) {
                 intent = new Intent(this, MyFeedActivity.class);
             } else {
-                Log.d(TAG, "Down Notifs Shut Off");
+                //Log.d(TAG, "Down Notifs Shut Off");
                 return;
             }
         } else if (type.equals("request")){
             if (prefs.getBoolean("notif_request", true)) {
                 intent = new Intent(this, FriendsFragment.class);
             } else {
-                Log.d(TAG, "Request Nofits Shut Off");
+                //Log.d(TAG, "Request Nofits Shut Off");
                 return;
             }
         } else if (type.equals("status")){
             if (prefs.getBoolean("notif_status", true)) {
                 intent = new Intent(this, MyFeedActivity.class);
             } else {
-                Log.d(TAG, "Status Notifs Shut Off");
+                //Log.d(TAG, "Status Notifs Shut Off");
                 return;
             }
         } else if (type.equals("down_deleted")){
             if (prefs.getBoolean("notif_downdelete", true)) {
                 intent = new Intent(this, MyFeedActivity.class);
             } else {
-                Log.d(TAG, "Down Deleted Notifs Shut Off");
+                //Log.d(TAG, "Down Deleted Notifs Shut Off");
                 return;
             }
         } else {
@@ -148,7 +148,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
         // getting the user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.d(TAG, "Setting token in firebase");
+        //Log.d(TAG, "Setting token in firebase");
         db.child(user.getUid()).child("token").setValue(token);
     }
 
