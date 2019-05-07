@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:619894237464:android:ac637edef87e067e",
         "android_client_info": {
-          "package_name": "com.example.down"
+          "package_name": "com.teaminus4.down"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "619894237464-uf5usjusjdbp21106his0vlhg33f689s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.down",
+            "package_name": "com.teaminus4.down",
             "certificate_hash": "cf6822cf0040d441ce6082424ca7567baa686567"
           }
         },
