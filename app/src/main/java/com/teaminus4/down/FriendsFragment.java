@@ -137,6 +137,13 @@ public class FriendsFragment extends Fragment {
                     Object[] friendUIDS = friendMap.keySet().toArray();
                     for (Object i : friendUIDS) {
                         String friendUID = (String) i;
+
+                        // Remove ghost friends
+                        if(!dataSnapshot.child(friendUID).exists()){
+                            db.child(user.getUid()).child("friends").child(friendUID).removeValue();
+                            continue;
+                        }
+
                         String friendName = dataSnapshot.child(friendUID)
                                 .child("name").getValue(String.class);
                         int friendAvatar = dataSnapshot.child(friendUID)
@@ -149,6 +156,13 @@ public class FriendsFragment extends Fragment {
                     Object[] requestUIDS = requestMap.keySet().toArray();
                     for (Object i : requestUIDS) {
                         String requestUID = (String) i;
+
+                        // Remove ghost friends
+                        if(!dataSnapshot.child(requestUID).exists()){
+                            db.child(user.getUid()).child("friends").child(requestUID).removeValue();
+                            continue;
+                        }
+
                         String friendName = dataSnapshot.child(requestUID)
                                 .child("name").getValue(String.class);
                         int friendAvatar = dataSnapshot.child(requestUID)

@@ -159,6 +159,13 @@ public class GroupsFragment extends Fragment {
                         String groupDescript = "";
                         int i = 0;
                         for (DataSnapshot snap : snapshot.getChildren()) {
+
+                            // Remove ghost users
+                            if(!ds.child(snap.getKey()).exists()){
+                                snap.getRef().removeValue();
+                                continue;
+                            }
+
                             i++;
                             membersList.add(snap.getKey());
                             if (i <= 2) {

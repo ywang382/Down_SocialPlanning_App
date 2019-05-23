@@ -116,24 +116,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
                 int counter = 0;
 
-                if (searchedString.length() == 0) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String name = snapshot.child("name").getValue(String.class);
-                        String email = snapshot.child("email").getValue(String.class);
-                        String UID = snapshot.getKey();
-                        Integer avatarIndex = snapshot.child("avatar").getValue(Integer.class);
-                        nameList.add(name);
-                        emailList.add(email);
-                        UIDList.add(UID);
-                        avatarList.add(avatarIndex);
-                        counter++;
-
-                        if (counter == 15)
-                            break;
-                    }
-
-                } else {
-
+                if (searchedString.length() > 0) {
                     String curUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                     /*

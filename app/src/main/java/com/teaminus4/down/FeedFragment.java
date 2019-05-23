@@ -93,13 +93,26 @@ public class FeedFragment extends Fragment {
                 }
 
                 for(String id : downIDs){
-                    long timestamp = dataSnapshot.child("down").child(id).child("timestamp").getValue(Long.class);
+                    DataSnapshot curDown = dataSnapshot.child("down").child(id);
+                    long timestamp = curDown.child("timestamp").getValue(Long.class);
                     long cur = System.currentTimeMillis();
                     final long ONE_HOUR = 3600000;
                     // Skip outdated downs
                     if(timestamp < cur - ONE_HOUR){
                         continue;
                     }
+                    // Delete ghost users
+                    for(DataSnapshot ds : curDown.child("invited").getChildren()){
+                        int isDown = ds.getValue(Integer.class);
+                        if(!dataSnapshot.child("users").child(ds.getKey()).exists()){
+                            ds.getRef().removeValue();
+                            curDown.child("nInvited").getRef().setValue(curDown.child("nInvited").getValue(Integer.class)-1);
+                            if(isDown == 1){
+                                curDown.child("nDown").getRef().setValue(curDown.child("nDown").getValue(Integer.class)-1);
+                            }
+                        }
+                    }
+
                     DownEntry down = dataSnapshot.child("down").child(id).getValue(DownEntry.class);
                     int downStatus = dataSnapshot.child("down").child(id).child("invited").child(uid).getValue(Integer.class);
                     down.id = id;

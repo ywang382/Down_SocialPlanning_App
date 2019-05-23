@@ -95,6 +95,7 @@
     <string name="new_pw">Enter New Password</string>
     <string name="confirm_pw">Confirm New Password</string>
     <string name="change_avatar">Change Avatar</string>
+    <string name="delete_account">Delete Account</string>
     <string name="confirm_update">Settings Updated</string>
     <string name="notification">Notification Settings</string>
     <string name="notif_on_off">Toggle Push Notification</string>
@@ -107,6 +108,8 @@
     <string name="notif_request">Notify when I receive a friend request</string>
     <string name="notif_status">Notify when someone updates their status in a down</string>
     <string name="notif_downdeletion">Notify when a friend deletes a down</string>
+    <string name="delete_msg">By deleting your down account, you will lose all your stored information such as friends, groups, and downs. To confirm the
+        deletion, input your password and click confirm. The app will then exit itself.</string>
 
 
     <!-- Strings for tutorials -->

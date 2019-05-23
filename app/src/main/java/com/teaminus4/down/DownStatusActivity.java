@@ -136,6 +136,10 @@ public class DownStatusActivity extends AppCompatActivity{
                 users.clear();
                 ArrayList<String> downIDs = new ArrayList<>();
                 for (DataSnapshot d : dataSnapshot.child("down").child(downID).child("status").getChildren()) {
+                    if(!dataSnapshot.child("users").child(d.getKey()).exists()){
+                        d.getRef().removeValue();
+                        continue;
+                    }
                     users.add(d.getKey());
                 }
 

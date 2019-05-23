@@ -1,12 +1,16 @@
 package com.teaminus4.down;
-
+import java.util.concurrent.TimeUnit;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -36,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private Switch notif;
     private CardView tutorial;
     private CardView credit;
+    private CardView delete;
     private DatabaseReference db;
     private String curUser;
     private FirebaseUser user;
@@ -68,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         tutorial = (CardView) findViewById(R.id.card_tutorial);
         credit = (CardView) findViewById(R.id.card_credit);
         privacypolicy = (CardView) findViewById(R.id.card_privacypolicy);
+        delete = (CardView) findViewById(R.id.card_delete_account);
 
         name.setOnClickListener(this);
         password.setOnClickListener(this);
@@ -76,6 +82,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         credit.setOnClickListener(this);
         options.setOnClickListener(this);
         privacypolicy.setOnClickListener(this);
+        delete.setOnClickListener(this);
 
         notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -104,6 +111,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else if(v == privacypolicy) {
             Intent i = new Intent(SettingsActivity.this, PrivacyActivity.class);
             startActivity(i);
+        } else if(v == delete){
+            buildDialog();
         }
         else {
             Intent i = new Intent(SettingsActivity.this, CreditsActivity.class);
@@ -239,6 +248,57 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+    }
+
+    public void buildDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Your Down Account");
+        builder.setMessage(R.string.delete_msg);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(!input.getText().toString().isEmpty()) {
+                    deleteAccount(input.getText().toString());
+                } else{
+                    input.setError("Please input your password to confirm deletion of your down account.");
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.blue));
+    }
+
+    private void deleteAccount(String pw){
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(user.getEmail(), pw);
+
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        user.delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            FirebaseAuth.getInstance().signOut();
+                                            Intent i = new Intent(SettingsActivity.this, WelcomeActivity.class);
+                                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(i);
+                                            db.child(curUser).removeValue();
+                                        }
+                                    }
+                                });
+                    }
+                });
     }
 
 
